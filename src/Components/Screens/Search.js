@@ -1,0 +1,209 @@
+import React from 'react';
+import {
+    View,
+    TextInput,
+    Image,
+    ImageBackground,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    Keyboard,
+} from 'react-native';
+import Description from './Helpers/Description';
+import UserMightLike from './Helpers/UserMightLikes';
+import BottomNavigator from './Helpers/BottomNavigator';
+import TopDestinations from './Helpers/TopDestinations';
+import CustomButton from './Helpers/CustomButton'
+const Styles = StyleSheet.create({
+    searchBg: {
+        width: '100%',
+        height: 420,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    adTitle: {
+        fontSize: 27,
+        width: '70%',
+        color: '#fff',
+        textAlign: 'center',
+        padding: 20
+    },
+
+    searchView: {
+        width: '90%',
+        height: 50,
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+
+    searchIcon: {
+        width: 30,
+        height: 30,
+        opacity: 0.5
+    },
+
+    searchText: {
+        minWidth: '50%'
+    },
+
+    insurancePartenerTextContainer: {
+        padding: 10,
+        height: 30,
+        width: '60%',
+        alignSelf: 'center',
+        backgroundColor: '#fff',
+        marginTop: -15,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignContent: 'center'
+    },
+
+    insurancePartenerText: {
+        textAlign: 'center',
+        color: '#999'
+    },
+
+    libMutualContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '80%',
+        height: 100,
+        overflow: 'hidden',
+        alignSelf: 'center'
+    },
+
+    title: {
+        fontSize: 20,
+        alignSelf: 'center',
+        paddingBottom: 5
+    },
+
+
+    description: {
+        fontSize: 16,
+        alignSelf: 'center'
+    },
+
+    
+})
+
+class Search extends React.Component {
+
+    state = {
+        showBottomNavigator: true
+    }
+
+    componentDidMount() {
+        Keyboard.addListener('keyboardDidShow', () => {
+            this.setState({
+                showBottomNavigator: false
+            })
+        });
+
+        Keyboard.addListener('keyboardDidHide', () => {
+            this.setState({
+                showBottomNavigator: true
+            })
+        });
+    }
+
+    render() {
+
+        const {
+            searchBg,
+            searchView,
+            searchIcon,
+            searchText,
+            adTitle,
+            insurancePartenerTextContainer,
+            insurancePartenerText,
+            libMutualContainer,
+            title,
+            description,
+        } = Styles;
+
+        const {
+            navigation
+        } = this.props;
+
+        return (
+            <View style={{ width: '100%', height: '100%' }}>
+                <ScrollView
+                    onScroll={(event) => {
+                        Keyboard.dismiss();
+                    }}>
+                    <StatusBar backgroundColor='#000' barStyle='light-content' />
+                    <ImageBackground
+                        resizeMode='cover'
+                        source={require('../../Assets/Images/1.jpg')}
+                        style={searchBg} >
+                        <Text style={adTitle}>
+                            Way better than a rental car
+                    </Text>
+                        <View style={searchView}>
+                            <Image style={searchIcon} source={require('../../Assets/Icons/search.png')} />
+                            <TextInput
+                                style={searchText}
+                                placeholder='city, airport, adress or hotel'
+                                onChangeText={() => {
+
+                                }} />
+                        </View>
+                    </ImageBackground>
+                    <View style={insurancePartenerTextContainer}>
+                        <Text style={insurancePartenerText}>
+                            INSURANCE PARTENERS
+                    </Text>
+                    </View>
+                    <View style={libMutualContainer}>
+                        <Image style={{ width: '100%' }} resizeMode='contain' source={require('../../Assets/Images/liberty_mutual.jpg')} />
+                    </View>
+
+                    <Description icon='carpage' title='Endless options'>
+                        Choose from hundreds of models you won’t find anywhere else. Pick it up or get it delivered where you want it.
+                    </Description>
+
+                    <Description icon='thumb' title='Free cancellation'>
+                        Cancel for free up to 24 hours before your trip starts. Because life happens and it helps to be flexible when it does.
+                    </Description>
+
+                    <Description icon='customer_support' title='We’ve got your back'>
+                        Rest easy knowing that everyone in the Turo community is pre-screened, and 24/7 customer support and roadside assistance are just a click away.
+                    </Description>
+
+                    <Description icon='insurance_options' title='Insurance options included'>
+                        Drive confidently with your choice of protection plans. All plans include varying levels of liability insurance from Liberty Mutual provided through Turo Insurance Agency and physical damage protection.
+                    </Description>
+
+                    <UserMightLike />
+                    <TopDestinations />
+                    <Image style={{ width: '100%' }} source={require('../../Assets/Icons/lineSeparator.png')} resizeMode='contain' />
+                    <Text style={title}>
+                        The car that pays for itself
+                    </Text>
+                    <Text style={description}>
+                        Share your car, earn extra cash.
+                    </Text>
+                    <Text style={description}>
+                        List it in just 10 minutes
+                    </Text>
+
+                    <CustomButton onPress={() => navigation.replace('Host')}>List your car</CustomButton>
+
+                    <View style={{ margin: 50 }}></View>
+                </ScrollView>
+                {this.state.showBottomNavigator ? <BottomNavigator
+                    navigation={navigation}
+                    active='Search' /> : null}
+            </View>
+        )
+    }
+}
+
+export default Search;
