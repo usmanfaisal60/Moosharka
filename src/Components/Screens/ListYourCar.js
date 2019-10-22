@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import Swiper from 'react-native-swiper';
+
 
 class ListYourCar extends React.Component {
     render() {
