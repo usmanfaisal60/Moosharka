@@ -19,6 +19,7 @@ export default constants = {
         set_history_day_data: 'set_history_day_data',
         set_week: 'set_week',
         set_notifications: 'set_notifications',
-        update_notifications: 'update_notifications'
+        update_notifications: 'update_notifications',
+        set_login_or_signup_cross: 'set_login_or_signup_cross'
     },
 }

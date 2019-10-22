@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet, StatusBar, TouchableNativeFeedback } from 'react-native';
+import { View, Image, Text, StyleSheet, StatusBar, TouchableNativeFeedback, TouchableOpacity, Platform } from 'react-native';
 
 const Template = props => {
 
@@ -22,11 +22,18 @@ const Template = props => {
             <StatusBar backgroundColor='#222' barStyle='light-content' />
             <View style={left}>
                 <View style={leftTouchContainer}>
-                    <TouchableNativeFeedback onPress={() => {if (onPressLeft) onPressLeft()}}>
-                        <View style={leftTouchContainer}>
-                            <Image style={leftIconStyle} source={require('../../../Assets/Icons/WhiteIcons/back.png')}/>
-                        </View>
-                    </TouchableNativeFeedback>
+                    {Platform.OS === 'android' ?
+                        <TouchableNativeFeedback onPress={() => { if (onPressLeft) onPressLeft() }}>
+                            <View style={leftTouchContainer}>
+                                <Image style={leftIconStyle} source={require('../../../Assets/Icons/WhiteIcons/back.png')} />
+                            </View>
+                        </TouchableNativeFeedback>
+                        :
+                        <TouchableOpacity onPress={() => { if (onPressLeft) onPressLeft() }}>
+                            <View style={leftTouchContainer}>
+                                <Image style={leftIconStyle} source={require('../../../Assets/Icons/WhiteIcons/back.png')} />
+                            </View>
+                        </TouchableOpacity>}
                 </View>
             </View>
             <Text style={titleStyle}>{children}</Text>
@@ -45,7 +52,7 @@ const Styles = StyleSheet.create({
         top: 0,
         left: 0,
         backgroundColor: '#222',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         flexDirection: 'row',
         zIndex: 1
     },
@@ -59,7 +66,8 @@ const Styles = StyleSheet.create({
     titleStyle: {
         fontSize: 20,
         color: '#fff',
-        flex: 8
+        flex: 8,
+        paddingBottom: 10
     },
 
     right: {

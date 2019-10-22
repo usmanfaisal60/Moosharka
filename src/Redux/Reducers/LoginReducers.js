@@ -1,16 +1,18 @@
 import constants from '../../constants';
 
 const initial_state = {
-    username: 'ahmad@email.com',
+    username: 'user@email.com',
     password: 'password',
     loginStatus: false,
+    loginOrSignupCross: false
 }
 
 const {
     set_user,
     set_pass,
     set_login,
-    reset_login
+    reset_login,
+    set_login_or_signup_cross
 } = constants.red_types
 
 const login = (state = initial_state, action) => {
@@ -27,8 +29,12 @@ const login = (state = initial_state, action) => {
             return {
                 ...state, loginStatus: action.payload
             }
+        case set_login_or_signup_cross: 
+            return {
+                ...state, loginOrSignupCross: action.payload
+            }
         case reset_login:
-            return {...initial_state, loginStatus: state.loginStatus};
+            return { ...initial_state, loginStatus: state.loginStatus };
         default:
             return state;
     }

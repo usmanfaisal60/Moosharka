@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Aux from '../HOC/AUX/Aux';
 import BottomNavigator from './Helpers/BottomNavigator';
+import { crossPressed } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 
 class Messages extends React.Component {
@@ -28,8 +29,6 @@ class Messages extends React.Component {
             navigation
         } = this.props;
 
-        const prevScreen = navigation.getParam('prevScreen');
-
         this.FocusEvent = navigation.addListener('didFocus', () => {
             this.forceUpdate();
         });
@@ -38,13 +37,16 @@ class Messages extends React.Component {
     componentDidUpdate() {
         const {
             loginStatus,
-            navigation
+            navigation,
+            crossPressed,
+            loginOrSignupCross
         } = this.props;
 
         const prevScreen = navigation.getParam('prevScreen');
 
-        if (!this.state.pushedToLogin && !loginStatus) {
+        if (loginOrSignupCross && !loginStatus) {
             navigation.replace(prevScreen);
+            crossPressed(false);
         }
     }
 
@@ -82,4 +84,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(Messages);
+export default connect(mapStateToProps, { crossPressed })(Messages);

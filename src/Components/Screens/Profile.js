@@ -3,6 +3,8 @@ import { View, Image, StyleSheet, StatusBar } from 'react-native';
 import Aux from '../HOC/AUX/Aux';
 import BottomNavigator from './Helpers/BottomNavigator';
 import CustomListItem from './Helpers/CustomListItem';
+import { attemptLogout } from '../../Redux/Actions';
+import { connect } from 'react-redux';
 
 class Profile extends React.Component {
 
@@ -14,7 +16,9 @@ class Profile extends React.Component {
         } = Styles;
 
         const {
-            navigation
+            navigation,
+            loginStatus,
+            attemptLogout
         } = this.props;
 
         return (
@@ -22,14 +26,14 @@ class Profile extends React.Component {
                 <View style={container}>
                     <StatusBar backgroundColor='#000' barStyle='light-content' />
                     <View style={header}>
-                        <Image style={picStyle} resizeMode='contain' source={require('../../Assets/Icons/moosharka.png')}/>
+                        <Image style={picStyle} resizeMode='contain' source={require('../../Assets/Icons/moosharka.png')} />
                     </View>
                     <CustomListItem onPress={() => navigation.navigate('LoginOrSignUp')}>Account</CustomListItem>
                     <CustomListItem onPress={() => navigation.navigate('LoginOrSignUp')} bottomBorder>Profile</CustomListItem>
                     <CustomListItem>How Moosharka works</CustomListItem>
                     <CustomListItem>Contact supprt</CustomListItem>
                     <CustomListItem bottomBorder>Legal</CustomListItem>
-                    
+                    {loginStatus ? <CustomListItem onPress={() => attemptLogout()}>Log out</CustomListItem> : null}
                 </View>
                 <BottomNavigator
                     navigation={this.props.navigation}
@@ -61,4 +65,10 @@ const Styles = StyleSheet.create({
     }
 });
 
-export default Profile;
+const mapStateToProps = state => {
+    return {
+        ...state.login
+    }
+}
+
+export default connect(mapStateToProps, { attemptLogout })(Profile);

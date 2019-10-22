@@ -11,7 +11,8 @@ const {
     reset_login,
     set_loader_visibility,
     set_login,
-    set_error
+    set_error,
+    set_login_or_signup_cross
 } = constants.red_types;
 
 export const resetLoginState = () => {
@@ -39,7 +40,21 @@ export const attemptLogin = (username, password) => {
                 payload: true
             });
 
-            
+
         }, 1000);
     }
+}
+
+export const attemptLogout = () => {
+    return {
+        type: set_login,
+        payload: false
+    };
+}
+
+export const crossPressed = (payload) => {
+    return {
+        type: set_login_or_signup_cross,
+        payload
+    };
 }

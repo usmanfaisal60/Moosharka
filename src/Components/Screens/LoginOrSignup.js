@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Image, ImageBackground, StatusBar, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform } from 'react-native';
 import CustomButton from './Helpers/CustomButton';
+import { crossPressed } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 
 
@@ -22,9 +23,6 @@ class LoginOrSignUp extends React.Component {
             loginStatus
         } = this.props;
 
-        if (loginStatus) {
-            navigation.goBack();
-        }
     }
 
     render() {
@@ -38,9 +36,10 @@ class LoginOrSignUp extends React.Component {
             crossIcon,
             backButtonTouchContainer
         } = Styles;
-        
+
         const {
-            navigation
+            navigation,
+            crossPressed
         } = this.props;
 
         return (
@@ -50,7 +49,10 @@ class LoginOrSignUp extends React.Component {
                     <View style={backButtonTouchContainer}>
                         {Platform.OS === 'android' ?
                             <TouchableNativeFeedback
-                                onPress={() => navigation.goBack()}
+                                onPress={() => {
+                                    crossPressed(true);
+                                    navigation.goBack();
+                                }}
                                 background={TouchableNativeFeedback.Ripple('#fff')}>
                                 <View style={backButtonContainer}>
                                     <Image resizeMode='contain' style={crossIcon} source={require('../../Assets/Icons/WhiteIcons/cross.png')} />
@@ -133,4 +135,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(LoginOrSignUp);
+export default connect(mapStateToProps, { crossPressed })(LoginOrSignUp);
