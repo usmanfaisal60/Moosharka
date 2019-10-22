@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
 import Aux from '../HOC/AUX/Aux';
 import BottomNavigator from './Helpers/BottomNavigator';
 import { setCrossListener } from '../../Redux/Actions';
 import { connect } from 'react-redux';
+import CustomHeader from './Helpers/CustomHeader';
 
 class Trips extends React.Component {
 
@@ -26,13 +27,30 @@ class Trips extends React.Component {
     render() {
 
         const {
-            container
+            container,
+            imageContainer,
+            imageStyle
         } = Styles;
+
+        const {
+            loginStatus
+        } = this.props;
 
         return (
             <Aux>
                 <View style={container}>
-                    <Text>Trips screen</Text>
+                    {loginStatus ?
+                        <Aux>
+                            <CustomHeader >Tours</CustomHeader>
+                            <View style={imageContainer}>
+                                <Image style={imageStyle} source={require('../../Assets/Icons/trips.png')} />
+                            </View>
+                            <Text>
+                                No trips yet
+                            </Text>
+                        </Aux>
+                        :
+                        null}
                 </View>
                 <BottomNavigator
                     navigation={this.props.navigation}
@@ -43,9 +61,27 @@ class Trips extends React.Component {
 }
 
 const Styles = StyleSheet.create({
-    contaienr: {
+    container: {
         width: '100%',
-        height: '100%'
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    imageContainer: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        borderWidth: 2,
+        borderColor: '#ddd',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    imageStyle: {
+        width: '100%',
+        height: '100%',
+        opacity: 0.5
     }
 });
 

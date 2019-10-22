@@ -1,4 +1,5 @@
 export default constants = {
+    headerHeight: 70,
     red_types: {
         set_user: 'set_username',
         set_pass: 'set_password',

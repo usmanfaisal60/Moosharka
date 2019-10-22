@@ -72,7 +72,7 @@ class Login extends React.Component {
                                 setCredentials(set_pass, text)
                             }} />
                     </View>
-                    <View style={{ width: '100%' }}>
+                    <View style={{ width: '80%' }}>
                         <CustomButton onPress={() => attemptLogin(username, password)}>Login</CustomButton>
                     </View>
                 </ImageBackground>

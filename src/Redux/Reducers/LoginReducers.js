@@ -16,6 +16,7 @@ const {
 } = constants.red_types
 
 const login = (state = initial_state, action) => {
+    console.log(state);
     switch (action.type) {
         case set_pass:
             return {

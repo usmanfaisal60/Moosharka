@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet, StatusBar, TouchableNativeFeedback, TouchableOpacity, Platform } from 'react-native';
+import constants from '../../../constants';
 
-const Template = props => {
+const CustomHeader = props => {
 
     const {
         container,
@@ -51,7 +52,7 @@ const Template = props => {
 const Styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 70,
+        height: constants.headerHeight,
         position: 'absolute',
         top: 0,
         left: 0,
@@ -93,4 +94,4 @@ const Styles = StyleSheet.create({
     }
 });
 
-export default Template;
+export default CustomHeader;
