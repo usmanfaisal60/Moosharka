@@ -23,7 +23,7 @@ const CustomButton = props => {
                     <TouchableNativeFeedback
                         style={{ flex: 1 }}
                         onPress={() => { if (onPress) onPress() }}
-                        background={transparent ? TouchableNativeFeedback.Ripple('#fff') : TouchableNativeFeedback.Ripple('#000')}>
+                        background={transparent ? TouchableNativeFeedback.Ripple('#fff2') : TouchableNativeFeedback.Ripple('#0002')}>
                         <View style={transparent ? buttonContainerTransparent : buttonContainer}>
                             <Text style={{ ...description, color: '#fff' }}>
                                 {children}

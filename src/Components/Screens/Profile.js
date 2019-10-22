@@ -24,8 +24,8 @@ class Profile extends React.Component {
                     <View style={header}>
                         <Image style={picStyle} resizeMode='contain' source={require('../../Assets/Icons/moosharka.png')}/>
                     </View>
-                    <CustomListItem onPress={() => navigation.navigate('Login')}>Account</CustomListItem>
-                    <CustomListItem onPress={() => navigation.navigate('Login')} bottomBorder>Profile</CustomListItem>
+                    <CustomListItem onPress={() => navigation.navigate('LoginOrSignUp')}>Account</CustomListItem>
+                    <CustomListItem onPress={() => navigation.navigate('LoginOrSignUp')} bottomBorder>Profile</CustomListItem>
                     <CustomListItem>How Moosharka works</CustomListItem>
                     <CustomListItem>Contact supprt</CustomListItem>
                     <CustomListItem bottomBorder>Legal</CustomListItem>

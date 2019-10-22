@@ -28,7 +28,7 @@ class Host extends React.Component {
                         Listing your car is easy and it would take only about 10 minutes
                     </Text>
                     <View style={buttonsContainer}>
-                        <CustomButton onPress={() => navigation.navigate('Login')}>Get started</CustomButton>
+                        <CustomButton onPress={() => navigation.navigate('LoginOrSignUp')}>Get started</CustomButton>
                     </View>
                 </ImageBackground>
                 <BottomNavigator 

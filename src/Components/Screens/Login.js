@@ -1,107 +1,113 @@
 import React from 'react';
-import { View, Image, ImageBackground, StatusBar, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform } from 'react-native';
+import { View, ImageBackground, TextInput, StyleSheet, Dimensions } from 'react-native';
+import Header from './Helpers/CustomHeader';
 import CustomButton from './Helpers/CustomButton';
+import { setCredentials, resetLoginState, attemptLogin } from '../../Redux/Actions';
+import { connect } from 'react-redux';
+import constants from '../../constants';
+import FullScreenModal from './Helpers/FullScreenModal';
+import Aux from '../HOC/AUX/Aux';
+
 
 class Login extends React.Component {
+
+    componentWillUnmount() {
+        this.props.resetLoginState();
+    }
+
+    componentDidUpdate() {
+        const {
+            loginStatus,
+            navigation
+        } = this.props;
+
+        if (loginStatus) {
+            navigation.popToTop();
+        }
+    }
 
     render() {
 
         const {
             container,
-            ImageBackgroundContainer,
-            moosharkaIcon,
-            buttonsContainer,
-            backButtonContainer,
-            crossIcon,
-            backButtonTouchContainer
+            inputFields,
+            inputField,
         } = Styles;
 
         const {
-            navigation
+            navigation,
+            username,
+            password,
+            setCredentials,
+            loader,
+            attemptLogin
         } = this.props;
 
+        const {
+            set_user,
+            set_pass
+        } = constants.red_types
         return (
-            <View style={container}>
-                <StatusBar backgroundColor='#000' barStyle='light-content' />
-                <ImageBackground style={ImageBackgroundContainer} source={require('../../Assets/Images/fsd.jpg')}>
-                    <View style={backButtonTouchContainer}>
-                        {Platform.OS === 'android' ?
-                            <TouchableNativeFeedback
-                                onPress={() => navigation.goBack()}
-                                background={TouchableNativeFeedback.Ripple('#fff')}>
-                                <View style={backButtonContainer}>
-                                    <Image resizeMode='contain' style={crossIcon} source={require('../../Assets/Icons/WhiteIcons/cross.png')} />
-                                </View>
-                            </TouchableNativeFeedback>
-                            :
-                            <TouchableOpacity
-                                onPress={() => navigation.goBack()}
-                                background={TouchableNativeFeedback.Ripple('#fff')}>
-                                <View style={backButtonContainer}>
-                                    <Image resizeMode='contain' style={crossIcon} source={require('../../Assets/Icons/WhiteIcons/cross.png')} />
-                                </View>
-                            </TouchableOpacity>
-                        }
+            <Aux>
+                <ImageBackground style={container} source={require('../../Assets/Images/fsd.jpg')}>
+                    <Header lefticon='back' onPressLeft={() => navigation.goBack()}>Login to Moosharka</Header>
+                    <View style={inputFields}>
+                        <TextInput
+                            value={username}
+                            style={inputField}
+                            placeholderTextColor='#fffa'
+                            placeholder='username or email'
+                            onChangeText={(text) => {
+                                setCredentials(set_user, text)
+                            }} />
+                        <TextInput
+                            value={password}
+                            secureTextEntry
+                            style={inputField}
+                            placeholderTextColor='#fffa'
+                            placeholder='password'
+                            onChangeText={(text) => {
+                                setCredentials(set_pass, text)
+                            }} />
                     </View>
-                    <Image resizeMode='contain' style={moosharkaIcon} source={require('../../Assets/Icons/moosharka.png')} />
-                    <View style={buttonsContainer}>
-                        <CustomButton >Sign up</CustomButton>
-                        <CustomButton transparent>Login</CustomButton>
+                    <View style={{ width: '100%' }}>
+                        <CustomButton onPress={() => attemptLogin(username, password)}>Login</CustomButton>
                     </View>
                 </ImageBackground>
-            </View>
+                {loader ? <FullScreenModal loader /> : null}
+            </Aux>
         )
     }
-}
+};
+
+const window = Dimensions.get('window');
 
 const Styles = StyleSheet.create({
-    contaienr: {
-        width: '100%',
-        height: '100%'
-    },
-
-    ImageBackgroundContainer: {
-        width: '100%',
-        height: '100%',
-        alignItems: 'center'
-    },
-
-    moosharkaIcon: {
-        width: '70%',
-        marginTop: '30%'
-    },
-
-    buttonsContainer: {
-        width: '100%',
-        position: 'absolute',
-        bottom: '20%'
-    },
-
-    backButtonContainer: {
-        width: 40,
-        height: 40,
-        margin: 20,
-        justifyContent: 'center',
+    container: {
+        width: window.width,
+        height: window.height,
         alignItems: 'center',
+        paddingTop: 100
     },
 
-    backButtonTouchContainer: {
-        alignSelf: 'flex-start',
-        position: 'absolute',
-        top: 0,
-        borderRadius: 20,
-        width: 40,
-        height: 40,
-        margin: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden'
+    inputFields: {
+        width: '80%'
     },
 
-    crossIcon: {
-        width: 20,
-        height: 20,
+    inputField: {
+        borderBottomColor: '#fff',
+        borderBottomWidth: 1,
+        fontSize: 18,
+        color: '#fff',
+        marginBottom: 15
     }
 });
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        ...state.login,
+        ...state.loader
+    }
+}
+
+export default connect(mapStateToProps, { setCredentials, resetLoginState, attemptLogin })(Login);

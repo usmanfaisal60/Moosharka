@@ -22,12 +22,12 @@ const BottomNavigator = props => {
             </BottomButton>
             <BottomButton
                 icon='Trips' active={active}
-                onPress={() => navigation.navigate('Login')}>
+                onPress={() => navigation.replace('Trips')}>
                 Trips
             </BottomButton>
             <BottomButton
                 icon='Messages' active={active}
-                onPress={() => navigation.navigate('Login')}>
+                onPress={() => navigation.navigate('LoginOrSignUp')}>
                 Messages
             </BottomButton>
             <BottomButton
@@ -50,7 +50,7 @@ const Styles = StyleSheet.create({
     container: {
         width: '100%',
         height: 60,
-        backgroundColor: 'black',
+        backgroundColor: '#222',
         position: 'absolute',
         bottom: 0,
         left: 0,
