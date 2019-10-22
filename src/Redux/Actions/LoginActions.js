@@ -10,8 +10,8 @@ export const setCredentials = (type, payload) => {
 const {
     reset_login,
     set_loader_visibility,
+    set_signup,
     set_login,
-    set_error,
     set_login_or_signup_cross_action
 } = constants.red_types;
 
@@ -57,4 +57,27 @@ export const setCrossListener = (payload) => {
         type: set_login_or_signup_cross_action,
         payload
     };
+}
+
+export const attemptSignup = (username, password) => {
+    return dispatch => {
+        dispatch({
+            type: set_loader_visibility,
+            payload: true
+        });
+
+        setTimeout(() => {
+            dispatch({
+                type: set_loader_visibility,
+                payload: false
+            });
+
+            dispatch({
+                type: set_signup,
+                payload: true
+            });
+
+
+        }, 1000);
+    }
 }

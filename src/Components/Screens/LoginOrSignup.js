@@ -58,7 +58,7 @@ class LoginOrSignUp extends React.Component {
                     </View>
                     <Image resizeMode='contain' style={moosharkaIcon} source={require('../../Assets/Icons/moosharka.png')} />
                     <View style={buttonsContainer}>
-                        <CustomButton >Sign up</CustomButton>
+                        <CustomButton onPress={() => navigation.navigate('Signup')}>Sign up</CustomButton>
                         <CustomButton onPress={() => navigation.navigate('Login')} transparent>Login</CustomButton>
                     </View>
                 </ImageBackground>

@@ -8,7 +8,7 @@ import Profile from './Screens/Profile';
 import LoginOrSignUp from './Screens/LoginOrSignup';
 import Login from './Screens/Login';
 import ListYourCar from './Screens/ListYourCar';
-
+import Signup from './Screens/Signup';
 
 const Navigator = createStackNavigator({
     Search,
@@ -18,7 +18,8 @@ const Navigator = createStackNavigator({
     Profile,
     LoginOrSignUp,
     Login,
-    ListYourCar
+    ListYourCar,
+    Signup
 }, {
     headerMode: 'none'
 });

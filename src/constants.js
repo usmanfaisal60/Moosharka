@@ -1,8 +1,9 @@
 export default constants = {
-    headerHeight: 70,
+    headerHeight: 80,
     red_types: {
         set_user: 'set_username',
         set_pass: 'set_password',
+        set_phnum: 'set_phone_number',
         set_login: 'set_login_status',
         set_error: 'set_error',
         set_loader_size: 'set_loader_size',
@@ -21,6 +22,7 @@ export default constants = {
         set_week: 'set_week',
         set_notifications: 'set_notifications',
         update_notifications: 'update_notifications',
-        set_login_or_signup_cross_action: 'set_login_or_signup_cross_action'
+        set_login_or_signup_cross_action: 'set_login_or_signup_cross_action',
+        set_signup: 'set_signup'
     },
 }

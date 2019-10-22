@@ -7,13 +7,15 @@ const CustomButton = props => {
         container,
         buttonContainer,
         description,
-        buttonContainerTransparent
+        buttonContainerTransparent,
+        buttonContainerBlue
     } = Styles;
 
     const {
         children,
         onPress,
-        transparent
+        transparent,
+        blue
     } = props
 
     return (
@@ -24,7 +26,7 @@ const CustomButton = props => {
                         style={{ flex: 1 }}
                         onPress={() => { if (onPress) onPress() }}
                         background={transparent ? TouchableNativeFeedback.Ripple('#fff2') : TouchableNativeFeedback.Ripple('#0002')}>
-                        <View style={transparent ? buttonContainerTransparent : buttonContainer}>
+                        <View style={transparent ? buttonContainerTransparent : blue ? buttonContainerBlue : buttonContainer}>
                             <Text style={{ ...description, color: '#fff' }}>
                                 {children}
                             </Text>
@@ -34,7 +36,7 @@ const CustomButton = props => {
                     <TouchableOpacity
                         style={{ flex: 1 }}
                         onPress={() => { if (onPress) onPress() }}>
-                        <View style={transparent ? buttonContainerTransparent : buttonContainer}>
+                        <View style={transparent ? buttonContainerTransparent : blue ? buttonContainerBlue : buttonContainer}>
                             <Text style={{ ...description, color: '#fff' }}>
                                 {children}
                             </Text>
@@ -52,6 +54,11 @@ const Styles = StyleSheet.create({
 
     buttonContainer: {
         backgroundColor: '#ba2a4d',
+        padding: 15
+    },
+
+    buttonContainerBlue: {
+        backgroundColor: '#004c98',
         padding: 15
     },
 

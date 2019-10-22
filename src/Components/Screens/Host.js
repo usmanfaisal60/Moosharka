@@ -31,8 +31,8 @@ class Host extends React.Component {
                     </Text>
                     <View style={buttonsContainer}>
                         <CustomButton onPress={() => {
-                            if (!loginStatus) {
-                                navigation.navigate('LoginOrSignUp')
+                            if (loginStatus) {
+                                // navigation.navigate('LoginOrSignUp')
                             } else {
                                 navigation.navigate('ListYourCar')
                             }
