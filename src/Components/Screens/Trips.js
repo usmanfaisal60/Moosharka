@@ -24,37 +24,6 @@ class Trips extends React.Component {
         }
     }
 
-    componentDidMount() {
-        const {
-            navigation,
-        } = this.props;
-
-        this.FocusEvent = navigation.addListener('didFocus', () => {
-            this.forceUpdate();
-        });
-    }
-
-    componentDidUpdate() {
-        const {
-            loginStatus,
-            navigation,
-            loginOrSignupCross,
-            crossPressed
-        } = this.props;
-
-        const prevScreen = navigation.getParam('prevScreen');
-
-        if (loginOrSignupCross && !loginStatus) {
-            navigation.replace(prevScreen);
-            setCrossListener(navigation.replace.bind(this, prevScreen));
-
-        }
-    }
-
-    componentWillUnmount() {
-        this.FocusEvent.remove();
-    }
-
     render() {
 
         const {
