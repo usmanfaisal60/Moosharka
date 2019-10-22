@@ -32,9 +32,7 @@ class Messages extends React.Component {
         const {
             loginStatus
         } = this.props;
-
-        console.log('login is ', loginStatus);
-
+        
         return (
             <Aux>
                 <View style={container}>

@@ -6,7 +6,8 @@ import Messages from './Screens/Messages';
 import Host from './Screens/Host';
 import Profile from './Screens/Profile';
 import LoginOrSignUp from './Screens/LoginOrSignup';
-import Login from './Screens/Login'
+import Login from './Screens/Login';
+import ListYourCar from './Screens/ListYourCar';
 
 
 const Navigator = createStackNavigator({
@@ -16,7 +17,8 @@ const Navigator = createStackNavigator({
     Host,
     Profile,
     LoginOrSignUp,
-    Login
+    Login,
+    ListYourCar
 }, {
     headerMode: 'none'
 });

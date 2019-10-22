@@ -33,7 +33,6 @@ class LoginOrSignUp extends React.Component {
                                 onPress={() => {
                                     if (loginOrSignupCrossAction) {
                                         loginOrSignupCrossAction();
-                                        console.log('kdsaj');
                                     }
                                     navigation.goBack();
                                 }}
@@ -47,7 +46,6 @@ class LoginOrSignUp extends React.Component {
                                 onPress={() => {
                                     if (loginOrSignupCrossAction) {
                                         loginOrSignupCrossAction();
-                                        console.log('kdsaj');
                                     }
                                     navigation.goBack();
                                 }}
