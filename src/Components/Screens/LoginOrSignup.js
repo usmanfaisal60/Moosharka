@@ -31,7 +31,10 @@ class LoginOrSignUp extends React.Component {
                         {Platform.OS === 'android' ?
                             <TouchableNativeFeedback
                                 onPress={() => {
-                                    if (loginOrSignupCrossAction) loginOrSignupCrossAction();
+                                    if (loginOrSignupCrossAction) {
+                                        loginOrSignupCrossAction();
+                                        console.log('kdsaj');
+                                    }
                                     navigation.goBack();
                                 }}
                                 background={TouchableNativeFeedback.Ripple('#fff')}>
@@ -41,7 +44,13 @@ class LoginOrSignUp extends React.Component {
                             </TouchableNativeFeedback>
                             :
                             <TouchableOpacity
-                                onPress={() => navigation.goBack()}
+                                onPress={() => {
+                                    if (loginOrSignupCrossAction) {
+                                        loginOrSignupCrossAction();
+                                        console.log('kdsaj');
+                                    }
+                                    navigation.goBack();
+                                }}
                                 background={TouchableNativeFeedback.Ripple('#fff')}>
                                 <View style={backButtonContainer}>
                                     <Image resizeMode='contain' style={crossIcon} source={require('../../Assets/Icons/WhiteIcons/cross.png')} />

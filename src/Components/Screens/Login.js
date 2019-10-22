@@ -52,7 +52,7 @@ class Login extends React.Component {
         return (
             <Aux>
                 <ImageBackground style={container} source={require('../../Assets/Images/fsd.jpg')}>
-                    <Header lefticon='back' onPressLeft={() => navigation.goBack()}>Login to Moosharka</Header>
+                    <Header backbutton lefticon='back' onPressLeft={() => navigation.goBack()}>Login to Moosharka</Header>
                     <View style={inputFields}>
                         <TextInput
                             value={username}

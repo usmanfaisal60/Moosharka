@@ -7,9 +7,7 @@ import { connect } from 'react-redux';
 
 class Trips extends React.Component {
 
-    constructor(props) {
-        super(props);
-
+    componentDidMount() {
         const {
             loginStatus,
             navigation,
@@ -22,6 +20,7 @@ class Trips extends React.Component {
             navigation.navigate('LoginOrSignUp');
             setCrossListener(navigation.replace.bind(this, prevScreen));
         }
+
     }
 
     render() {

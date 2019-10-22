@@ -6,9 +6,8 @@ import { setCrossListener } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 
 class Messages extends React.Component {
-    constructor(props) {
-        super(props);
 
+    componentDidMount() {
         const {
             loginStatus,
             navigation,
@@ -22,7 +21,6 @@ class Messages extends React.Component {
             setCrossListener(navigation.replace.bind(this, prevScreen));
         }
     }
-
     render() {
         const {
             container

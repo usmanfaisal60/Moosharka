@@ -34,7 +34,7 @@ const login = (state = initial_state, action) => {
                 ...state, loginOrSignupCrossAction: action.payload
             }
         case reset_login:
-            return { ...initial_state, loginStatus: state.loginStatus };
+            return { ...initial_state, loginOrSignupCrossAction: state.loginOrSignupCrossAction ,loginStatus: state.loginStatus };
         default:
             return state;
     }

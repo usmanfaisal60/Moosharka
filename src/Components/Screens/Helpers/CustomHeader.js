@@ -14,27 +14,31 @@ const Template = props => {
 
     const {
         children,
-        onPressLeft
+        onPressLeft,
+        backbutton
     } = props;
 
     return (
         <View style={container}>
             <StatusBar backgroundColor='#222' barStyle='light-content' />
             <View style={left}>
-                <View style={leftTouchContainer}>
-                    {Platform.OS === 'android' ?
-                        <TouchableNativeFeedback onPress={() => { if (onPressLeft) onPressLeft() }}>
-                            <View style={leftTouchContainer}>
-                                <Image style={leftIconStyle} source={require('../../../Assets/Icons/WhiteIcons/back.png')} />
-                            </View>
-                        </TouchableNativeFeedback>
-                        :
-                        <TouchableOpacity onPress={() => { if (onPressLeft) onPressLeft() }}>
-                            <View style={leftTouchContainer}>
-                                <Image style={leftIconStyle} source={require('../../../Assets/Icons/WhiteIcons/back.png')} />
-                            </View>
-                        </TouchableOpacity>}
-                </View>
+                {backbutton ?
+                    <View style={leftTouchContainer}>
+                        {Platform.OS === 'android' ?
+                            <TouchableNativeFeedback onPress={() => { if (onPressLeft) onPressLeft() }}>
+                                <View style={leftTouchContainer}>
+                                    <Image style={leftIconStyle} source={require('../../../Assets/Icons/WhiteIcons/back.png')} />
+                                </View>
+                            </TouchableNativeFeedback>
+                            :
+                            <TouchableOpacity onPress={() => { if (onPressLeft) onPressLeft() }}>
+                                <View style={leftTouchContainer}>
+                                    <Image style={leftIconStyle} source={require('../../../Assets/Icons/WhiteIcons/back.png')} />
+                                </View>
+                            </TouchableOpacity>}
+                    </View>
+                    : null
+                }
             </View>
             <Text style={titleStyle}>{children}</Text>
             <View style={right}>
