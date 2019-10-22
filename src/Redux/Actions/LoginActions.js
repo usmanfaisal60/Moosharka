@@ -10,7 +10,8 @@ export const setCredentials = (type, payload) => {
 const {
     reset_login,
     set_loader_visibility,
-    set_login
+    set_login,
+    set_error
 } = constants.red_types;
 
 export const resetLoginState = () => {

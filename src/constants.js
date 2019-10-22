@@ -17,7 +17,6 @@ export default constants = {
         set_picekr: 'set_picker',
         reset_history: 'reset_history',
         set_history_day_data: 'set_history_day_data',
-        set_error: 'set_error',
         set_week: 'set_week',
         set_notifications: 'set_notifications',
         update_notifications: 'update_notifications'

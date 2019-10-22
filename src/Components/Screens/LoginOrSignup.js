@@ -6,6 +6,27 @@ import { connect } from 'react-redux';
 
 class LoginOrSignUp extends React.Component {
 
+    componentDidMount() {
+        const {
+            navigation
+        } = this.props;
+
+        this.FocusEvent = navigation.addListener('didFocus', () => {
+            this.forceUpdate();
+        });
+    }
+
+    componentDidUpdate() {
+        const {
+            navigation,
+            loginStatus
+        } = this.props;
+
+        if (loginStatus) {
+            navigation.goBack();
+        }
+    }
+
     render() {
 
         const {

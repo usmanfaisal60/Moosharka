@@ -22,7 +22,9 @@ class Login extends React.Component {
         } = this.props;
 
         if (loginStatus) {
-            navigation.popToTop();
+            setTimeout(() => {
+                navigation.goBack();
+            }, 500);
         }
     }
 

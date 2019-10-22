@@ -22,12 +22,12 @@ const BottomNavigator = props => {
             </BottomButton>
             <BottomButton
                 icon='Trips' active={active}
-                onPress={() => navigation.replace('Trips')}>
+                onPress={() => navigation.replace('Trips', {prevScreen: active})}>
                 Trips
             </BottomButton>
             <BottomButton
                 icon='Messages' active={active}
-                onPress={() => navigation.navigate('LoginOrSignUp')}>
+                onPress={() => navigation.replace('Messages', {prevScreen: active})}>
                 Messages
             </BottomButton>
             <BottomButton
