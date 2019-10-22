@@ -3,6 +3,7 @@ import { View, Image, ImageBackground, Text, StyleSheet } from 'react-native';
 import CustomButton from './Helpers/CustomButton';
 import BottomNavigator from './Helpers/BottomNavigator';
 import CustomHeader from './Helpers/CustomHeader';
+import { connect } from 'react-redux';
 
 class Host extends React.Component {
 
@@ -17,7 +18,8 @@ class Host extends React.Component {
         } = Styles;
 
         const {
-            navigation
+            navigation,
+            loginStatus
         } = this.props;
         return (
             <View style={container}>
@@ -28,12 +30,16 @@ class Host extends React.Component {
                         Listing your car is easy and it would take only about 10 minutes
                     </Text>
                     <View style={buttonsContainer}>
-                        <CustomButton onPress={() => navigation.navigate('LoginOrSignUp')}>Get started</CustomButton>
+                        <CustomButton onPress={() => {
+                            if (!loginStatus) {
+                                navigation.navigate('LoginOrSignUp')
+                            }
+                        }}>Get started</CustomButton>
                     </View>
                 </ImageBackground>
-                <BottomNavigator 
-                navigation={navigation}
-                active='Host'/>
+                <BottomNavigator
+                    navigation={navigation}
+                    active='Host' />
             </View>
         )
     }
@@ -70,4 +76,10 @@ const Styles = StyleSheet.create({
     }
 });
 
-export default Host;
+const mapStateToProps = state => {
+    return {
+        ...state.login
+    }
+}
+
+export default connect(mapStateToProps)(Host);

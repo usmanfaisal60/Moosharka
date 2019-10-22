@@ -31,7 +31,7 @@ class LoginOrSignUp extends React.Component {
                         {Platform.OS === 'android' ?
                             <TouchableNativeFeedback
                                 onPress={() => {
-                                    loginOrSignupCrossAction();
+                                    if (loginOrSignupCrossAction) loginOrSignupCrossAction();
                                     navigation.goBack();
                                 }}
                                 background={TouchableNativeFeedback.Ripple('#fff')}>
