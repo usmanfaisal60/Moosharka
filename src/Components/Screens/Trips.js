@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Aux from '../HOC/AUX/Aux';
 import BottomNavigator from './Helpers/BottomNavigator';
-import { crossPressed } from '../../Redux/Actions';
+import { setCrossListener } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 
 class Trips extends React.Component {
@@ -10,18 +10,17 @@ class Trips extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            pushedToLogin: false
-        }
-
         const {
             loginStatus,
-            navigation
+            navigation,
+            setCrossListener
         } = this.props;
+
+        const prevScreen = navigation.getParam('prevScreen');
 
         if (!loginStatus) {
             navigation.navigate('LoginOrSignUp');
-            this.state.pushedToLogin = true;
+            setCrossListener(navigation.replace.bind(this, prevScreen));
         }
     }
 
@@ -47,7 +46,8 @@ class Trips extends React.Component {
 
         if (loginOrSignupCross && !loginStatus) {
             navigation.replace(prevScreen);
-            crossPressed(false);
+            setCrossListener(navigation.replace.bind(this, prevScreen));
+
         }
     }
 
@@ -87,4 +87,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { crossPressed })(Trips);
+export default connect(mapStateToProps, { setCrossListener })(Trips);

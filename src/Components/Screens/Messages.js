@@ -2,56 +2,25 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Aux from '../HOC/AUX/Aux';
 import BottomNavigator from './Helpers/BottomNavigator';
-import { crossPressed } from '../../Redux/Actions';
+import { setCrossListener } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 
 class Messages extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            pushedToLogin: false
-        }
-
-        const {
-            loginStatus,
-            navigation
-        } = this.props;
-
-        if (!loginStatus) {
-            navigation.navigate('LoginOrSignUp');
-            this.state.pushedToLogin = true;
-        }
-    }
-
-    componentDidMount() {
-        const {
-            navigation
-        } = this.props;
-
-        this.FocusEvent = navigation.addListener('didFocus', () => {
-            this.forceUpdate();
-        });
-    }
-
-    componentDidUpdate() {
         const {
             loginStatus,
             navigation,
-            crossPressed,
-            loginOrSignupCross
+            setCrossListener
         } = this.props;
 
         const prevScreen = navigation.getParam('prevScreen');
 
-        if (loginOrSignupCross && !loginStatus) {
-            navigation.replace(prevScreen);
-            crossPressed(false);
+        if (!loginStatus) {
+            navigation.navigate('LoginOrSignUp');
+            setCrossListener(navigation.replace.bind(this, prevScreen));
         }
-    }
-
-    componentWillUnmount() {
-        this.FocusEvent.remove();
     }
 
     render() {
@@ -84,4 +53,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { crossPressed })(Messages);
+export default connect(mapStateToProps, { setCrossListener })(Messages);

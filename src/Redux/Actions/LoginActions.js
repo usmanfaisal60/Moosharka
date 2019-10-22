@@ -12,7 +12,7 @@ const {
     set_loader_visibility,
     set_login,
     set_error,
-    set_login_or_signup_cross
+    set_login_or_signup_cross_action
 } = constants.red_types;
 
 export const resetLoginState = () => {
@@ -52,9 +52,9 @@ export const attemptLogout = () => {
     };
 }
 
-export const crossPressed = (payload) => {
+export const setCrossListener = (payload) => {
     return {
-        type: set_login_or_signup_cross,
+        type: set_login_or_signup_cross_action,
         payload
     };
 }

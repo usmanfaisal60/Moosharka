@@ -4,7 +4,7 @@ const initial_state = {
     username: 'user@email.com',
     password: 'password',
     loginStatus: false,
-    loginOrSignupCross: false
+    loginOrSignupCrossAction: null
 }
 
 const {
@@ -12,7 +12,7 @@ const {
     set_pass,
     set_login,
     reset_login,
-    set_login_or_signup_cross
+    set_login_or_signup_cross_action
 } = constants.red_types
 
 const login = (state = initial_state, action) => {
@@ -29,9 +29,9 @@ const login = (state = initial_state, action) => {
             return {
                 ...state, loginStatus: action.payload
             }
-        case set_login_or_signup_cross: 
+        case set_login_or_signup_cross_action: 
             return {
-                ...state, loginOrSignupCross: action.payload
+                ...state, loginOrSignupCrossAction: action.payload
             }
         case reset_login:
             return { ...initial_state, loginStatus: state.loginStatus };

@@ -1,29 +1,10 @@
 import React from 'react';
 import { View, Image, ImageBackground, StatusBar, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform } from 'react-native';
 import CustomButton from './Helpers/CustomButton';
-import { crossPressed } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 
 
 class LoginOrSignUp extends React.Component {
-
-    componentDidMount() {
-        const {
-            navigation
-        } = this.props;
-
-        this.FocusEvent = navigation.addListener('didFocus', () => {
-            this.forceUpdate();
-        });
-    }
-
-    componentDidUpdate() {
-        const {
-            navigation,
-            loginStatus
-        } = this.props;
-
-    }
 
     render() {
 
@@ -39,7 +20,7 @@ class LoginOrSignUp extends React.Component {
 
         const {
             navigation,
-            crossPressed
+            loginOrSignupCrossAction
         } = this.props;
 
         return (
@@ -50,7 +31,7 @@ class LoginOrSignUp extends React.Component {
                         {Platform.OS === 'android' ?
                             <TouchableNativeFeedback
                                 onPress={() => {
-                                    crossPressed(true);
+                                    loginOrSignupCrossAction();
                                     navigation.goBack();
                                 }}
                                 background={TouchableNativeFeedback.Ripple('#fff')}>
@@ -135,4 +116,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { crossPressed })(LoginOrSignUp);
+export default connect(mapStateToProps)(LoginOrSignUp);
