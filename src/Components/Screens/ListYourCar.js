@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, ImageBackground, Text, StyleSheet } from 'react-native';
+import { View, Image, ImageBackground, Text, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform } from 'react-native';
 import Swiper from 'react-native-swiper';
 import AdCard from './Helpers/AdCars';
 import NumberedAdCard from './Helpers/NumberedAdCard';
-
+import CustomButton from './Helpers/CustomButton';
 
 class ListYourCar extends React.Component {
     render() {
@@ -11,12 +11,28 @@ class ListYourCar extends React.Component {
         const {
             container,
             swiperStyle,
-            title
+            title,
+            crossContainer,
+            iconContainer,
+            crossIcon,
+            listcarButton
         } = Styles;
+
+        const {
+            navigation,
+        } = this.props;
 
         return (
             <ImageBackground resizeMode='cover' style={container} source={require('../../Assets/Images/sd.jpg')}>
-                <Swiper style={container}>
+                <Swiper
+                    loop={false}
+                    dot={
+                        <View style={{ width: 15, height: 15, borderRadius: 7.5, borderColor: '#fff', borderWidth: 1, margin: 5 }}></View>
+                    }
+                    activeDot={
+                        <View style={{ width: 15, height: 15, borderRadius: 7.5, backgroundColor: '#fff', margin: 5 }}></View>
+                    }
+                    style={container}>
                     <View style={swiperStyle}>
                         <Text style={title}>
                             List your car for free
@@ -76,8 +92,28 @@ class ListYourCar extends React.Component {
                         <AdCard>
                             From our 24/7 emergency line to trips and tricks to earn more with your car, we’ll be here for you every step of the way.
                         </AdCard>
+                        <View style={listcarButton}>
+                            <CustomButton
+                                onPress={() => {
+                                    navigation.navigate('LoginOrSignUp')
+                                }}>List your car</CustomButton>
+                        </View>
                     </View>
                 </Swiper>
+                <View style={crossContainer}>
+                    {Platform.OS === 'android' ?
+                        <TouchableNativeFeedback onPress={() => navigation.goBack()} background={TouchableNativeFeedback.Ripple('#fff')}>
+                            <View style={iconContainer}>
+                                <Image resizeMode='contain' style={crossIcon} source={require('../../Assets/Icons/WhiteIcons/cross.png')} />
+                            </View>
+                        </TouchableNativeFeedback>
+                        :
+                        <TouchableOpacity onPress={() => navigation.goBack()} background={TouchableNativeFeedback.Ripple('#fff')}>
+                            <View style={iconContainer}>
+                                <Image resizeMode='contain' style={crossIcon} source={require('../../Assets/Icons/WhiteIcons/cross.png')} />
+                            </View>
+                        </TouchableOpacity>}
+                </View>
             </ImageBackground >
         )
     }
@@ -102,6 +138,36 @@ const Styles = StyleSheet.create({
         fontSize: 30,
         color: '#fff',
         padding: 20
+    },
+
+    crossContainer: {
+        width: 30,
+        height: 30,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        margin: 30,
+        borderRadius: 15,
+        overflow: 'hidden'
+    },
+
+    iconContainer: {
+        width: 30,
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    crossIcon: {
+        width: 20,
+        height: 20,
+    },
+
+    listcarButton: {
+        width: '100%',
+        position: 'absolute',
+        bottom: 0,
+        marginBottom: '20%'
     }
 });
 
