@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Image, ImageBackground, StatusBar, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform } from 'react-native';
 import CustomButton from './Helpers/CustomButton';
-import { connect } from 'react-redux';
 
 
 class LoginOrSignUp extends React.Component {
@@ -20,7 +19,6 @@ class LoginOrSignUp extends React.Component {
 
         const {
             navigation,
-            loginOrSignupCrossAction
         } = this.props;
 
         return (
@@ -31,9 +29,6 @@ class LoginOrSignUp extends React.Component {
                         {Platform.OS === 'android' ?
                             <TouchableNativeFeedback
                                 onPress={() => {
-                                    if (loginOrSignupCrossAction) {
-                                        loginOrSignupCrossAction();
-                                    }
                                     navigation.goBack();
                                 }}
                                 background={TouchableNativeFeedback.Ripple('#fff')}>
@@ -44,9 +39,6 @@ class LoginOrSignUp extends React.Component {
                             :
                             <TouchableOpacity
                                 onPress={() => {
-                                    if (loginOrSignupCrossAction) {
-                                        loginOrSignupCrossAction();
-                                    }
                                     navigation.goBack();
                                 }}
                                 background={TouchableNativeFeedback.Ripple('#fff')}>
@@ -117,10 +109,4 @@ const Styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = state => {
-    return {
-        ...state.login
-    }
-}
-
-export default connect(mapStateToProps)(LoginOrSignUp);
+export default LoginOrSignUp;

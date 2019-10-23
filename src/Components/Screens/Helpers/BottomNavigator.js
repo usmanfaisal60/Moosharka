@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet, TouchableNativeFeedback, TouchableWithoutFeedback, Platform } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
+
 
 const BottomNavigator = props => {
 
@@ -10,7 +11,8 @@ const BottomNavigator = props => {
 
     const {
         navigation,
-        active
+        active,
+        loginStatus
     } = props;
 
     return (
@@ -22,12 +24,18 @@ const BottomNavigator = props => {
             </BottomButton>
             <BottomButton
                 icon='Trips' active={active}
-                onPress={() => navigation.replace('Trips', {prevScreen: active})}>
+                onPress={() => {
+                    if (loginStatus) navigation.replace('Trips')
+                    else navigation.navigate('LoginOrSignUp')
+                }}>
                 Trips
             </BottomButton>
             <BottomButton
                 icon='Messages' active={active}
-                onPress={() => navigation.replace('Messages', {prevScreen: active})}>
+                onPress={() => {
+                    if (loginStatus) navigation.replace('Messages')
+                    else navigation.navigate('LoginOrSignUp')
+                }}>
                 Messages
             </BottomButton>
             <BottomButton
@@ -120,4 +128,10 @@ const BottomButton = props => {
     )
 }
 
-export default BottomNavigator;
+const mapStateToProps = state => {
+    return {
+        ...state.login
+    }
+}
+
+export default connect(mapStateToProps)(BottomNavigator);

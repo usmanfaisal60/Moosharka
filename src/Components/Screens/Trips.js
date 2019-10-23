@@ -8,22 +8,6 @@ import CustomHeader from './Helpers/CustomHeader';
 
 class Trips extends React.Component {
 
-    componentDidMount() {
-        const {
-            loginStatus,
-            navigation,
-            setCrossListener
-        } = this.props;
-
-        const prevScreen = navigation.getParam('prevScreen');
-
-        if (!loginStatus) {
-            navigation.navigate('LoginOrSignUp');
-            setCrossListener(navigation.replace.bind(this, prevScreen));
-        }
-
-    }
-
     render() {
 
         const {
