@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ImageBackground, Text, StyleSheet } from 'react-native';
 import Swiper from 'react-native-swiper';
 import AdCard from './Helpers/AdCars';
+import NumberedAdCard from './Helpers/NumberedAdCard';
 
 
 class ListYourCar extends React.Component {
@@ -51,12 +52,30 @@ class ListYourCar extends React.Component {
                     </View>
                     <View style={swiperStyle}>
                         <Text style={title}>
+                            Get Paid
+                        </Text>
+                        <AdCard title='Pricing'>
+                            Turo will dynamically set your car’s daily price based on make, model, location and time of year to maximixe your earnings. If you prefer, you can manually set your own daily price.                        </AdCard>
+                        <AdCard title='Payment'>
+                            You’ll get paid via direct deposit within 5 days of a trip’s end.
+                        </AdCard>
+                    </View>
+                    <View style={swiperStyle}>
+                        <Text style={title}>
                             Ready, set, list
                         </Text>
                         <AdCard title='You’re in control'>
                             This will take about 10 minutes, and you’ll need:
                         </AdCard>
-                        
+                        <NumberedAdCard number='1' title='License plate number'>
+                            We need this so that your car is covered by our protection plans.
+                        </NumberedAdCard>
+                        <NumberedAdCard number='2' title='Photos of your car'>
+                            Upload photos or use the app to take pictures to spice up your listing.
+                        </NumberedAdCard>
+                        <AdCard>
+                            From our 24/7 emergency line to trips and tricks to earn more with your car, we’ll be here for you every step of the way.
+                        </AdCard>
                     </View>
                 </Swiper>
             </ImageBackground >
@@ -76,7 +95,7 @@ const Styles = StyleSheet.create({
         height: '100%',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingTop: 20
+        paddingTop: 50
     },
 
     title: {

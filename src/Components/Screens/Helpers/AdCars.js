@@ -11,15 +11,19 @@ const AdCard = props => {
 
     const {
         title,
-        children
+        children,
+        left
     } = props;
 
     return (
-        <View style={container}>
-            <Text style={titleStyle}>
-                {title}
-            </Text>
-            <Text style={description}>
+        <View style={{ ...container, alignItems: left ? 'flex-start' : 'center' }}>
+            {title ?
+                <Text style={titleStyle}>
+                    {title}
+                </Text>
+                :
+                null}
+            <Text style={{ ...description, textAlign: left ? 'left' : 'center' }}>
                 {children}
             </Text>
         </View>
@@ -35,13 +39,11 @@ const Styles = StyleSheet.create({
 
     description: {
         color: '#fff',
-        textAlign: 'center',
         paddingBottom: 20
     },
 
     container: {
         width: '80%',
-        alignItems: 'center'
     }
 });
 
