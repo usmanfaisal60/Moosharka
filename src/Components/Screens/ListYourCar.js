@@ -108,7 +108,7 @@ class ListYourCar extends React.Component {
                             </View>
                         </TouchableNativeFeedback>
                         :
-                        <TouchableOpacity onPress={() => navigation.goBack()} background={TouchableNativeFeedback.Ripple('#fff')}>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
                             <View style={iconContainer}>
                                 <Image resizeMode='contain' style={crossIcon} source={require('../../Assets/Icons/WhiteIcons/cross.png')} />
                             </View>
