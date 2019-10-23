@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ImageBackground, TextInput, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, ImageBackground, TextInput, StyleSheet, Dimensions, TouchableOpacity, Platform } from 'react-native';
 import Header from './Helpers/CustomHeader';
 import CustomButton from './Helpers/CustomButton';
 import { setCredentials, resetLoginState, attemptLogin } from '../../Redux/Actions';
@@ -31,9 +31,11 @@ class Login extends React.Component {
     render() {
 
         const {
+            bgcontainer,
             container,
             inputFields,
             inputField,
+            buttonsContainer
         } = Styles;
 
         const {
@@ -52,13 +54,13 @@ class Login extends React.Component {
         return (
             <Aux>
                 <ImageBackground style={container} source={require('../../Assets/Images/fsd.jpg')}>
-                    <Header backbutton lefticon='back' onPressLeft={() => navigation.goBack()}>Login to Moosharka</Header>
+                    <Header backbutton lefticon='back' onPressLeft={() => navigation.goBack()}>Sign up for Moosharka</Header>
                     <View style={inputFields}>
                         <TextInput
                             value={username}
                             style={inputField}
                             placeholderTextColor='#fffa'
-                            placeholder='username or email'
+                            placeholder='Username or email'
                             onChangeText={(text) => {
                                 setCredentials(set_user, text)
                             }} />
@@ -67,7 +69,7 @@ class Login extends React.Component {
                             secureTextEntry
                             style={inputField}
                             placeholderTextColor='#fffa'
-                            placeholder='password'
+                            placeholder='Password'
                             onChangeText={(text) => {
                                 setCredentials(set_pass, text)
                             }} />
@@ -89,7 +91,7 @@ const Styles = StyleSheet.create({
         width: window.width,
         height: window.height,
         alignItems: 'center',
-        paddingTop: 100
+        paddingTop: constants.headerHeight + 30
     },
 
     inputFields: {
@@ -98,7 +100,8 @@ const Styles = StyleSheet.create({
 
     inputField: {
         borderBottomColor: '#fff',
-        borderBottomWidth: 1,
+        borderBottomWidth: 2,
+        padding: Platform.OS === 'ios' ? 10 : 0,
         fontSize: 18,
         color: '#fff',
         marginBottom: 15

@@ -100,7 +100,7 @@ const Styles = StyleSheet.create({
         width: window.width,
         height: window.height,
         alignItems: 'center',
-        paddingTop: 100
+        paddingTop: constants.headerHeight + 30
     },
 
     inputFields: {
@@ -109,7 +109,8 @@ const Styles = StyleSheet.create({
 
     inputField: {
         borderBottomColor: '#fff',
-        borderBottomWidth: 1,
+        borderBottomWidth: 2,
+        padding: Platform.OS === 'ios' ? 10 : 0,
         fontSize: 18,
         color: '#fff',
         marginBottom: 15

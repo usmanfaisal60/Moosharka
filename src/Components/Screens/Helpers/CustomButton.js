@@ -18,6 +18,8 @@ const CustomButton = props => {
         blue
     } = props
 
+    console.log('button rendered');
+
     return (
         <View style={container}>
             <View style={{ marginTop: 20, alignSelf: 'center', width: '95%', overflow: 'hidden' }}>
@@ -34,7 +36,6 @@ const CustomButton = props => {
                     </TouchableNativeFeedback>
                     :
                     <TouchableOpacity
-                        style={{ flex: 1 }}
                         onPress={() => { if (onPress) onPress() }}>
                         <View style={transparent ? buttonContainerTransparent : blue ? buttonContainerBlue : buttonContainer}>
                             <Text style={{ ...description, color: '#fff' }}>
