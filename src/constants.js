@@ -1,6 +1,6 @@
 export default constants = {
     url: 'https://4ceddf9a.ngrok.io',
-    timeout: 10000,
+    requestTimeouts: 10000,
     headerHeight: 80,
     searchHeaderHeight: 200,
     red_types: {

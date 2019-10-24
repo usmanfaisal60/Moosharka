@@ -5,8 +5,7 @@ const {
     set_loader_visibility,
     set_error,
     set_toplocations,
-    set_search_keyword,
-    timeout
+    set_search_keyword
 } = constants.red_types;
 
 export const fetchTopLocations = () => {
@@ -19,7 +18,7 @@ export const fetchTopLocations = () => {
         const toplocations = await axios({
             method: 'GET',
             url: `${constants.url}/topLocations.json`,
-            timeout
+            timeout: constants.requestTimeouts
         })
 
         setTimeout(() => {
