@@ -64,15 +64,16 @@ const Styles = StyleSheet.create({
 
     left: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
+        paddingBottom: 12,
         alignItems: 'center'
     },
 
     titleStyle: {
         fontSize: 20,
         color: '#fff',
-        flex: 8,
-        paddingBottom: 10
+        flex: 7,
+        paddingBottom: 20
     },
 
     right: {
