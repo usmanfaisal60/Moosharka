@@ -1,7 +1,7 @@
 import constants from '../../constants';
 const initial_state = {
     topLocations: null,
-    keyword: 'Dubai'
+    keyword: ''
 }
 
 const {
