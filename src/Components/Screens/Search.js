@@ -14,7 +14,12 @@ import Description from './Helpers/Description';
 import UserMightLike from './Helpers/UserMightLikes';
 import BottomNavigator from './Helpers/BottomNavigator';
 import TopDestinations from './Helpers/TopDestinations';
-import CustomButton from './Helpers/CustomButton'
+import CustomButton from './Helpers/CustomButton';
+import { fetchTopLocations, searchKeyWord, setSearchKeyWord } from '../../Redux/Actions';
+import { connect } from 'react-redux';
+
+
+
 const Styles = StyleSheet.create({
     searchBg: {
         width: '100%',
@@ -90,7 +95,7 @@ const Styles = StyleSheet.create({
         alignSelf: 'center'
     },
 
-    
+
 })
 
 class Search extends React.Component {
@@ -111,6 +116,16 @@ class Search extends React.Component {
                 showBottomNavigator: true
             })
         });
+
+        const {
+            fetchTopLocations,
+            topLocations
+        } = this.props;
+
+        if (!topLocations) {
+            fetchTopLocations();
+        }
+        
     }
 
     render() {
@@ -129,7 +144,11 @@ class Search extends React.Component {
         } = Styles;
 
         const {
-            navigation
+            navigation,
+            topLocations,
+            keyword,
+            setSearchKeyWord,
+            error
         } = this.props;
 
         return (
@@ -149,11 +168,12 @@ class Search extends React.Component {
                         <View style={searchView}>
                             <Image style={searchIcon} source={require('../../Assets/Icons/search.png')} />
                             <TextInput
+                                value={keyword}
                                 style={searchText}
                                 placeholder='city, airport, adress or hotel'
-                                onChangeText={() => {
-
-                                }} />
+                                onChangeText={(text) => setSearchKeyWord(text)}
+                                returnKeyType='search'
+                                onSubmitEditing={() => { if (keyword) navigation.navigate('SeachResults', { keyword }) }} />
                         </View>
                     </ImageBackground>
                     <View style={insurancePartenerTextContainer}>
@@ -182,7 +202,7 @@ class Search extends React.Component {
                     </Description>
 
                     <UserMightLike />
-                    <TopDestinations />
+                    <TopDestinations error={error} topLocations={topLocations} />
                     <Image style={{ width: '100%' }} source={require('../../Assets/Icons/lineSeparator.png')} resizeMode='contain' />
                     <Text style={title}>
                         The car that pays for itself
@@ -206,4 +226,12 @@ class Search extends React.Component {
     }
 }
 
-export default Search;
+
+const mapStateToProps = state => {
+    return {
+        ...state.loader,
+        ...state.search
+    }
+}
+
+export default connect(mapStateToProps, { fetchTopLocations, searchKeyWord, setSearchKeyWord })(Search);

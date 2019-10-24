@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
+import { View, Text, ImageBackground, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 
 const TopDestinations = props => {
 
@@ -12,37 +13,43 @@ const TopDestinations = props => {
         locationText
     } = Styles;
 
+    const {
+        topLocations,
+        error
+    } = props;
+
     return (
         <View style={container}>
             <Text style={topLocationsText}>
                 Top Locations
             </Text>
             <View style={imagesContainer}>
-                <ImageBackground
-                    style={imageStyle}
-                    resizeMode='cover'
-                    source={{ uri: 'https://www.ef.com/sitecore/__~/media/efcom/2018/ils/destinations/United-arab-emirates/Dubai/dubai-stage1.jpg' }} >
-                    <View style={imageModal}>
-                        <Text style={locationText}>
-                            Dubai
-                        </Text>
-                    </View>
-                </ImageBackground>
-                <ImageBackground
-                    style={imageStyle}
-                    resizeMode='cover'
-                    source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFJA7bN9nTV2GmCwW9t0Dqq7FLfladBaN7X3hJmW_KbTIIyigMgw&s' }}>
-                    <View style={imageModal}>
-                        <Text style={locationText}>
-                            Ajman
-                        </Text>
-
-                    </View>
-                </ImageBackground>
+                {topLocations ?
+                    <FlatList data={topLocations} renderItem={({ item }) => (
+                        <ImageBackground
+                            style={imageStyle}
+                            resizeMode='cover'
+                            source={{ uri: item.bgUrl }} >
+                            <View style={imageModal}>
+                                <Text style={locationText}>
+                                    {item.name}
+                                </Text>
+                            </View>
+                        </ImageBackground>)}
+                        keyExtractor={item => `${item.id}`}
+                        horizontal
+                        showsHorizontalScrollIndicator={false} />
+                    :
+                    !error ? <ActivityIndicator size='large' />
+                    : 
+                    <Text style={{textAlign :'center', color: '#999'}}>Hmmm..! It seems like you are not connected to the internet or our server is down</Text>
+                }
             </View>
         </View>
     )
 };
+
+const imageSize = (Dimensions.get('window').width) * 0.35
 
 const Styles = StyleSheet.create({
     container: {
@@ -53,17 +60,18 @@ const Styles = StyleSheet.create({
 
     imagesContainer: {
         width: '100%',
+        height: imageSize + 20,
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
 
     imageStyle: {
-        height: 150,
-        width: 150,
+        height: imageSize,
+        width: imageSize,
         overflow: 'hidden',
-        borderRadius: 75,
-        margin: 10
+        borderRadius: imageSize / 2,
+        marginHorizontal: 10
     },
 
     topLocationsText: {
@@ -79,7 +87,7 @@ const Styles = StyleSheet.create({
     },
 
     locationText: {
-        fontSize: 28, 
+        fontSize: 28,
         color: '#fff'
     }
 });

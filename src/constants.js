@@ -1,4 +1,6 @@
 export default constants = {
+    url: 'https://4ceddf9a.ngrok.io',
+    timeout: 10000,
     headerHeight: 80,
     red_types: {
         set_user: 'set_username',
@@ -23,6 +25,8 @@ export default constants = {
         set_notifications: 'set_notifications',
         update_notifications: 'update_notifications',
         set_login_or_signup_cross_action: 'set_login_or_signup_cross_action',
-        set_signup: 'set_signup'
+        set_signup: 'set_signup',
+        set_toplocations: 'set_toplocations',
+        set_search_keyword: 'set_search_keyword'
     },
 }
