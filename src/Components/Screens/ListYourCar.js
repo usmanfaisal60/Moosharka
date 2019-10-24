@@ -1,11 +1,30 @@
 import React from 'react';
 import { View, Image, ImageBackground, Text, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform } from 'react-native';
 import Swiper from 'react-native-swiper';
+import ViewPager from '@react-native-community/viewpager';
 import AdCard from './Helpers/AdCars';
 import NumberedAdCard from './Helpers/NumberedAdCard';
 import CustomButton from './Helpers/CustomButton';
 
 class ListYourCar extends React.Component {
+
+    state = {
+        currentPage: 0
+    }
+
+
+    renderDots(currentPage) {
+        const dots = [];
+        const dot = <View style={{ width: 15, height: 15, borderRadius: 7.5, borderColor: '#fff', borderWidth: 1, margin: 5 }}></View >
+        const activeDot = <View style={{ width: 15, height: 15, borderRadius: 7.5, backgroundColor: '#fff', margin: 5 }}></View >
+        for (let i = 0; i < 5; i++) {
+            if (i === currentPage) dots.push(activeDot);
+            else dots.push(dot);
+        }
+
+        return dots;
+    }
+
     render() {
 
         const {
@@ -15,7 +34,8 @@ class ListYourCar extends React.Component {
             crossContainer,
             iconContainer,
             crossIcon,
-            listcarButton
+            listcarButton,
+            dotsContainer
         } = Styles;
 
         const {
@@ -24,14 +44,7 @@ class ListYourCar extends React.Component {
 
         return (
             <ImageBackground resizeMode='cover' style={container} source={require('../../Assets/Images/sd.jpg')}>
-                <Swiper
-                    loop={false}
-                    dot={
-                        <View style={{ width: 15, height: 15, borderRadius: 7.5, borderColor: '#fff', borderWidth: 1, margin: 5 }}></View>
-                    }
-                    activeDot={
-                        <View style={{ width: 15, height: 15, borderRadius: 7.5, backgroundColor: '#fff', margin: 5 }}></View>
-                    }
+                <ViewPager onPageSelected={(e) => this.setState({ currentPage: e.nativeEvent.position })}
                     style={container}>
                     <View style={swiperStyle}>
                         <Text style={title}>
@@ -99,7 +112,7 @@ class ListYourCar extends React.Component {
                                 }}>List your car</CustomButton>
                         </View>
                     </View>
-                </Swiper>
+                </ViewPager>
                 <View style={crossContainer}>
                     {Platform.OS === 'android' ?
                         <TouchableNativeFeedback onPress={() => navigation.goBack()} background={TouchableNativeFeedback.Ripple('#fff')}>
@@ -114,6 +127,7 @@ class ListYourCar extends React.Component {
                             </View>
                         </TouchableOpacity>}
                 </View>
+                <View style={dotsContainer}>{this.renderDots(this.state.currentPage)}</View>
             </ImageBackground >
         )
     }
@@ -168,6 +182,16 @@ const Styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         marginBottom: '20%'
+    },
+
+    dotsContainer: {
+        width: '100%',
+        position: 'absolute',
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '10%',
+        flexDirection: 'row'
     }
 });
 
