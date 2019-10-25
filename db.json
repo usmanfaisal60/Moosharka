@@ -1,0 +1,34 @@
+{
+  "searchResults": [
+    {
+        "id": 73264,
+        "car_name": "Mercedes Benz S Class",
+        "price": "US$ 45/Day",
+        "year": 2017,
+        "distance": "1.9 mi",
+        "trips": 4,
+        "rating": 4,
+        "car_imageUrl": "https://2da24961e1fc78cb9148-6170a4a10e1663791f0c8808b220d53c.ssl.cf1.rackcdn.com/WDDUG8JB7JA360721/b1ef1ea827587bf05df1bad16a1504a7.jpg"
+    },
+    {
+        "id": 48845,
+        "car_name": "Tesla Model 3",
+        "price": "US$ 80/Day",
+        "year": 2018,
+        "distance": "1.4 mi",
+        "trips": 18,
+        "rating": 3.5,
+        "car_imageUrl": "https://inteng-storage.s3.amazonaws.com/img/iea/ypwqJBAQON/sizes/tesla-model-3_resize_md.jpg"
+    },
+    {
+        "id": 94723,
+        "car_name": "Lamborghini Aventador",
+        "price": "US$ 100/Day",
+        "year": 2018,
+        "distance": "0.9 mi",
+        "trips": 18,
+        "rating": 4.5,
+        "car_imageUrl": "https://live.staticflickr.com/7585/16826525771_82d46c356c_b.jpg"
+    }
+]
+}
