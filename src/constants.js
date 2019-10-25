@@ -28,6 +28,7 @@ export default constants = {
         set_login_or_signup_cross_action: 'set_login_or_signup_cross_action',
         set_signup: 'set_signup',
         set_toplocations: 'set_toplocations',
-        set_search_keyword: 'set_search_keyword'
+        set_search_keyword: 'set_search_keyword',
+        set_search_results: 'set_search_results'
     },
 }

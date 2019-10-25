@@ -5,7 +5,8 @@ const {
     set_loader_visibility,
     set_error,
     set_toplocations,
-    set_search_keyword
+    set_search_keyword,
+    set_search_results
 } = constants.red_types;
 
 export const fetchTopLocations = () => {
@@ -59,19 +60,52 @@ export const fetchTopLocations = () => {
 export const searchKeyWord = keyword => {
     return async dispatch => {
         dispatch({
+            type: set_error,
+            payload: false
+        });
+
+        dispatch({
+            type: set_search_results,
+            payload: null
+        });
+
+        dispatch({
             type: set_loader_visibility,
             payload: true
         });
+        let searchResults;
+        try {
+            searchResults = await axios({
+                method: 'GET',
+                url: `${constants.url}/searchResults.json`,
+                timeout: constants.requestTimeouts
+            });
 
-        const searchResults = await axios({
-            method: 'GET',
-            url: `${constants.url}/search.json`,
-            timeout
+        } catch (e) {
+            console.log(e);
+            dispatch({
+                type: set_loader_visibility,
+                payload: false
+            });
+
+            if (!searchResults) {
+                dispatch({
+                    type: set_error,
+                    payload: true
+                });
+                return;
+            }
+        }
+
+        dispatch({
+            type: set_loader_visibility,
+            payload: false
         });
 
-        if (!searchResults) return;
-
-        console.log(searchResults);
+        dispatch({
+            type: set_search_results,
+            payload: searchResults.data
+        });
     }
 }
 
@@ -79,5 +113,12 @@ export const setSearchKeyWord = keyword => {
     return {
         type: set_search_keyword,
         payload: keyword
+    }
+}
+
+export const clearKeyword = () => {
+    return {
+        type: set_search_keyword,
+        payload: ''
     }
 }

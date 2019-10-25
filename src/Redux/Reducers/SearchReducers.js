@@ -1,12 +1,14 @@
 import constants from '../../constants';
 const initial_state = {
     topLocations: null,
-    keyword: ''
+    keyword: '',
+    searchResults: null
 }
 
 const {
     set_toplocations,
-    set_search_keyword
+    set_search_keyword,
+    set_search_results
 } = constants.red_types;
 
 const loader = (state = initial_state, action) => {
@@ -18,6 +20,10 @@ const loader = (state = initial_state, action) => {
         case set_search_keyword:
             return {
                 ...state, keyword: action.payload
+            }
+        case set_search_results:
+            return {
+                ...state, searchResults: action.payload
             }
         default:
             return state;
