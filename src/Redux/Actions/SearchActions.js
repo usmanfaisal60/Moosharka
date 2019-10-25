@@ -53,7 +53,7 @@ export const fetchTopLocations = () => {
 
         dispatch({
             type: set_toplocations,
-            payload: toplocations.data.top_locations
+            payload: toplocations.data
         });
     }
 }
