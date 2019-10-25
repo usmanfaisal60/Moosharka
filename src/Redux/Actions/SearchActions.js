@@ -24,7 +24,8 @@ export const fetchTopLocations = () => {
         try {
             toplocations = await axios({
                 method: 'GET',
-                url: `${constants.url}/topLocations.json`,
+                // url: `${constants.url}/topLocations.json`,
+                url: 'http://my-json-server.typicode.com/usmanfaisal60/Moosharka/tree/master/topLocations',
                 timeout: constants.requestTimeouts
             });
 
@@ -77,7 +78,8 @@ export const searchKeyWord = keyword => {
         try {
             searchResults = await axios({
                 method: 'GET',
-                url: `${constants.url}/searchResults.json`,
+                // url: `${constants.url}/searchResults.json`,
+                url: 'http://my-json-server.typicode.com/usmanfaisal60/Moosharka/tree/master/searchResults',
                 timeout: constants.requestTimeouts
             });
 
