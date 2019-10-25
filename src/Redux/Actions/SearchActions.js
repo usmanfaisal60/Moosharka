@@ -11,17 +11,24 @@ const {
 export const fetchTopLocations = () => {
     return async dispatch => {
         dispatch({
+            type: set_error,
+            payload: false
+        });
+
+        dispatch({
             type: set_loader_visibility,
             payload: true
         });
+        let toplocations;
+        try {
+            toplocations = await axios({
+                method: 'GET',
+                url: `${constants.url}/topLocations.json`,
+                timeout: constants.requestTimeouts
+            });
 
-        const toplocations = await axios({
-            method: 'GET',
-            url: `${constants.url}/topLocations.json`,
-            timeout: constants.requestTimeouts
-        })
-
-        setTimeout(() => {
+        } catch (e) {
+            console.log(e);
             dispatch({
                 type: set_loader_visibility,
                 payload: false
@@ -33,15 +40,19 @@ export const fetchTopLocations = () => {
                     type: set_error,
                     payload: true
                 });
-
                 return;
             }
+        }
 
-            dispatch({
-                type: set_toplocations,
-                payload: toplocations.data.top_locations
-            });
-        }, 0);
+        dispatch({
+            type: set_loader_visibility,
+            payload: false
+        });
+
+        dispatch({
+            type: set_toplocations,
+            payload: toplocations.data.top_locations
+        });
     }
 }
 

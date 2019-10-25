@@ -15,7 +15,8 @@ const TopDestinations = props => {
 
     const {
         topLocations,
-        error
+        error,
+        loader
     } = props;
 
     return (
@@ -40,7 +41,7 @@ const TopDestinations = props => {
                         horizontal
                         showsHorizontalScrollIndicator={false} />
                     :
-                    !error ? <ActivityIndicator size='large' />
+                    !error && loader ? <ActivityIndicator size='large' />
                     : 
                     <Text style={{textAlign :'center', color: '#999'}}>Hmmm..! It seems like you are not connected to the internet or our server is down</Text>
                 }

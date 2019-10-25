@@ -119,13 +119,13 @@ class Search extends React.Component {
 
         const {
             fetchTopLocations,
-            topLocations
+            topLocations,
         } = this.props;
 
         if (!topLocations) {
             fetchTopLocations();
         }
-        
+
     }
 
     render() {
@@ -148,7 +148,8 @@ class Search extends React.Component {
             topLocations,
             keyword,
             setSearchKeyWord,
-            error
+            error,
+            loader
         } = this.props;
 
         return (
@@ -202,7 +203,7 @@ class Search extends React.Component {
                     </Description>
 
                     <UserMightLike />
-                    <TopDestinations error={error} topLocations={topLocations} />
+                    <TopDestinations loader={loader} error={error} topLocations={topLocations} />
                     <Image style={{ width: '100%' }} source={require('../../Assets/Icons/lineSeparator.png')} resizeMode='contain' />
                     <Text style={title}>
                         The car that pays for itself
