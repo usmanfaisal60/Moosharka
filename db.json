@@ -31,43 +31,41 @@
             "car_imageUrl": "https://live.staticflickr.com/7585/16826525771_82d46c356c_b.jpg"
         }
     ],
-    "topLocations": {
-        "top_locations": [
-            {
-                "id": 21744,
-                "name": "Dubai",
-                "lat": 25.2048,
-                "long": 55.2708,
-                "bgUrl": "https://images.musement.com/cover/0002/45/dubai-skyline-at-dusk-jpg_header-144981.jpeg?&q=60&fit=crop&lossless=true&auto=format&w=412&h=250"
-            },
-            {
-                "id": 22562,
-                "name": "Sharja",
-                "lat": 25.3463,
-                "long": 55.4209,
-                "bgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Majaz_2012.jpg/350px-Majaz_2012.jpg"
-            },
-            {
-                "id": 20344,
-                "name": "Ajman",
-                "lat": 25.4052,
-                "long": 55.5136,
-                "bgUrl": "https://imagevars.gulfnews.com/2018/12/19/NAT_180117_SEAPLANE-ajman_ARAMZAN-1-for-web_2_resources1_16a08545dac_large.jpg"
-            },
-            {
-                "id": 28790,
-                "name": "Qatar",
-                "lat": 25.3548,
-                "long": 51.1839,
-                "bgUrl": "https://www.visitqatar.qa/binaries/content/gallery/qatartourism/discover/tourist-hotspots/doha-corniche/doha-corniche-02.jpg"
-            },
-            {
-                "id": 22890,
-                "name": "Fujairah",
-                "lat": 25.1333,
-                "long": 56.2500,
-                "bgUrl": "https://cdn.expatwoman.com/s3fs-public/styles/width_420/public/living%20in%20fujairah%20-%20main.jpg?itok=vcUFnPxf"
-            }
-        ]
-    }
+    "topLocations": [
+        {
+            "id": 21744,
+            "name": "Dubai",
+            "lat": 25.2048,
+            "long": 55.2708,
+            "bgUrl": "https://images.musement.com/cover/0002/45/dubai-skyline-at-dusk-jpg_header-144981.jpeg?&q=60&fit=crop&lossless=true&auto=format&w=412&h=250"
+        },
+        {
+            "id": 22562,
+            "name": "Sharja",
+            "lat": 25.3463,
+            "long": 55.4209,
+            "bgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Majaz_2012.jpg/350px-Majaz_2012.jpg"
+        },
+        {
+            "id": 20344,
+            "name": "Ajman",
+            "lat": 25.4052,
+            "long": 55.5136,
+            "bgUrl": "https://imagevars.gulfnews.com/2018/12/19/NAT_180117_SEAPLANE-ajman_ARAMZAN-1-for-web_2_resources1_16a08545dac_large.jpg"
+        },
+        {
+            "id": 28790,
+            "name": "Qatar",
+            "lat": 25.3548,
+            "long": 51.1839,
+            "bgUrl": "https://www.visitqatar.qa/binaries/content/gallery/qatartourism/discover/tourist-hotspots/doha-corniche/doha-corniche-02.jpg"
+        },
+        {
+            "id": 22890,
+            "name": "Fujairah",
+            "lat": 25.1333,
+            "long": 56.2500,
+            "bgUrl": "https://cdn.expatwoman.com/s3fs-public/styles/width_420/public/living%20in%20fujairah%20-%20main.jpg?itok=vcUFnPxf"
+        }
+    ]
 }
