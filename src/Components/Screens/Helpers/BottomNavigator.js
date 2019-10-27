@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet, TouchableNativeFeedback, TouchableWithoutFeedback, Platform } from 'react-native';
 import { connect } from 'react-redux';
+import constants from '../../../constants';
 
 
 const BottomNavigator = props => {
@@ -57,7 +58,7 @@ const iconSize = 40;
 const Styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 60,
+        height: constants.bottomTabHeight,
         backgroundColor: '#222',
         position: 'absolute',
         bottom: 0,

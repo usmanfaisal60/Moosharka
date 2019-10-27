@@ -5,6 +5,7 @@ import BottomNavigator from './Helpers/BottomNavigator';
 import { setCrossListener } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 import CustomHeader from './Helpers/CustomHeader';
+import constants from '../../constants';
 
 class Trips extends React.Component {
 
@@ -13,19 +14,21 @@ class Trips extends React.Component {
         const {
             container,
             imageContainer,
-            imageStyle
+            imageStyle,
+            mainContainer,
+            pagerContainer
         } = Styles;
 
         const {
-            loginStatus
+            trips
         } = this.props;
 
         return (
             <Aux>
                 <View style={container}>
-                    {loginStatus ?
+                    <CustomHeader>Trips </CustomHeader>
+                    {!trips ?
                         <Aux>
-                            <CustomHeader >Tours</CustomHeader>
                             <View style={imageContainer}>
                                 <Image style={imageStyle} source={require('../../Assets/Icons/trips.png')} />
                             </View>
@@ -34,7 +37,12 @@ class Trips extends React.Component {
                             </Text>
                         </Aux>
                         :
-                        null}
+                        <View style={mainContainer}>
+                            <View style={pagerContainer}>
+
+                            </View>
+                        </View>
+                    }
                 </View>
                 <BottomNavigator
                     navigation={this.props.navigation}
@@ -66,12 +74,26 @@ const Styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         opacity: 0.5
+    },
+
+    mainContainer: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: 0,
+        paddingTop: constants.headerHeight,
+        paddingBottom: constants.bottomTabHeight,
+    },
+
+    pagerContainer: {
+        width: '100%',
+        height: '100%'
     }
 });
 
 const mapStateToProps = state => {
     return {
-        ...state.login
+        ...state.trips
     }
 }
 

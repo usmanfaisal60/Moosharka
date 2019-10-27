@@ -2,6 +2,7 @@ export default constants = {
     url: 'http://aa19013e.ngrok.io/dummydata',
     requestTimeouts: 5000,
     headerHeight: 80,
+    bottomTabHeight: 55,
     searchHeaderHeight: 200,
     red_types: {
         set_user: 'set_username',
@@ -29,6 +30,7 @@ export default constants = {
         set_signup: 'set_signup',
         set_toplocations: 'set_toplocations',
         set_search_keyword: 'set_search_keyword',
-        set_search_results: 'set_search_results'
+        set_search_results: 'set_search_results',
+        set_trips: 'set_trips'
     },
 }
