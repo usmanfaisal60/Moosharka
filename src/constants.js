@@ -4,6 +4,7 @@ export default constants = {
     headerHeight: 80,
     bottomTabHeight: 55,
     searchHeaderHeight: 200,
+    tripsButtonsHeight: 40,
     red_types: {
         set_user: 'set_username',
         set_pass: 'set_password',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableHighlight, TouchableNativeFeedback, Platform } from 'react-native';
 import Aux from '../HOC/AUX/Aux';
 import BottomNavigator from './Helpers/BottomNavigator';
 import { setCrossListener } from '../../Redux/Actions';
@@ -13,6 +13,17 @@ import History from './Helpers/History';
 
 
 class Trips extends React.Component {
+    constructor(props) {
+        super(props);
+        this.viewPager = React.createRef();
+        this.state = {
+            currentPage: 0
+        }
+    }
+
+    go(pageNumber) {
+        this.viewPager.current.setPage(pageNumber);
+    }
 
     render() {
 
@@ -21,7 +32,8 @@ class Trips extends React.Component {
             imageContainer,
             imageStyle,
             mainContainer,
-            pagerContainer
+            pagerContainer,
+            tripsButtonsContainer
         } = Styles;
 
         const {
@@ -43,8 +55,23 @@ class Trips extends React.Component {
                         </Aux>
                         :
                         <View style={mainContainer}>
+                            <View style={tripsButtonsContainer}>
+                                <Button active={this.state.currentPage === 0} onPress={this.go.bind(this, 0)}>
+                                    Activity
+                                </Button>
+                                <Button active={this.state.currentPage === 1} onPress={this.go.bind(this, 1)}>
+                                    Booked
+                                </Button>
+                                <Button active={this.state.currentPage === 2} onPress={this.go.bind(this, 2)}>
+                                    History
+                                </Button>
+
+                            </View>
                             <View style={pagerContainer}>
-                                <ViewPager set>
+                                <ViewPager
+                                    ref={this.viewPager}
+                                    onPageSelected={(e) => this.setState({ currentPage: e.nativeEvent.position })}
+                                    style={{ width: '100%', height: '100%' }}>
                                     <Activity />
                                     <Booked />
                                     <History />
@@ -97,6 +124,30 @@ const Styles = StyleSheet.create({
     pagerContainer: {
         width: '100%',
         height: '100%'
+    },
+
+    tripsButtonsContainer: {
+        width: '100%',
+        height: constants.tripsButtonsHeight,
+        backgroundColor: '#222',
+        flexDirection: 'row'
+    },
+
+    touchContainer: {
+        height: '100%',
+        flex: 1,
+    },
+
+    touchable: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    buttonText: {
+        color: '#fff',
+        fontSize: 15
     }
 });
 
@@ -107,3 +158,44 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, { setCrossListener })(Trips);
+
+const Button = props => {
+
+    const {
+        touchContainer,
+        touchable,
+        buttonText
+    } = Styles;
+
+    const {
+        onPress,
+        active
+    } = props;
+
+    return (
+        <View
+            style={{
+                ...touchContainer,
+                borderBottomColor: active ? '#fff' : null,
+                borderBottomWidth: active ? 2 : null
+            }}>
+            {Platform.OS === 'android' ?
+                <TouchableNativeFeedback onPress={onPress} background={TouchableNativeFeedback.Ripple('#fff')}>
+                    <View style={touchable}>
+                        <Text style={buttonText}>
+                            {props.children}
+                        </Text>
+                    </View>
+                </TouchableNativeFeedback>
+                :
+                <TouchableHighlight onPress={onPress}>
+                    <View style={touchable}>
+                        <Text style={buttonText}>
+                            {props.children}
+                        </Text>
+                    </View>
+                </TouchableHighlight>
+            }
+        </View>
+    )
+}
