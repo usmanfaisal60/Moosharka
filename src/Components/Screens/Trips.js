@@ -6,6 +6,11 @@ import { setCrossListener } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 import CustomHeader from './Helpers/CustomHeader';
 import constants from '../../constants';
+import ViewPager from '@react-native-community/viewpager';
+import Activity from './Helpers/Activity';
+import Booked from './Helpers/Booked';
+import History from './Helpers/History';
+
 
 class Trips extends React.Component {
 
@@ -39,7 +44,11 @@ class Trips extends React.Component {
                         :
                         <View style={mainContainer}>
                             <View style={pagerContainer}>
-
+                                <ViewPager set>
+                                    <Activity />
+                                    <Booked />
+                                    <History />
+                                </ViewPager>
                             </View>
                         </View>
                     }

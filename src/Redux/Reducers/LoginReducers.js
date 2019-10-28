@@ -3,7 +3,7 @@ import constants from '../../constants';
 const initial_state = {
     username: '',
     password: '',
-    loginStatus: false,
+    loginStatus: true,
     signupStatus: false,
     loginOrSignupCrossAction: null,
     phoneNum: ''
