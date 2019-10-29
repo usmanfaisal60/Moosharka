@@ -20,7 +20,7 @@ const BottomNavigator = props => {
         <View style={container}>
             <BottomButton
                 icon='Search' active={active}
-                onPress={() => navigation.replace('Search')}>
+                onPress={() => { if (active !== 'Search') navigation.replace('Search') }}>
                 Search
             </BottomButton>
             <BottomButton
@@ -109,7 +109,6 @@ const BottomButton = props => {
         buttonTextHilighted,
         buttonImage
     } = Styles;
-
 
     return (
         Platform.OS === 'android' ?

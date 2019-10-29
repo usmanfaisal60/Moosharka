@@ -174,7 +174,7 @@ class Search extends React.Component {
                                 placeholder='city, airport, adress or hotel'
                                 onChangeText={(text) => setSearchKeyWord(text)}
                                 returnKeyType='search'
-                                onSubmitEditing={() => { if (keyword) navigation.navigate('SeachResults', { keyword }) }} />
+                                onSubmitEditing={() => { if (keyword) navigation.navigate('SearchResults') }} />
                         </View>
                     </ImageBackground>
                     <View style={insurancePartenerTextContainer}>
@@ -203,7 +203,13 @@ class Search extends React.Component {
                     </Description>
 
                     <UserMightLike />
-                    <TopDestinations loader={loader} error={error} topLocations={topLocations} />
+                    <TopDestinations
+                        navigation={navigation}
+                        setSearchKeyWord={setSearchKeyWord}
+                        loader={loader}
+                        error={error}
+                        topLocations={topLocations}
+                    />
                     <Image style={{ width: '100%' }} source={require('../../Assets/Icons/lineSeparator.png')} resizeMode='contain' />
                     <Text style={title}>
                         The car that pays for itself

@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { View, Text, FlatList, ImageBackground, StyleSheet, Dimensions, ActivityIndicator, TouchableOpacity } from 'react-native';
 
 const TopDestinations = props => {
 
@@ -16,8 +15,11 @@ const TopDestinations = props => {
     const {
         topLocations,
         error,
-        loader
+        loader,
+        navigation,
+        setSearchKeyWord
     } = props;
+
 
     return (
         <View style={container}>
@@ -27,23 +29,30 @@ const TopDestinations = props => {
             <View style={imagesContainer}>
                 {topLocations ?
                     <FlatList data={topLocations} renderItem={({ item }) => (
-                        <ImageBackground
-                            style={imageStyle}
-                            resizeMode='cover'
-                            source={{ uri: item.bgUrl }} >
-                            <View style={imageModal}>
-                                <Text style={locationText}>
-                                    {item.name}
-                                </Text>
-                            </View>
-                        </ImageBackground>)}
+                        <TouchableOpacity activeOpacity={0.7}
+                            onPress={() => {
+                                setSearchKeyWord(item.name);
+                                navigation.navigate('SearchResults');
+                            }}>
+                            <ImageBackground
+                                style={imageStyle}
+                                resizeMode='cover'
+                                source={{ uri: item.bgUrl }} >
+                                <View style={imageModal}>
+                                    <Text style={locationText}>
+                                        {item.name}
+                                    </Text>
+                                </View>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                    )}
                         keyExtractor={item => `${item.id}`}
                         horizontal
                         showsHorizontalScrollIndicator={false} />
                     :
                     !error && loader ? <ActivityIndicator size='large' />
-                    : 
-                    <Text style={{textAlign :'center', color: '#999'}}>Hmmm..! It seems like you are not connected to the internet or our server is down</Text>
+                        :
+                        <Text style={{ textAlign: 'center', color: '#999' }}>Hmmm..! It seems like you are not connected to the internet or our server is down</Text>
                 }
             </View>
         </View>

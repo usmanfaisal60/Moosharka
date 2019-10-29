@@ -36,11 +36,14 @@ const CarCard = props => {
         rating,
         trips,
         price,
-        distance
+        distance,
     } = props.car;
 
+
     return (
-        <View style={cardContainer}>
+        <View style={{
+            ...cardContainer, marginBottom: props.lastItem ? (Dimensions.get('window').height * 0.15) : 20
+        }}>
             <View style={carImageContainer}>
                 <ImageBackground
                     style={carImageStyle}
@@ -116,7 +119,6 @@ const Styles = StyleSheet.create({
         width: (Dimensions.get('window').width) * 0.9,
         height: (Dimensions.get('window').height) * 0.45,
         marginTop: 15,
-        marginBottom: 20
     },
 
     carImageContainer: {

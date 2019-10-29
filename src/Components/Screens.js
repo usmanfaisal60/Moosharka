@@ -9,7 +9,7 @@ import LoginOrSignUp from './Screens/LoginOrSignup';
 import Login from './Screens/Login';
 import ListYourCar from './Screens/ListYourCar';
 import Signup from './Screens/Signup';
-import SeachResults from './Screens/SearchResults';
+import SearchResults from './Screens/SearchResults';
 
 
 const Navigator = createStackNavigator({
@@ -22,7 +22,7 @@ const Navigator = createStackNavigator({
     Login,
     ListYourCar,
     Signup,
-    SeachResults
+    SearchResults
 }, {
     headerMode: 'none'
 });

@@ -14,6 +14,7 @@ import { clearKeyword, searchKeyWord, setSearchKeyWord } from '../../Redux/Actio
 import { connect } from 'react-redux';
 import constants from '../../constants';
 import CarCard from './Helpers/CarCard';
+import SelectionMenu from './Helpers/SelectionMenu';
 
 class SearchResults extends React.Component {
 
@@ -67,7 +68,7 @@ class SearchResults extends React.Component {
                     <View style={flatListContainer}>
                         <FlatList showsVerticalScrollIndicator={false}
                             data={searchResults}
-                            renderItem={({ item }) => <CarCard onPress={() => { if (!loginStatus) navigation.navigate('LoginOrSignUp', { backKey: 'SearchResults' }) }}
+                            renderItem={({ item, index }) => <CarCard lastItem={(index + 1) === searchResults.length} onPress={() => { if (!loginStatus) navigation.navigate('LoginOrSignUp', { backKey: 'SearchResults' }) }}
                                 car={item} />}
                             keyExtractor={item => `${item.id}`}
                         />
@@ -85,8 +86,10 @@ class SearchResults extends React.Component {
                         </View>
                     </TouchableWithoutFeedback>
                     :
-                    null
-                }
+                    null}
+                {!this.state.expanded && searchResults ?
+                    <SelectionMenu />
+                    : null}
             </View>
         );
     }
