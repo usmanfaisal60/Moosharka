@@ -1,16 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import MapView from 'react-native-maps';
+
 
 class MapsResults extends React.Component {
     render() {
 
         const {
-            container
+            container,
+            mapStyle
         } = Styles;
 
         return (
             <View style={container}>
-                <Text>Maps screen</Text>
+                <MapView style={mapStyle}/>
             </View>
         )
     }
@@ -19,7 +22,12 @@ class MapsResults extends React.Component {
 
 const Styles = StyleSheet.create({
     container: {
-        width: '100%'
+        width: '100%',
+        height: '100%'
+    },
+    mapStyle: {
+        width: '100%',
+        height: '100%'
     }
 });
 
