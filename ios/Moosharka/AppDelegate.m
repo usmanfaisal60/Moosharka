@@ -17,8 +17,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [GMSServices provideAPIKey:@"AIzaSyDb6JB_RTgglPQUN4886xrCiwJXuX5EZCs"];
-    [GMSPlacesClient provideAPIKey:@"AIzaSyDb6JB_RTgglPQUN4886xrCiwJXuX5EZCs"];
+    [GMSServices provideAPIKey:@"AIzaSyDhJuTzBSvvzOnZltfZngIwY_A3H_lVFls"];
+    [GMSPlacesClient provideAPIKey:@"AIzaSyDhJuTzBSvvzOnZltfZngIwY_A3H_lVFls"];
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"Moosharka"

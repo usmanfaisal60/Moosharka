@@ -88,7 +88,7 @@ class SearchResults extends React.Component {
                     :
                     null}
                 {!this.state.expanded && searchResults ?
-                    <SelectionMenu onMapPress={() => navigation.navigate('MapsResults')}/>
+                    <SelectionMenu leftText='Maps' onPressLeft={() => navigation.navigate('MapsResults')}/>
                     : null}
             </View>
         );

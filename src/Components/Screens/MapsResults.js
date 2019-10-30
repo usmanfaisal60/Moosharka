@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import SelectionMenu from './Helpers/SelectionMenu';
+import { connect } from 'react-redux';
 
 class MapsResults extends React.Component {
 
@@ -23,11 +24,9 @@ class MapsResults extends React.Component {
         this.setState({ reigion });
     }
 
-    componentDidUpdate() {
-        console.log(this.state.reigion);
-    }
-
     render() {
+
+        // console.log(this.props.searchResults);
 
         const {
             container,
@@ -35,17 +34,27 @@ class MapsResults extends React.Component {
             markerStyle
         } = Styles;
 
+        const {
+            navigation,
+            searchResults
+        } = this.props;
+
         return (
             <View style={container}>
                 <MapView
+                    provider={PROVIDER_GOOGLE}
                     style={mapStyle}
                     initialRegion={this.state.initialRegion}
                     reigion={this.state.reigion}
                     onRegionChange={this.setReigion.bind(this)}>
-                    <Marker coordinate={this.state.initialRegion}>
-                        <Image style={markerStyle} source={require('../../Assets/Icons/Host.png')} />
-                    </Marker>
+                    {searchResults.map(el => {
+                        console.log('object is located at ', el.location);
+                        <Marker coordinate={el.location}>
+                            <Image style={markerStyle} source={require('../../Assets/Icons/Host.png')} />
+                        </Marker>
+                    })}
                 </MapView>
+                <SelectionMenu leftText='Table' onPressLeft={navigation.goBack} />
             </View>
         )
     }
@@ -68,4 +77,10 @@ const Styles = StyleSheet.create({
     }
 });
 
-export default MapsResults;
+const mapStateToProps = state => {
+    return {
+        ...state.search,
+    }
+}
+
+export default connect(mapStateToProps)(MapsResults);

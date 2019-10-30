@@ -14,8 +14,9 @@ const SelectionMenu = props => {
     } = Styles;
 
     const {
-        onMapPress,
-        onFilterPress
+        onPressLeft,
+        onFilterPress,
+        leftText
     } = props;
 
     return (
@@ -23,27 +24,27 @@ const SelectionMenu = props => {
             <View style={wrapper}>
                 <View style={menu1}>
                     {Platform.OS === 'android' ?
-                        <TouchableNativeFeedback onPress={() => { if (onMapPress) onMapPress() }} >
+                        <TouchableNativeFeedback onPress={() => { if (onPressLeft) onPressLeft() }} >
                             <View style={{ flex: 1, height: '100%', flexDirection: 'row' }}>
                                 <View style={imageContainer}>
                                     <Image style={imageStyle} source={require('../../../Assets/Icons/map.png')} />
                                 </View>
                                 <View style={textContainer}>
                                     <Text>
-                                        Map
+                                        {leftText}
                                 </Text>
                                 </View>
                             </View>
                         </TouchableNativeFeedback>
                         :
-                        <TouchableOpacity onPress={() => { if (onMapPress) onMapPress() }}>
+                        <TouchableOpacity style={{ flex: 1 }} onPress={() => { if (onPressLeft) onPressLeft() }}>
                             <View style={{ flex: 1, height: '100%', flexDirection: 'row' }}>
                                 <View style={imageContainer}>
                                     <Image style={imageStyle} source={require('../../../Assets/Icons/map.png')} />
                                 </View>
                                 <View style={textContainer}>
                                     <Text>
-                                        Map
+                                        {leftText}
                                 </Text>
                                 </View>
                             </View>
@@ -65,7 +66,7 @@ const SelectionMenu = props => {
                             </View>
                         </TouchableNativeFeedback>
                         :
-                        <TouchableOpacity onPress={() => { if (onFilterPress) onFilterPress() }}>
+                        <TouchableOpacity style={{ flex: 1 }} onPress={() => { if (onFilterPress) onFilterPress() }}>
                             <View style={{ flex: 1, height: '100%', flexDirection: 'row' }}>
                                 <View style={imageContainer}>
                                     <Image style={imageStyle} source={require('../../../Assets/Icons/filter.png')} />
