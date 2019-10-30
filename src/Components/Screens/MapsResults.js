@@ -10,23 +10,17 @@ class MapsResults extends React.Component {
         initialRegion: {
             latitude: 25.21,
             longitude: 55.2708,
-            latitudeDelta: 0.0922,
+            latitudeDelta: 0.1,
             longitudeDelta: 0.0421,
         },
 
-        reigion: {
-
-        },
-
     }
 
-    setReigion(reigion) {
-        this.setState({ reigion });
-    }
+    // setReigion(reigion) {
+    //     this.setState({ reigion });
+    // }
 
     render() {
-
-        // console.log(this.props.searchResults);
 
         const {
             container,
@@ -46,12 +40,15 @@ class MapsResults extends React.Component {
                     style={mapStyle}
                     initialRegion={this.state.initialRegion}
                     reigion={this.state.reigion}
-                    onRegionChange={this.setReigion.bind(this)}>
+                // onRegionChange={this.setReigion.bind(this)}
+                >
                     {searchResults.map(el => {
-                        console.log('object is located at ', el.location);
-                        <Marker coordinate={el.location}>
-                            <Image style={markerStyle} source={require('../../Assets/Icons/Host.png')} />
-                        </Marker>
+                        // console.log('object is located at ' + el.location.longitude + 'longitude and ' + el.location.latitude + ' latitude');
+                        return (
+                            <Marker coordinate={el.location}>
+                                <Image style={markerStyle} source={require('../../Assets/Icons/Host.png')} />
+                            </Marker>
+                        );
                     })}
                 </MapView>
                 <SelectionMenu leftText='Table' onPressLeft={navigation.goBack} />
