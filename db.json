@@ -7,6 +7,10 @@
             "year": 2017,
             "distance": "1.9 mi",
             "trips": 4,
+            "location": {
+                "lat": 25.2148,
+                "long": 55.2508
+            },
             "rating": 4,
             "car_imageUrl": "https://2da24961e1fc78cb9148-6170a4a10e1663791f0c8808b220d53c.ssl.cf1.rackcdn.com/WDDUG8JB7JA360721/b1ef1ea827587bf05df1bad16a1504a7.jpg"
         },
@@ -17,6 +21,10 @@
             "year": 2018,
             "distance": "1.4 mi",
             "trips": 18,
+            "location": {
+                "lat": 25.1948,
+                "long": 55.2608
+            },
             "rating": 3.5,
             "car_imageUrl": "https://inteng-storage.s3.amazonaws.com/img/iea/ypwqJBAQON/sizes/tesla-model-3_resize_md.jpg"
         },
@@ -27,6 +35,10 @@
             "year": 2018,
             "distance": "0.9 mi",
             "trips": 18,
+            "location": {
+                "lat": 25.2344,
+                "long": 55.3001
+            },
             "rating": 4.5,
             "car_imageUrl": "https://live.staticflickr.com/7585/16826525771_82d46c356c_b.jpg"
         }
