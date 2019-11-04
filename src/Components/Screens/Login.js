@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, ImageBackground, TextInput, StyleSheet, Dimensions, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, ImageBackground, TextInput, StyleSheet, Dimensions, Alert, Platform } from 'react-native';
 import Header from './Helpers/CustomHeader';
 import CustomButton from './Helpers/CustomButton';
-import { setCredentials, resetLoginState, attemptLogin } from '../../Redux/Actions';
+import { setCredentials, resetLoginState, attemptLogin, clearError } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 import constants from '../../constants';
 import FullScreenModal from './Helpers/FullScreenModal';
@@ -18,13 +18,23 @@ class Login extends React.Component {
     componentDidUpdate() {
         const {
             loginStatus,
-            navigation
+            navigation,
+            error,
+            clearError
         } = this.props;
 
         if (loginStatus) {
-            setTimeout(() => {
-                navigation.popToTop();
-            }, 500);
+            navigation.popToTop();
+        }
+
+        console.log(error);
+
+        if (error) {
+            Alert.alert(error.title, error.message, [
+                {
+                    text: 'Ok', onPress: clearError
+                }
+            ]);
         }
     }
 
@@ -40,7 +50,7 @@ class Login extends React.Component {
 
         const {
             navigation,
-            username,
+            email,
             password,
             setCredentials,
             loader,
@@ -48,7 +58,7 @@ class Login extends React.Component {
         } = this.props;
 
         const {
-            set_user,
+            set_email,
             set_pass
         } = constants.red_types
         return (
@@ -57,12 +67,12 @@ class Login extends React.Component {
                     <Header backbutton lefticon='back' onPressLeft={() => navigation.goBack()}>Sign up for Moosharka</Header>
                     <View style={inputFields}>
                         <TextInput
-                            value={username}
+                            value={email}
                             style={inputField}
                             placeholderTextColor='#fffa'
                             placeholder='Username or email'
                             onChangeText={(text) => {
-                                setCredentials(set_user, text)
+                                setCredentials(set_email, text)
                             }} />
                         <TextInput
                             value={password}
@@ -75,7 +85,7 @@ class Login extends React.Component {
                             }} />
                     </View>
                     <View style={{ width: '85%' }}>
-                        <CustomButton onPress={() => attemptLogin(username, password)}>Login</CustomButton>
+                        <CustomButton onPress={() => attemptLogin(email, password)}>Login</CustomButton>
                     </View>
                 </ImageBackground>
                 {loader ? <FullScreenModal loader /> : null}
@@ -115,4 +125,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { setCredentials, resetLoginState, attemptLogin })(Login);
+export default connect(mapStateToProps, { setCredentials, resetLoginState, attemptLogin, clearError })(Login);

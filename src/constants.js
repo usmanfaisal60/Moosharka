@@ -1,11 +1,12 @@
 export default constants = {
-    url: 'http://aa19013e.ngrok.io/dummydata',
+    url: 'http://ejaroo.com/en/api',
     requestTimeouts: 5000,
     headerHeight: 80,
     bottomTabHeight: 55,
     searchHeaderHeight: 200,
     tripsButtonsHeight: 40,
     red_types: {
+        set_email: 'set_email',
         set_user: 'set_username',
         set_pass: 'set_password',
         set_phnum: 'set_phone_number',
@@ -32,6 +33,7 @@ export default constants = {
         set_toplocations: 'set_toplocations',
         set_search_keyword: 'set_search_keyword',
         set_search_results: 'set_search_results',
-        set_trips: 'set_trips'
+        set_trips: 'set_trips',
+        set_confirm_pass: 'set_confirm_pass'
     },
 }

@@ -16,10 +16,6 @@ class MapsResults extends React.Component {
 
     }
 
-    // setReigion(reigion) {
-    //     this.setState({ reigion });
-    // }
-
     render() {
 
         const {
@@ -40,10 +36,8 @@ class MapsResults extends React.Component {
                     style={mapStyle}
                     initialRegion={this.state.initialRegion}
                     reigion={this.state.reigion}
-                // onRegionChange={this.setReigion.bind(this)}
                 >
                     {searchResults.map(el => {
-                        // console.log('object is located at ' + el.location.longitude + 'longitude and ' + el.location.latitude + ' latitude');
                         return (
                             <Marker coordinate={el.location}>
                                 <Image style={markerStyle} source={require('../../Assets/Icons/Host.png')} />

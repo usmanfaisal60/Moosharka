@@ -1,7 +1,7 @@
 import constants from '../../constants';
 const initial_state = {
     loader: false,
-    error: false
+    error: null
 }
 
 const {

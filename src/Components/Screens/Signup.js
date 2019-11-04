@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, ImageBackground, TextInput, StyleSheet, Dimensions } from 'react-native';
+import { View, ImageBackground, TextInput, StyleSheet, Dimensions, Alert } from 'react-native';
 import Header from './Helpers/CustomHeader';
 import CustomButton from './Helpers/CustomButton';
-import { setCredentials, resetLoginState, attemptSignup } from '../../Redux/Actions';
+import { setCredentials, resetLoginState, attemptSignup, clearError } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 import constants from '../../constants';
 import FullScreenModal from './Helpers/FullScreenModal';
@@ -18,13 +18,23 @@ class Signup extends React.Component {
     componentDidUpdate() {
         const {
             signupStatus,
-            navigation
+            navigation,
+            error,
+            clearError
         } = this.props;
 
         if (signupStatus) {
-            setTimeout(() => {
-                navigation.goBack();
-            }, 500);
+            navigation.popToTop();
+        }
+
+        console.log(error);
+
+        if (error) {
+            Alert.alert(error.title, error.message, [
+                {
+                    text: 'Ok', onPress: clearError
+                }
+            ]);
         }
     }
 
@@ -37,19 +47,21 @@ class Signup extends React.Component {
         } = Styles;
 
         const {
+            email,
             navigation,
             username,
             password,
             setCredentials,
             loader,
             attemptSignup,
-            phoneNum
+            cPassword
         } = this.props;
 
         const {
             set_user,
             set_pass,
-            set_phnum
+            set_email,
+            set_confirm_pass
         } = constants.red_types
         return (
             <Aux>
@@ -57,10 +69,19 @@ class Signup extends React.Component {
                     <Header backbutton lefticon='back' onPressLeft={() => navigation.goBack()}>Sign up for Moosharka</Header>
                     <View style={inputFields}>
                         <TextInput
+                            value={email}
+                            style={inputField}
+                            placeholderTextColor='#fffa'
+                            placeholder='Email'
+                            textContentType='emailAddress'
+                            onChangeText={(text) => {
+                                setCredentials(set_email, text)
+                            }} />
+                        <TextInput
                             value={username}
                             style={inputField}
                             placeholderTextColor='#fffa'
-                            placeholder='Username or email'
+                            placeholder='User name'
                             onChangeText={(text) => {
                                 setCredentials(set_user, text)
                             }} />
@@ -74,17 +95,17 @@ class Signup extends React.Component {
                                 setCredentials(set_pass, text)
                             }} />
                         <TextInput
-                            value={phoneNum}
+                            value={cPassword}
                             style={inputField}
+                            secureTextEntry
                             placeholderTextColor='#fffa'
-                            placeholder='Phone'
-                            textContentType='telephoneNumber'
+                            placeholder='Confirm password'
                             onChangeText={(text) => {
-                                setCredentials(set_phnum, text)
+                                setCredentials(set_confirm_pass, text)
                             }} />
                     </View>
                     <View style={{ width: '85%' }}>
-                        <CustomButton blue onPress={() => attemptSignup(username, password)}>Register</CustomButton>
+                        <CustomButton blue onPress={attemptSignup.bind(this, email, username, password, cPassword)}>Register</CustomButton>
                     </View>
                 </ImageBackground>
                 {loader ? <FullScreenModal loader /> : null}
@@ -110,7 +131,7 @@ const Styles = StyleSheet.create({
     inputField: {
         borderBottomColor: '#fff',
         borderBottomWidth: 2,
-        padding: Platform.OS === 'ios' ? 10 : 0,
+        padding: Platform.OS === 'ios' ? 10 : 3,
         fontSize: 18,
         color: '#fff',
         marginBottom: 15
@@ -124,4 +145,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { setCredentials, resetLoginState, attemptSignup })(Signup);
+export default connect(mapStateToProps, { setCredentials, resetLoginState, attemptSignup, clearError })(Signup);

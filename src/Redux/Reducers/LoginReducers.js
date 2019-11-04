@@ -3,27 +3,39 @@ import constants from '../../constants';
 const initial_state = {
     username: '',
     password: '',
-    loginStatus: true,
+    cPassword: '',
+    loginStatus: false,
     signupStatus: false,
     loginOrSignupCrossAction: null,
-    phoneNum: ''
+    phoneNum: '',
+    email: ''
 }
 
 const {
+    set_confirm_pass,
     set_user,
     set_pass,
     set_login,
     reset_login,
     set_login_or_signup_cross_action,
     set_signup,
-    set_phnum
+    set_phnum,
+    set_email
 } = constants.red_types
 
 const login = (state = initial_state, action) => {
     switch (action.type) {
+        case set_email:
+            return {
+                ...state, email: action.payload
+            }
         case set_pass:
             return {
                 ...state, password: action.payload
+            }
+        case set_confirm_pass:
+            return {
+                ...state, cPassword: action.payload
             }
         case set_user:
             return {
