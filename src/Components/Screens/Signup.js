@@ -17,20 +17,22 @@ class Signup extends React.Component {
 
     componentDidUpdate() {
         const {
-            signupStatus,
             navigation,
             error,
             clearError
         } = this.props;
 
-        if (signupStatus) {
-            navigation.popToTop();
-        }
-
         console.log(error);
 
         if (error) {
-            Alert.alert(error.title, error.message, [
+            if (error.title === 'Success') {
+                Alert.alert(error.title, error.message, [
+                    {
+                        text: 'Ok', onPress: () => { clearError(); navigation.popToTop(); }
+                    }
+                ]);
+            }
+            else Alert.alert(error.title, error.message, [
                 {
                     text: 'Ok', onPress: clearError
                 }
@@ -74,6 +76,7 @@ class Signup extends React.Component {
                             placeholderTextColor='#fffa'
                             placeholder='Email'
                             textContentType='emailAddress'
+                            keyboardType='email-address'
                             onChangeText={(text) => {
                                 setCredentials(set_email, text)
                             }} />

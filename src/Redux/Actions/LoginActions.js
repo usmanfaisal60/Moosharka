@@ -127,18 +127,24 @@ export const attemptSignup = (email, name, password, c_password) => {
 
             if (!result) return;
 
-            console.log(result);
+            dispatch({
+                type: set_error,
+                payload: {
+                    title: 'Success',
+                    message: 'A confirmation email has been sent to your email account. Please verify your email account to use ejaroo'
+                }
+            });
 
         }
         catch (e) {
             hideLoader(dispatch);
             console.log(e);
-            if (e.message === 'Request failed with status code 400') {
+            if (e.message !== 'Network Error') {
                 dispatch({
                     type: set_error,
                     payload: {
-                        title: 'User already registered',
-                        message: 'A record with same credentials has been found in our system. Please login if you already have an account'
+                        title: 'User registration failed',
+                        message: 'Type your information correctly. If you are already registered to ejaroo, please login.'
                     }
                 });
             } else {

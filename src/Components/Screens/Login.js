@@ -71,6 +71,7 @@ class Login extends React.Component {
                             style={inputField}
                             placeholderTextColor='#fffa'
                             placeholder='Username or email'
+                            keyboardType='email-address'
                             onChangeText={(text) => {
                                 setCredentials(set_email, text)
                             }} />
