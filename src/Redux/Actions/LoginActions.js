@@ -1,6 +1,8 @@
 import constants from "../../constants"
 import Axios from "axios";
 
+
+
 export const setCredentials = (type, payload) => {
     return {
         type,
@@ -48,11 +50,13 @@ export const attemptLogin = (email, password) => {
 
             if (!result) return;
 
+            await AsyncStorage
+
             if (result.data.success) {
                 dispatch({
                     type: set_login,
                     payload: true
-                })
+                });
             }
 
         }
