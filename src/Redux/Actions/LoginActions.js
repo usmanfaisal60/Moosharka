@@ -1,6 +1,6 @@
 import constants from "../../constants"
 import Axios from "axios";
-
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 export const setCredentials = (type, payload) => {
@@ -50,9 +50,11 @@ export const attemptLogin = (email, password) => {
 
             if (!result) return;
 
-            await AsyncStorage
 
             if (result.data.success) {
+
+                await AsyncStorage.setItem('token', result.data.success.token);
+
                 dispatch({
                     type: set_login,
                     payload: true

@@ -9,6 +9,7 @@ import {
     StyleSheet,
     Text,
     Keyboard,
+    TouchableNativeFeedback
 } from 'react-native';
 import Description from './Helpers/Description';
 import UserMightLike from './Helpers/UserMightLikes';
@@ -54,7 +55,8 @@ const Styles = StyleSheet.create({
     },
 
     searchText: {
-        minWidth: '50%'
+        minWidth: '50%',
+        opacity: 0.5
     },
 
     insurancePartenerTextContainer: {
@@ -165,17 +167,13 @@ class Search extends React.Component {
                         style={searchBg} >
                         <Text style={adTitle}>
                             Way better than a rental car
-                    </Text>
-                        <View style={searchView}>
-                            <Image style={searchIcon} source={require('../../Assets/Icons/search.png')} />
-                            <TextInput
-                                value={keyword}
-                                style={searchText}
-                                placeholder='city, airport, adress or hotel'
-                                onChangeText={(text) => setSearchKeyWord(text)}
-                                returnKeyType='search'
-                                onSubmitEditing={() => { if (keyword) navigation.navigate('SearchResults') }} />
-                        </View>
+                        </Text>
+                        <TouchableNativeFeedback onPress={() => navigation.navigate('SearchResults')} background={TouchableNativeFeedback.Ripple('#0005')}>
+                            <View style={searchView}>
+                                <Image style={searchIcon} source={require('../../Assets/Icons/search.png')} />
+                                <Text style={searchText}>city, airport, address or hotel</Text>
+                            </View>
+                        </TouchableNativeFeedback>
                     </ImageBackground>
                     <View style={insurancePartenerTextContainer}>
                         <Text style={insurancePartenerText}>
