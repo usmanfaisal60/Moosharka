@@ -1,11 +1,12 @@
 export default constants = {
     url: 'http://ejaroo.com/en/api',
-    requestTimeouts: 5000,
+    requestTimeouts: 10000,
     headerHeight: 80,
     bottomTabHeight: 55,
     searchHeaderHeight: 200,
     tripsButtonsHeight: 40,
     red_types: {
+        set_search_id: 'set_search_id',
         set_email: 'set_email',
         set_user: 'set_username',
         set_pass: 'set_password',

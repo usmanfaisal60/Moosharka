@@ -10,29 +10,51 @@ import {
 } from 'react-native';
 import SeacrhHeader from './Helpers/SearchHeader';
 import FullScreenModal from './Helpers/FullScreenModal'
-import { clearKeyword, searchKeyWord, setSearchKeyWord } from '../../Redux/Actions';
+import { clearKeyword, searchCar, setSearchKeyWord, setSearchId, clearSearchResults } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 import constants from '../../constants';
 import CarCard from './Helpers/CarCard';
 import SelectionMenu from './Helpers/SelectionMenu';
+import SearchList from './Helpers/SearchList';
 
 class SearchResults extends React.Component {
 
     state = {
-        expanded: false
+        expanded: false,
+        citiesListShowing: true
     }
 
     componentDidMount() {
         const {
-            keyword,
-            searchKeyWord
+            searchCar,
+            id
         } = this.props;
 
-        searchKeyWord(keyword);
+        console.log(id);
+
+        if (id) searchCar(id);
     }
 
     componentWillUnmount() {
-        this.props.clearKeyword();
+        const {
+            clearKeyword,
+            setSearchId,
+            clearSearchResults
+        } = this.props
+        clearKeyword();
+        setSearchId(null);
+        clearSearchResults();
+    }
+
+    componentDidUpdate() {
+        const {
+            id,
+            searchResults,
+            searchCar
+        } = this.props;
+
+        if (id && !searchResults) searchCar(id);
+
     }
 
     render() {
@@ -48,7 +70,10 @@ class SearchResults extends React.Component {
             navigation,
             loader,
             searchResults,
-            loginStatus
+            loginStatus,
+            id,
+            setSearchId,
+            topLocations
         } = this.props;
 
         return (
@@ -57,9 +82,15 @@ class SearchResults extends React.Component {
                 <SeacrhHeader
                     onChangeText={setSearchKeyWord}
                     expanded={this.state.expanded}
-                    onTextTouch={() => this.setState({ expanded: true })}
+                    onTextTouch={() => {
+                        if (searchResults) {
+                            this.setState({ expanded: true });
+                        }
+                    }}
                     onPressLeft={() => navigation.goBack()}
                     keyword={keyword} />
+
+                {!id && topLocations ? <SearchList keyword={keyword} setSearchKeyWord={setSearchKeyWord} list={topLocations} onPress={setSearchId} /> : null}
                 {loader ?
                     <FullScreenModal loader />
                     :
@@ -88,7 +119,7 @@ class SearchResults extends React.Component {
                     :
                     null}
                 {!this.state.expanded && searchResults ?
-                    <SelectionMenu leftText='Maps' onPressLeft={() => navigation.navigate('MapsResults')}/>
+                    <SelectionMenu leftText='Maps' onPressLeft={() => navigation.navigate('MapsResults.js')} />
                     : null}
             </View>
         );
@@ -126,4 +157,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { setSearchKeyWord, searchKeyWord, clearKeyword })(SearchResults);
+export default connect(mapStateToProps, { setSearchKeyWord, searchCar, clearKeyword, setSearchId, clearSearchResults })(SearchResults);

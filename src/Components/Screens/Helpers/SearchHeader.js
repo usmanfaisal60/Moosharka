@@ -26,7 +26,7 @@ const SeacrhHeader = props => {
 
     return (
         <View style={{ ...container, height: expanded ? constants.searchHeaderHeight : constants.headerHeight }}>
-            <View style={{...left,         paddingBottom: expanded ? 50 : 12}}>
+            <View style={{ ...left, paddingBottom: expanded ? 50 : 12 }}>
                 <View style={leftTouchContainer}>
                     {Platform.OS === 'android' ?
                         <TouchableNativeFeedback onPress={() => { if (onPressLeft) onPressLeft() }}>
@@ -94,7 +94,7 @@ const Styles = StyleSheet.create({
 
     left: {
         flex: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         alignItems: 'center',
         height: '100%'
     },

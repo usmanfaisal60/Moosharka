@@ -29,17 +29,29 @@ const CarCard = props => {
         distanceContainer
     } = Styles;
 
+    // const {
+    //     car_imageUrl,
+    //     car_name,
+    //     year,
+    //     rating,
+    //     trips,
+    //     price,
+    //     distance,
+    // } = props.car;
+
     const {
-        car_imageUrl,
-        car_name,
-        year,
+        title,
+        slug,
+        gallery,
+        id,
         rating,
-        trips,
         price,
         distance,
+        trips
     } = props.car;
 
 
+    console.log(props.car);
     return (
         <View style={{
             ...cardContainer, marginBottom: props.lastItem ? (Dimensions.get('window').height * 0.15) : 20
@@ -47,7 +59,7 @@ const CarCard = props => {
             <View style={carImageContainer}>
                 <ImageBackground
                     style={carImageStyle}
-                    source={{ uri: car_imageUrl }}
+                    source={{ uri: gallery ? gallery[0].large : null }}
                     resizeMode='cover'>
                     <View style={imageModal}>
                         <View style={topSheetContainer}>
@@ -66,11 +78,11 @@ const CarCard = props => {
             </View>
             <View style={carTextContainer}>
                 <View style={nameContainer}>
-                    <Text style={{ fontSize: 15 }}>{car_name}</Text>
-                    <Text style={{ fontSize: 12, paddingLeft: 10, color: '#555' }}>{year}</Text>
+                    <Text style={{ fontSize: 15 }}>{title}</Text>
+                    <Text style={{ fontSize: 12, paddingLeft: 10, color: '#555' }}>{slug}</Text>
                 </View>
                 <View style={descriptionContainer}>
-                    {renderStars(rating)}
+                    {rating ? renderStars(rating) : null}
                     <Text style={{ color: '#555', fontSize: 10, paddingLeft: 10 }}>{trips} Trips</Text>
                 </View>
             </View>

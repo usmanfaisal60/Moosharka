@@ -17,6 +17,7 @@ const TopDestinations = props => {
         error,
         loader,
         navigation,
+        setSearchId,
         setSearchKeyWord
     } = props;
 
@@ -28,24 +29,25 @@ const TopDestinations = props => {
             </Text>
             <View style={imagesContainer}>
                 {topLocations ?
-                    <FlatList data={topLocations} renderItem={({ item }) => (
-                        <TouchableOpacity activeOpacity={0.7}
+                    <FlatList data={topLocations} renderItem={({ item }) => {
+                        return <TouchableOpacity activeOpacity={0.7}
                             onPress={() => {
-                                setSearchKeyWord(item.name);
+                                setSearchId(item.id);
+                                setSearchKeyWord(item.title);
                                 navigation.navigate('SearchResults');
                             }}>
                             <ImageBackground
                                 style={imageStyle}
                                 resizeMode='cover'
-                                source={{ uri: item.bgUrl }} >
+                                source={{ uri: item.banner }} >
                                 <View style={imageModal}>
-                                    <Text style={locationText}>
-                                        {item.name}
+                                    <Text style={{ ...locationText, fontSize: item.title.length > 6 ? 24 : 28 }}>
+                                        {item.title}
                                     </Text>
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
-                    )}
+                    }}
                         keyExtractor={item => `${item.id}`}
                         horizontal
                         showsHorizontalScrollIndicator={false} />
@@ -69,7 +71,7 @@ const Styles = StyleSheet.create({
     },
 
     imagesContainer: {
-        width: '100%',
+        width: Dimensions.get('window').width,
         height: imageSize + 20,
         justifyContent: 'center',
         alignItems: 'center',
@@ -97,8 +99,8 @@ const Styles = StyleSheet.create({
     },
 
     locationText: {
-        fontSize: 28,
-        color: '#fff'
+        color: '#fff',
+        textAlign: 'center'
     }
 });
 

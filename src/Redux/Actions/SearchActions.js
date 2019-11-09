@@ -6,7 +6,8 @@ const {
     set_error,
     set_toplocations,
     set_search_keyword,
-    set_search_results
+    set_search_results,
+    set_search_id
 } = constants.red_types;
 
 export const fetchTopLocations = () => {
@@ -25,7 +26,7 @@ export const fetchTopLocations = () => {
             toplocations = await axios({
                 method: 'GET',
                 // url: `${constants.url}/topLocations.json`,
-                url: 'http://my-json-server.typicode.com/usmanfaisal60/Moosharka/tree/master/topLocations',
+                url: `${constants.url}/all-locations`,
                 timeout: constants.requestTimeouts
             });
 
@@ -42,6 +43,7 @@ export const fetchTopLocations = () => {
                     type: set_error,
                     payload: true
                 });
+
                 return;
             }
         }
@@ -51,14 +53,15 @@ export const fetchTopLocations = () => {
             payload: false
         });
 
+
         dispatch({
             type: set_toplocations,
-            payload: toplocations.data
+            payload: toplocations.data.result
         });
     }
 }
 
-export const searchKeyWord = keyword => {
+export const searchCar = location_id => {
     return async dispatch => {
         dispatch({
             type: set_error,
@@ -70,51 +73,64 @@ export const searchKeyWord = keyword => {
             payload: null
         });
 
-        dispatch({
-            type: set_loader_visibility,
-            payload: true
-        });
-        let searchResults;
+        showLoader(dispatch);
+
         try {
-            searchResults = await axios({
+            const searchResults = await axios({
                 method: 'GET',
-                // url: `${constants.url}/searchResults.json`,
-                url: 'http://my-json-server.typicode.com/usmanfaisal60/Moosharka/tree/master/searchResults',
-                timeout: constants.requestTimeouts
+                url: `${constants.url}/car`,
+                timeout: constants.requestTimeouts,
+                params: {
+                    location_id
+                }
             });
 
+            hideLoader(dispatch);
+
+            dispatch({
+                type: set_search_results,
+                payload: searchResults.data.result
+            })
         } catch (e) {
             console.log(e);
-            dispatch({
-                type: set_loader_visibility,
-                payload: false
-            });
-
-            if (!searchResults) {
-                dispatch({
-                    type: set_error,
-                    payload: true
-                });
-                return;
-            }
+            hideLoader(dispatch);
         }
 
-        dispatch({
-            type: set_loader_visibility,
-            payload: false
-        });
-
-        dispatch({
-            type: set_search_results,
-            payload: searchResults.data
-        });
     }
+}
+
+const showLoader = (dispatch) => {
+    dispatch({
+        type: set_loader_visibility,
+        payload: true
+    });
+}
+
+const hideLoader = (dispatch) => {
+    dispatch({
+        type: set_loader_visibility,
+        payload: false
+    });
 }
 
 export const setSearchKeyWord = keyword => {
     return {
         type: set_search_keyword,
         payload: keyword
+    }
+}
+
+export const setSearchId = id => {
+    return {
+        type: set_search_id,
+        payload: id
+    }
+}
+
+export const clearSearchResults = () => {
+    return {
+        type: set_search_results,
+        payload: null
     }
 }
 

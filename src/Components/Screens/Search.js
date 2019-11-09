@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     View,
-    TextInput,
     Image,
     ImageBackground,
     ScrollView,
@@ -9,14 +8,16 @@ import {
     StyleSheet,
     Text,
     Keyboard,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    Platform,
+    TouchableHighlight
 } from 'react-native';
 import Description from './Helpers/Description';
 import UserMightLike from './Helpers/UserMightLikes';
 import BottomNavigator from './Helpers/BottomNavigator';
 import TopDestinations from './Helpers/TopDestinations';
 import CustomButton from './Helpers/CustomButton';
-import { fetchTopLocations, searchKeyWord, setSearchKeyWord } from '../../Redux/Actions';
+import { fetchTopLocations, searchKeyWord, setSearchId, setSearchKeyWord } from '../../Redux/Actions';
 import { connect } from 'react-redux';
 
 
@@ -97,7 +98,11 @@ const Styles = StyleSheet.create({
         alignSelf: 'center'
     },
 
-
+    iosContainer: {
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 })
 
 class Search extends React.Component {
@@ -143,15 +148,16 @@ class Search extends React.Component {
             libMutualContainer,
             title,
             description,
+            iosContainer
         } = Styles;
 
         const {
             navigation,
             topLocations,
-            keyword,
-            setSearchKeyWord,
+            setSearchId,
             error,
-            loader
+            loader,
+            setSearchKeyWord
         } = this.props;
 
         return (
@@ -168,12 +174,21 @@ class Search extends React.Component {
                         <Text style={adTitle}>
                             Way better than a rental car
                         </Text>
-                        <TouchableNativeFeedback onPress={() => navigation.navigate('SearchResults')} background={TouchableNativeFeedback.Ripple('#0005')}>
-                            <View style={searchView}>
-                                <Image style={searchIcon} source={require('../../Assets/Icons/search.png')} />
-                                <Text style={searchText}>city, airport, address or hotel</Text>
-                            </View>
-                        </TouchableNativeFeedback>
+                        {Platform.OS === 'android' ?
+                            <TouchableNativeFeedback onPress={() => navigation.navigate('SearchResults')} background={TouchableNativeFeedback.Ripple('#0005')}>
+                                <View style={searchView}>
+                                    <Image style={searchIcon} source={require('../../Assets/Icons/search.png')} />
+                                    <Text style={searchText}>city, airport, address or hotel</Text>
+                                </View>
+                            </TouchableNativeFeedback>
+                            :
+                            <TouchableHighlight style={iosContainer} onPress={() => navigation.navigate('SearchResults')} background={TouchableNativeFeedback.Ripple('#0005')}>
+                                <View style={searchView}>
+                                    <Image style={searchIcon} source={require('../../Assets/Icons/search.png')} />
+                                    <Text style={searchText}>city, airport, address or hotel</Text>
+                                </View>
+                            </TouchableHighlight>
+                        }
                     </ImageBackground>
                     <View style={insurancePartenerTextContainer}>
                         <Text style={insurancePartenerText}>
@@ -203,10 +218,11 @@ class Search extends React.Component {
                     <UserMightLike />
                     <TopDestinations
                         navigation={navigation}
-                        setSearchKeyWord={setSearchKeyWord}
+                        setSearchId={setSearchId}
                         loader={loader}
                         error={error}
                         topLocations={topLocations}
+                        setSearchKeyWord={setSearchKeyWord}
                     />
                     <Image style={{ width: '100%' }} source={require('../../Assets/Icons/lineSeparator.png')} resizeMode='contain' />
                     <Text style={title}>
@@ -239,4 +255,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchTopLocations, searchKeyWord, setSearchKeyWord })(Search);
+export default connect(mapStateToProps, { fetchTopLocations, searchKeyWord, setSearchId, setSearchKeyWord })(Search);
