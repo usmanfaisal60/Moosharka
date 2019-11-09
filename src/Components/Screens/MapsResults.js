@@ -39,8 +39,8 @@ class MapsResults extends React.Component {
             this.state.initialRegion = {
                 latitude: parseFloat(selectedCity.map_lat),
                 longitude: parseFloat(selectedCity.map_lng),
-                latitudeDelta: 0.1,
-                longitudeDelta: 0.0421,
+                latitudeDelta: 0.5,
+                longitudeDelta: 0.5,
             }
         }
 
