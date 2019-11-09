@@ -17,7 +17,6 @@ const SearchList = props => {
         setSearchKeyWord
     } = props;
 
-    console.log(keyword);
 
     let filtered = [
         {
@@ -33,8 +32,6 @@ const SearchList = props => {
             filtered.push(element);
         }
     });
-
-    console.log(filtered);
 
     return (
         <View style={container}>

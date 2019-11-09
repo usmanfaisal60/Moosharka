@@ -50,8 +50,6 @@ const CarCard = props => {
         trips
     } = props.car;
 
-
-    console.log(props.car);
     return (
         <View style={{
             ...cardContainer, marginBottom: props.lastItem ? (Dimensions.get('window').height * 0.15) : 20

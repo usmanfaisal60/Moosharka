@@ -30,8 +30,6 @@ class SearchResults extends React.Component {
             id
         } = this.props;
 
-        console.log(id);
-
         if (id) searchCar(id);
     }
 
@@ -119,7 +117,7 @@ class SearchResults extends React.Component {
                     :
                     null}
                 {!this.state.expanded && searchResults ?
-                    <SelectionMenu leftText='Maps' onPressLeft={() => navigation.navigate('MapsResults.js')} />
+                    <SelectionMenu leftText='Maps' onPressLeft={() => navigation.navigate('MapsResults')} />
                     : null}
             </View>
         );
