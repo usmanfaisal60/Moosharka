@@ -4,11 +4,43 @@ import CustomHeader from './Helpers/CustomHeader';
 import constants from '../../constants';
 import { connect } from 'react-redux';
 import EditableTextField from './Helpers/EditableTextField';
-
+import ImagePicker from 'react-native-image-picker';
 
 class AccountScreen extends React.Component {
 
+    state = {
+        avatarSource: null
+    }
+
+    showImagePicker() {
+        ImagePicker.showImagePicker({
+            title: 'Select a photo',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images'
+            }
+        },
+            response => {
+
+                if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                } else if (response.error) {
+                    console.log('ImagePicker Error: ', response.error);
+                } else if (response.customButton) {
+                    console.log('User tapped custom button: ', response.customButton);
+                } else {
+                    const source = { uri: response.uri };
+
+                    this.setState({
+                        avatarSource: source,
+                    });
+                }
+            });
+    }
+
     render() {
+
+        if (this.state.avatarSource) console.log(this.state.avatarSource);
 
         const {
             container,
@@ -17,7 +49,8 @@ class AccountScreen extends React.Component {
             imageStyle,
             imageContainerStyle,
             addImageButton,
-            textContainer
+            textContainer,
+            fieldContainer
         } = Styles;
 
         const {
@@ -27,10 +60,14 @@ class AccountScreen extends React.Component {
 
         const {
             profileImage,
-            username
+            username,
+            phone,
+            license,
+            cnic,
+            iqama
         } = userProfile
 
-        const source = profileImage ? { uri: profileImage } : require('../../Assets/Icons/profileImage.png');
+        const source = this.state.avatarSource ? this.state.avatarSource : profileImage ? { uri: profileImage } : require('../../Assets/Icons/profileImage.png');
 
         return (
             <View style={container}>
@@ -38,18 +75,19 @@ class AccountScreen extends React.Component {
                     Your Account
                 </CustomHeader>
                 <View style={scrollerContainer}>
-                    <ScrollView >
+                    <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={profileImageContainer}>
                             <View style={imageContainerStyle}>
                                 <Image style={imageStyle} source={source} />
-                                {!profileImage ?
-                                    <TouchableOpacity activeOpacity={0.75} style={addImageButton}>
-                                        <Image style={{ width: '50%', height: '50%' }}
-                                            resizeMode='contain'
-                                            source={require('../../Assets/Icons/plus.png')} />
-                                    </TouchableOpacity>
-                                    :
-                                    null}
+                                <TouchableOpacity
+                                    onPress={this.showImagePicker.bind(this)}
+                                    activeOpacity={0.75}
+                                    style={addImageButton}>
+                                    <Image style={{ width: '50%', height: '50%' }}
+                                        resizeMode='contain'
+                                        source={profileImage ? require('../../Assets/Icons/editImage.png') : require('../../Assets/Icons/plus.png')} />
+                                </TouchableOpacity>
+
                             </View>
                             <View style={textContainer}>
                                 <EditableTextField icon='username'>
@@ -58,9 +96,24 @@ class AccountScreen extends React.Component {
                             </View>
                         </View>
 
-                        <View style={textContainer}>
-                            <EditableTextField icon='username'>
-                                {username}
+                        <View style={fieldContainer}>
+                            <EditableTextField number icon='phone' title='Phone number'>
+                                {phone}
+                            </EditableTextField>
+                        </View>
+                        <View style={fieldContainer}>
+                            <EditableTextField icon='license' title='License number'>
+                                {license}
+                            </EditableTextField>
+                        </View>
+                        <View style={fieldContainer}>
+                            <EditableTextField number icon='cnic' title='ID/CNIC'>
+                                {cnic}
+                            </EditableTextField>
+                        </View>
+                        <View style={fieldContainer}>
+                            <EditableTextField number icon='iqama' title='Iqama number'>
+                                {iqama}
                             </EditableTextField>
                         </View>
                     </ScrollView>
@@ -124,8 +177,14 @@ const Styles = StyleSheet.create({
     },
 
     textContainer: {
-        width: '70%',
+        width: '80%',
         height: 70,
+        justifyContent: 'center',
+    },
+
+    fieldContainer: {
+        width: '100%',
+        height: 120,
         justifyContent: 'center',
     }
 
