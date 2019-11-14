@@ -4,7 +4,7 @@ const initial_state = {
     username: '',
     password: '',
     cPassword: '',
-    loginStatus: false,
+    loginStatus: true,
     signupStatus: false,
     loginOrSignupCrossAction: null,
     phoneNum: '',

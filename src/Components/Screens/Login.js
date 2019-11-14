@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ImageBackground, TextInput, StyleSheet, Dimensions, Alert, Platform } from 'react-native';
+import { View, Text, ImageBackground, TextInput, StyleSheet, Dimensions, Alert, Platform, Keyboard } from 'react-native';
 import Header from './Helpers/CustomHeader';
 import CustomButton from './Helpers/CustomButton';
 import { setCredentials, resetLoginState, attemptLogin, clearError } from '../../Redux/Actions';
@@ -86,7 +86,7 @@ class Login extends React.Component {
                             }} />
                     </View>
                     <View style={{ width: '85%' }}>
-                        <CustomButton onPress={() => attemptLogin(email, password)}>Login</CustomButton>
+                        <CustomButton onPress={() => { Keyboard.dismiss(); attemptLogin(email, password); }}>Login</CustomButton>
                     </View>
                 </ImageBackground>
                 {loader ? <FullScreenModal loader /> : null}

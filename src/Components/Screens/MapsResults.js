@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, Platform, TouchableOpacity, TouchableNativeFeedback } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import SelectionMenu from './Helpers/SelectionMenu';
 import { connect } from 'react-redux';
@@ -21,7 +21,9 @@ class MapsResults extends React.Component {
         const {
             container,
             mapStyle,
-            markerStyle
+            markerStyle,
+            backButtonContainer,
+            backInageContainer
         } = Styles;
 
         const {
@@ -70,11 +72,34 @@ class MapsResults extends React.Component {
                         );
                     })}
                 </MapView>
+                <View style={backButtonContainer}>
+                    {Platform.OS === 'android' ?
+                        <TouchableNativeFeedback onPress={() => navigation.goBack()}>
+                            <View style={backInageContainer}>
+                                <Image
+                                    style={{ width: '80%', height: '80%' }}
+                                    resizeMode='contain'
+                                    source={require('../../Assets/Icons/back.png')} />
+                            </View>
+                        </TouchableNativeFeedback>
+                        :
+                        <TouchableOpacity activeOpacity={0.8} onPress={navigation.goBack}>
+                            <View style={backInageContainer}>
+                                <Image
+                                    style={{ width: '80%', height: '80%' }}
+                                    resizeMode='contain'
+                                    source={require('../../Assets/Icons/back.png')} />
+                            </View>
+                        </TouchableOpacity>
+                    }
+                </View>
                 <SelectionMenu leftText='Table' onPressLeft={navigation.goBack} />
             </View>
         )
     }
 }
+
+const buttonSize = 40;
 
 const Styles = StyleSheet.create({
     container: {
@@ -90,6 +115,24 @@ const Styles = StyleSheet.create({
     markerStyle: {
         width: 30,
         height: 30
+    },
+
+    backButtonContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        margin: 20,
+        width: buttonSize,
+        height: buttonSize,
+        borderRadius: buttonSize / 2,
+        overflow: 'hidden'
+    },
+
+    backInageContainer: {
+        width: buttonSize,
+        height: buttonSize,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 

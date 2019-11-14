@@ -31,19 +31,12 @@ class Profile extends React.Component {
                     <CustomListItem
                         onPress={() => {
                             if (!loginStatus) navigation.navigate('LoginOrSignUp');
-                            else navigation.navigate('Account');
-                        }}>
-                        Account
-                    </CustomListItem>
-                    <CustomListItem
-                        onPress={() => {
-                            if (!loginStatus) navigation.navigate('LoginOrSignUp');
-                            else navigation.navigate('Profile');
+                            else navigation.navigate('AccountScreen');
                         }}
                         bottomBorder>
-                        Profile
-                        </CustomListItem>
-                    <CustomListItem>How Moosharka works</CustomListItem>
+                        Account
+                    </CustomListItem>
+                    <CustomListItem>How Ejaroo works</CustomListItem>
                     <CustomListItem>Contact supprt</CustomListItem>
                     <CustomListItem bottomBorder>Legal</CustomListItem>
                     {loginStatus ? <CustomListItem onPress={() => attemptLogout()}>Log out</CustomListItem> : null}
