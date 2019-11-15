@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import CustomHeader from './Helpers/CustomHeader';
+import DocViewer from './Helpers/DocViewer';
 import constants from '../../constants';
 import { connect } from 'react-redux';
 import EditableTextField from './Helpers/EditableTextField';
 import ImagePicker from 'react-native-image-picker';
+
 
 class AccountScreen extends React.Component {
 
@@ -50,7 +52,8 @@ class AccountScreen extends React.Component {
             imageContainerStyle,
             addImageButton,
             textContainer,
-            fieldContainer
+            fieldContainer,
+            docsContainer,
         } = Styles;
 
         const {
@@ -64,8 +67,10 @@ class AccountScreen extends React.Component {
             phone,
             license,
             cnic,
-            iqama
+            iqama,
+            docs
         } = userProfile
+
 
         const source = this.state.avatarSource ? this.state.avatarSource : profileImage ? { uri: profileImage } : require('../../Assets/Icons/profileImage.png');
 
@@ -116,6 +121,10 @@ class AccountScreen extends React.Component {
                                 {iqama}
                             </EditableTextField>
                         </View>
+                        <View style={docsContainer}>
+                            {docs.map((el, i) => <DocViewer key={i} data={el} />)}
+                        </View>
+                        <View style={{ height: 20 }}></View>
                     </ScrollView>
                 </View>
             </View>
@@ -186,7 +195,11 @@ const Styles = StyleSheet.create({
         width: '100%',
         height: 120,
         justifyContent: 'center',
-    }
+    },
+
+    docsContainer: {
+        width: '100%'
+    },
 
 });
 

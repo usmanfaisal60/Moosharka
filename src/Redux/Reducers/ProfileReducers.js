@@ -5,7 +5,12 @@ const initial_state = {
         phone: 973204037402,
         cnic: 87348723982211,
         license: '92ue90293-8400q-09',
-        iqama: 4832472889
+        iqama: 4832472889,
+        docs: [
+            { title: 'License', url: 'https://img.freepik.com/free-vector/vector-car-driving-licence_53562-2978.jpg?size=626&ext=jpg' },
+            { title: 'ID', url: 'https://www.pngrepo.com/download/178096/id-card-business.png' },
+            { title: 'Iqama', url: 'https://checkiqama.info/wp-content/uploads/2019/04/Iqama-sample.jpg', varified: true }
+        ]
     }
 }
 

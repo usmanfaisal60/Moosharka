@@ -1,7 +1,9 @@
 import constants from "../../constants"
 
 const initial_state = {
-    trips: { mango: 1 }
+    activity: [{ title: '', message: '' }],
+    booked: [{ title: '', message: '' }],
+    history: [{ title: '', message: '' }]
 }
 
 const {
