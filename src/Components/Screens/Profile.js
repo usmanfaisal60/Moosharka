@@ -33,8 +33,16 @@ class Profile extends React.Component {
                             if (!loginStatus) navigation.navigate('LoginOrSignUp');
                             else navigation.navigate('AccountScreen');
                         }}
-                        bottomBorder>
+                        >
                         Account
+                    </CustomListItem>
+                    <CustomListItem
+                        onPress={() => {
+                            if (!loginStatus) navigation.navigate('LoginOrSignUp');
+                            else navigation.navigate('LikedCars');
+                        }}
+                        bottomBorder>
+                        Liked cars
                     </CustomListItem>
                     <CustomListItem>How Ejaroo works</CustomListItem>
                     <CustomListItem>Contact supprt</CustomListItem>

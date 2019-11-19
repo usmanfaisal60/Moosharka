@@ -37,23 +37,16 @@ class Trips extends React.Component {
         } = Styles;
 
         const {
-            trips
+            activity,
+            booked,
+            history
         } = this.props;
 
         return (
             <Aux>
                 <View style={container}>
                     <CustomHeader>Trips </CustomHeader>
-                    {!trips ?
-                        <Aux>
-                            <View style={imageContainer}>
-                                <Image style={imageStyle} source={require('../../Assets/Icons/trips.png')} />
-                            </View>
-                            <Text>
-                                No trips yet
-                            </Text>
-                        </Aux>
-                        :
+                    {activity || booked || history ?
                         <View style={mainContainer}>
                             <View style={tripsButtonsContainer}>
                                 <Button active={this.state.currentPage === 0} onPress={this.go.bind(this, 0)}>
@@ -72,12 +65,21 @@ class Trips extends React.Component {
                                     ref={this.viewPager}
                                     onPageSelected={(e) => this.setState({ currentPage: e.nativeEvent.position })}
                                     style={{ width: '100%', height: '100%' }}>
-                                    <Activity />
-                                    <Booked />
-                                    <History />
+                                    <Activity data={activity}/>
+                                    <Booked data={history}/>
+                                    <History data={history}/>
                                 </ViewPager>
                             </View>
                         </View>
+                        :
+                        <Aux>
+                            <View style={imageContainer}>
+                                <Image style={imageStyle} source={require('../../Assets/Icons/trips.png')} />
+                            </View>
+                            <Text>
+                                No trips yet
+                            </Text>
+                        </Aux>
                     }
                 </View>
                 <BottomNavigator

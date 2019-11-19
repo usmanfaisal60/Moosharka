@@ -36,8 +36,6 @@ class MapsResults extends React.Component {
         if (id !== -1) {
             const selectedCity = topLocations.find(el => el.id === id);
 
-            console.log(selectedCity);
-
             this.state.initialRegion = {
                 latitude: parseFloat(selectedCity.map_lat),
                 longitude: parseFloat(selectedCity.map_lng),
@@ -45,8 +43,6 @@ class MapsResults extends React.Component {
                 longitudeDelta: 0.5,
             }
         }
-
-        console.log(searchResults);
 
         return (
             <View style={container}>

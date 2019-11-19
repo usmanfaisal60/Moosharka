@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "426587814612",
+    "firebase_url": "https://ejarooo.firebaseio.com",
+    "project_id": "ejarooo",
+    "storage_bucket": "ejarooo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426587814612:android:9f7c587f4465ed930f9941",
+        "android_client_info": {
+          "package_name": "com.moosharka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426587814612-d66vjcnj0mk9mbm4tjf47r0q02tqbips.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA52QXiy5Twtd7IpsXO5Ag0596Dm37Dhdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426587814612-d66vjcnj0mk9mbm4tjf47r0q02tqbips.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
