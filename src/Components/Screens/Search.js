@@ -130,7 +130,7 @@ class Search extends React.Component {
         Keyboard.addListener('keyboardDidShow', () => {
             this.setState({
                 showBottomNavigator: false
-            })
+            });
         });
 
         Keyboard.addListener('keyboardDidHide', () => {
@@ -148,7 +148,7 @@ class Search extends React.Component {
             fetchTopLocations();
         }
 
-        firebase.messaging().getToken().then(token => console.log(token));
+        // firebase.messaging().getToken().then(token => console.log(token));
 
         this.checkLogin.bind(this)();
     }

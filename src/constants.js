@@ -37,6 +37,7 @@ export default constants = {
         set_search_results: 'set_search_results',
         set_trips: 'set_trips',
         set_confirm_pass: 'set_confirm_pass',
-        set_all_locations_error: 'set_all_locations_error'
+        set_all_locations_error: 'set_all_locations_error',
+        set_user_profile: 'set_user_profile'
     },
 }

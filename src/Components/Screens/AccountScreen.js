@@ -6,12 +6,24 @@ import constants from '../../constants';
 import { connect } from 'react-redux';
 import EditableTextField from './Helpers/EditableTextField';
 import ImagePicker from 'react-native-image-picker';
+import FullScreenModal from './Helpers/FullScreenModal';
+import { fetchUserProfile } from '../../Redux/Actions';
+
+
 
 
 class AccountScreen extends React.Component {
 
     state = {
         avatarSource: null
+    }
+
+    componentDidMount() {
+        const {
+            fetchUserProfile
+        } = this.props;
+
+        fetchUserProfile();
     }
 
     showImagePicker() {
@@ -40,12 +52,9 @@ class AccountScreen extends React.Component {
             });
     }
 
-    render() {
-
-        if (this.state.avatarSource) console.log(this.state.avatarSource);
+    renderProfile() {
 
         const {
-            container,
             scrollerContainer,
             profileImageContainer,
             imageStyle,
@@ -54,31 +63,18 @@ class AccountScreen extends React.Component {
             textContainer,
             fieldContainer,
             docsContainer,
+            notVerifiedContainer,
+            notVerifiedIcon,
+            notVerifiedText
         } = Styles;
 
         const {
-            navigation,
             userProfile
         } = this.props;
 
-        const {
-            profileImage,
-            username,
-            phone,
-            license,
-            cnic,
-            iqama,
-            docs
-        } = userProfile
+        if (userProfile) if (userProfile.status != 'Deactive') {
 
-
-        const source = this.state.avatarSource ? this.state.avatarSource : profileImage ? { uri: profileImage } : require('../../Assets/Icons/profileImage.png');
-
-        return (
-            <View style={container}>
-                <CustomHeader backbutton onPressLeft={navigation.goBack}>
-                    Your Account
-                </CustomHeader>
+            return (
                 <View style={scrollerContainer}>
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={profileImageContainer}>
@@ -127,6 +123,42 @@ class AccountScreen extends React.Component {
                         <View style={{ height: 20 }}></View>
                     </ScrollView>
                 </View>
+            );
+        } else {
+            return (
+                <View style={notVerifiedContainer}>
+                    <Image style={notVerifiedIcon} resizeMode='contain' source={require('../../Assets/Images/notVerified.png')} />
+                    <Text style={notVerifiedText}>
+                        {'Your account has not been verified yet.'}
+                        {'\nKindly wait for your account approval.'}
+                        {'\nOr contact our support team for more information'}
+                    </Text>
+                </View>
+            )
+        }
+    }
+
+    render() {
+
+        const {
+            container,
+        } = Styles;
+
+        const {
+            navigation,
+            loader
+        } = this.props;
+
+
+        // const source = this.state.avatarSource ? this.state.avatarSource : profileImage ? { uri: profileImage } : require('../../Assets/Icons/profileImage.png');
+
+        return (
+            <View style={container}>
+                <CustomHeader backbutton onPressLeft={navigation.goBack}>
+                    Your Account
+                </CustomHeader>
+                {this.renderProfile.bind(this)()}
+                {loader ? <FullScreenModal loader /> : null}
             </View>
         )
     }
@@ -201,6 +233,24 @@ const Styles = StyleSheet.create({
         width: '100%'
     },
 
+    notVerifiedContainer: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    notVerifiedIcon: {
+        width: 100,
+        height: 100
+    },
+
+    notVerifiedText: {
+        color: '#999',
+        fontSize: 18,
+        paddingTop: 20,
+        textAlign: 'center'
+    }
 });
 
 const mapStateToProps = state => {
@@ -210,4 +260,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(AccountScreen);
+export default connect(mapStateToProps, { fetchUserProfile })(AccountScreen);
