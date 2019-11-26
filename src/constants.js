@@ -47,5 +47,16 @@ export default constants = {
         set_history: 'set_history',
         set_activity: 'set_activity',
         set_booked: 'set_booked',
+
+        set_car_name: 'set_car_name',
+        set_car_manufacturing_year: 'set_car_manufacturing_year',
+        set_car_model: 'set_car_model',
+        set_car_location: 'set_car_location',
+        set_car_city: 'set_car_city',
+        set_car_price: 'set_car_price',
+        set_max_peopel: 'set_max_peopel',
+        set_minimum_people: 'set_minimum_people',
+        set_car_image: 'set_car_image',
+        set_gallery_images: 'set_gallery_images',
     },
 }
