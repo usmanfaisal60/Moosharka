@@ -8,7 +8,6 @@ import constants from '../../constants';
 import FullScreenModal from './Helpers/FullScreenModal';
 import Aux from '../HOC/AUX/Aux';
 
-
 class Login extends React.Component {
 
     componentWillUnmount() {
@@ -26,8 +25,6 @@ class Login extends React.Component {
         if (loginStatus) {
             navigation.popToTop();
         }
-
-        console.log(error);
 
         if (error) {
             Alert.alert(error.title, error.message, [

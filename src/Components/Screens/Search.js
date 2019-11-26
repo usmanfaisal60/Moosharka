@@ -17,8 +17,11 @@ import UserMightLike from './Helpers/UserMightLikes';
 import BottomNavigator from './Helpers/BottomNavigator';
 import TopDestinations from './Helpers/TopDestinations';
 import CustomButton from './Helpers/CustomButton';
-import { fetchTopLocations, searchKeyWord, setSearchId, setSearchKeyWord } from '../../Redux/Actions';
+import { fetchTopLocations, searchKeyWord, setSearchId, setSearchKeyWord, setCredentials } from '../../Redux/Actions';
 import { connect } from 'react-redux';
+import firebase from 'react-native-firebase';
+import AsyncStorage from '@react-native-community/async-storage';
+import constants from '../../constants';
 
 
 
@@ -111,6 +114,18 @@ class Search extends React.Component {
         showBottomNavigator: true
     }
 
+    async checkLogin() {
+        if (!constants.token) {
+            const token = await AsyncStorage.getItem('token');
+            if (!token) {
+                return;
+            }
+
+            constants.token = token;
+            this.props.setCredentials(constants.red_types.set_login, true);
+        }
+    }
+
     componentDidMount() {
         Keyboard.addListener('keyboardDidShow', () => {
             this.setState({
@@ -133,6 +148,9 @@ class Search extends React.Component {
             fetchTopLocations();
         }
 
+        firebase.messaging().getToken().then(token => console.log(token));
+
+        this.checkLogin.bind(this)();
     }
 
     render() {
@@ -155,7 +173,7 @@ class Search extends React.Component {
             navigation,
             topLocations,
             setSearchId,
-            error,
+            all_locationsError,
             loader,
             setSearchKeyWord
         } = this.props;
@@ -220,7 +238,7 @@ class Search extends React.Component {
                         navigation={navigation}
                         setSearchId={setSearchId}
                         loader={loader}
-                        error={error}
+                        all_locationsError={all_locationsError}
                         topLocations={topLocations}
                         setSearchKeyWord={setSearchKeyWord}
                     />
@@ -255,4 +273,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchTopLocations, searchKeyWord, setSearchId, setSearchKeyWord })(Search);
+export default connect(mapStateToProps, { fetchTopLocations, searchKeyWord, setSearchId, setSearchKeyWord, setCredentials })(Search);

@@ -81,7 +81,8 @@ const Styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        ...state.login
+        ...state.login,
+        ...state.loader
     }
 }
 

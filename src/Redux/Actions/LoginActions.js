@@ -55,6 +55,7 @@ export const attemptLogin = (email, password) => {
 
                 await AsyncStorage.setItem('token', result.data.success.token);
 
+                constants.token = result.data.success.token;
                 dispatch({
                     type: set_login,
                     payload: true

@@ -4,6 +4,7 @@ import constants from '../../constants';
 const {
     set_loader_visibility,
     set_error,
+    set_all_locations_error,
     set_toplocations,
     set_search_keyword,
     set_search_results,
@@ -13,7 +14,7 @@ const {
 export const fetchTopLocations = () => {
     return async dispatch => {
         dispatch({
-            type: set_error,
+            type: set_all_locations_error,
             payload: false
         });
 
@@ -40,7 +41,7 @@ export const fetchTopLocations = () => {
             if (!toplocations) {
 
                 dispatch({
-                    type: set_error,
+                    type: set_all_locations_error,
                     payload: true
                 });
 

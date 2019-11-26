@@ -5,6 +5,7 @@ export default constants = {
     bottomTabHeight: 55,
     searchHeaderHeight: 200,
     tripsButtonsHeight: 40,
+    token: null,
     red_types: {
         set_search_id: 'set_search_id',
         set_email: 'set_email',
@@ -35,6 +36,7 @@ export default constants = {
         set_search_keyword: 'set_search_keyword',
         set_search_results: 'set_search_results',
         set_trips: 'set_trips',
-        set_confirm_pass: 'set_confirm_pass'
+        set_confirm_pass: 'set_confirm_pass',
+        set_all_locations_error: 'set_all_locations_error'
     },
 }
