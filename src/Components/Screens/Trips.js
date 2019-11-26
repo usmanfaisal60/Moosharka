@@ -39,48 +39,38 @@ class Trips extends React.Component {
         const {
             activity,
             booked,
-            history
+            loader
         } = this.props;
 
         return (
             <Aux>
                 <View style={container}>
                     <CustomHeader>Trips </CustomHeader>
-                    {activity || booked || history ?
-                        <View style={mainContainer}>
-                            <View style={tripsButtonsContainer}>
-                                <Button active={this.state.currentPage === 0} onPress={this.go.bind(this, 0)}>
-                                    Activity
+                    <View style={mainContainer}>
+                        <View style={tripsButtonsContainer}>
+                            <Button active={this.state.currentPage === 0} onPress={this.go.bind(this, 0)}>
+                                Activity
                                 </Button>
-                                <Button active={this.state.currentPage === 1} onPress={this.go.bind(this, 1)}>
-                                    Booked
+                            <Button active={this.state.currentPage === 1} onPress={this.go.bind(this, 1)}>
+                                Booked
                                 </Button>
-                                <Button active={this.state.currentPage === 2} onPress={this.go.bind(this, 2)}>
-                                    History
+                            <Button active={this.state.currentPage === 2} onPress={this.go.bind(this, 2)}>
+                                History
                                 </Button>
 
-                            </View>
-                            <View style={pagerContainer}>
-                                <ViewPager
-                                    ref={this.viewPager}
-                                    onPageSelected={(e) => this.setState({ currentPage: e.nativeEvent.position })}
-                                    style={{ width: '100%', height: '100%' }}>
-                                    <Activity data={activity}/>
-                                    <Booked data={history}/>
-                                    <History data={history}/>
-                                </ViewPager>
-                            </View>
                         </View>
-                        :
-                        <Aux>
-                            <View style={imageContainer}>
-                                <Image style={imageStyle} source={require('../../Assets/Icons/trips.png')} />
-                            </View>
-                            <Text>
-                                No trips yet
-                            </Text>
-                        </Aux>
-                    }
+                        <View style={pagerContainer}>
+                            <ViewPager
+                                ref={this.viewPager}
+                                onPageSelected={(e) => this.setState({ currentPage: e.nativeEvent.position })}
+                                style={{ width: '100%', height: '100%' }}>
+                                <Activity />
+                                <Booked />
+                                <History />
+                            </ViewPager>
+                        </View>
+                    </View>
+
                 </View>
                 <BottomNavigator
                     navigation={this.props.navigation}
@@ -155,7 +145,7 @@ const Styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        ...state.trips
+        ...state.trips,
     }
 }
 

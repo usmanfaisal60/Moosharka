@@ -38,6 +38,13 @@ export default constants = {
         set_trips: 'set_trips',
         set_confirm_pass: 'set_confirm_pass',
         set_all_locations_error: 'set_all_locations_error',
-        set_user_profile: 'set_user_profile'
+        set_user_profile: 'set_user_profile',
+
+        set_history_loader: 'set_history_loader',
+        set_booked_loader: 'set_booked_loader',
+        set_activity_loader: 'set_activity_loader',
+        set_history: 'set_history',
+        set_activity: 'set_activity',
+        set_booked: 'set_booked',
     },
 }

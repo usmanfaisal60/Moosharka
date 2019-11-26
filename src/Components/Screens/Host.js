@@ -25,17 +25,13 @@ class Host extends React.Component {
             <View style={container}>
                 <ImageBackground style={ImageBackgroundContainer} resizeMode='cover' source={require('../../Assets/Images/listyourcar.jpg')}>
                     <CustomHeader>List your car</CustomHeader>
-                    <Image resizeMode='contain' style={moosharkaIcon} source={require('../../Assets/Icons/moosharka.png')} />
+                    <Image resizeMode='contain' style={moosharkaIcon} source={require('../../Assets/Images/ejaroo-logo.png')} />
                     <Text style={description}>
                         Listing your car is easy and it would take only about 10 minutes
                     </Text>
                     <View style={buttonsContainer}>
                         <CustomButton onPress={() => {
-                            if (loginStatus) {
-                                // navigation.navigate('LoginOrSignUp')
-                            } else {
-                                navigation.navigate('ListYourCar')
-                            }
+                            navigation.navigate('ListYourCar');
                         }}>Get started</CustomButton>
                     </View>
                 </ImageBackground>

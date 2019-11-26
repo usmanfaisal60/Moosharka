@@ -120,10 +120,10 @@ class Search extends React.Component {
             if (!token) {
                 return;
             }
-
             constants.token = token;
-            this.props.setCredentials(constants.red_types.set_login, true);
         }
+        this.props.setCredentials(constants.red_types.set_login, true);
+        console.log('login set true');
     }
 
     componentDidMount() {

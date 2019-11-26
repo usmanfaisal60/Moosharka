@@ -13,7 +13,7 @@ import SearchResults from './Screens/SearchResults';
 import MapsResults from './Screens/MapsResults';
 import AccountScreen from './Screens/AccountScreen';
 import LikedCars from './Screens/LikedCars';
-
+import ListCar from './Screens/ListCar';
 
 
 const Navigator = createStackNavigator({
@@ -29,7 +29,8 @@ const Navigator = createStackNavigator({
     SearchResults,
     MapsResults,
     AccountScreen,
-    LikedCars
+    LikedCars,
+    ListCar
 }, {
     headerMode: 'none'
 });

@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Image, ImageBackground, Text, StyleSheet, TouchableNativeFeedback, TouchableOpacity, Platform } from 'react-native';
-import Swiper from 'react-native-swiper';
 import ViewPager from '@react-native-community/viewpager';
 import AdCard from './Helpers/AdCars';
 import NumberedAdCard from './Helpers/NumberedAdCard';
 import CustomButton from './Helpers/CustomButton';
+import { connect } from 'react-redux';
+
 
 class ListYourCar extends React.Component {
 
@@ -40,6 +41,7 @@ class ListYourCar extends React.Component {
 
         const {
             navigation,
+            loginStatus
         } = this.props;
 
         return (
@@ -108,7 +110,11 @@ class ListYourCar extends React.Component {
                         <View style={listcarButton}>
                             <CustomButton
                                 onPress={() => {
-                                    navigation.navigate('LoginOrSignUp')
+                                    if (!loginStatus) {
+                                        navigation.navigate('LoginOrSignUp');
+                                    } else {
+                                        navigation.navigate('ListCar');
+                                    }
                                 }}>List your car</CustomButton>
                         </View>
                     </View>
@@ -195,4 +201,10 @@ const Styles = StyleSheet.create({
     }
 });
 
-export default ListYourCar;
+const mapStateToProps = state => {
+    return {
+        ...state.login
+    }
+}
+
+export default connect(mapStateToProps)(ListYourCar);

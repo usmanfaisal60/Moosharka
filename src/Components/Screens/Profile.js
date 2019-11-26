@@ -26,7 +26,7 @@ class Profile extends React.Component {
                 <View style={container}>
                     <StatusBar backgroundColor='#000' barStyle='light-content' />
                     <View style={header}>
-                        <Image style={picStyle} resizeMode='contain' source={require('../../Assets/Icons/moosharka.png')} />
+                        <Image style={picStyle} resizeMode='contain' source={require('../../Assets/Images/ejaroo-logo.png')} />
                     </View>
                     <CustomListItem
                         onPress={() => {

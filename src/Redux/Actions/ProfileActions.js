@@ -1,6 +1,5 @@
 import constants from "../../constants";
 import axios from 'axios';
-import AsyncStorage from "@react-native-community/async-storage";
 
 
 const {
@@ -17,19 +16,11 @@ export const fetchUserProfile = () => {
         });
         showLoader(dispatch);
         try {
-            const token = await AsyncStorage.getItem('token');
-
-            if (!token) {
-                throw 'not logged in';
-            }
-
             const userDetail = await axios.get(constants.url + '/user-detail', {
                 headers: {
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + constants.token
                 }
             });
-
-            console.log(userDetail.data.success);
 
             dispatch({
                 type: set_user_profile,

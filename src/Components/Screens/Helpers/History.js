@@ -1,100 +1,126 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet, FlatList, TouchableOpacity, Linking } from 'react-native';
+import { View, Image, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, Linking } from 'react-native';
 import Aux from '../../HOC/AUX/Aux';
-
-const History = props => {
-
-    const {
-        container,
-        imageContainer,
-        imageStyle,
+import { connect } from 'react-redux';
+import * as actions from '../../../Redux/Actions';
 
 
-        outerContainer,
-        textContainer,
-        carImageContainer,
-        callImageContainer,
-        callImageTouch,
-        titleText,
-        normalText
-    } = Styles;
+class History extends React.Component {
 
-    const {
-        result
-    } = props.data;
+    componentDidMount() {
+        const {
+            fetchTripsHistory
+        } = this.props;
 
-    return (
-        <View style={container}>
-            {!result ?
-                <Aux>
-                    <View style={imageContainer}>
-                        <Image style={imageStyle} source={require('../../../Assets/Icons/trips.png')} />
-                    </View>
-                    <Text>
-                        No trips yet
-                    </Text>
-                </Aux>
-                :
-                <FlatList style={{ width: '100%' }}
-                    data={result}
-                    keyExtractor={el => el.code}
-                    renderItem={({ item }) => {
-                        console.log(item);
+        fetchTripsHistory();
+    }
 
-                        const {
-                            first_name,
-                            total,
-                            status,
-                            start_date,
-                            end_date,
-                            phone
-                        } = item;
+    render() {
 
-                        return (
-                            <Aux>
-                                <View style={outerContainer}>
-                                    <View style={textContainer}>
-                                        <Text style={titleText}>
-                                            {first_name}'s trip
+        const {
+            container,
+            imageContainer,
+            imageStyle,
+
+
+            outerContainer,
+            textContainer,
+            carImageContainer,
+            callImageContainer,
+            callImageTouch,
+            titleText,
+            normalText
+        } = Styles;
+
+        const {
+            history,
+            historyLoader
+        } = this.props
+
+        return (
+            <View style={container}>
+                {!historyLoader && history && history.result.length > 0 ?
+                    <FlatList style={{ width: '100%' }}
+                        data={history.result}
+                        keyExtractor={el => el.code}
+                        renderItem={({ item }) => {
+                            console.log(item);
+
+                            const {
+                                first_name,
+                                total,
+                                status,
+                                start_date,
+                                end_date,
+                                phone
+                            } = item;
+
+                            return (
+                                <Aux>
+                                    <View style={outerContainer}>
+                                        <View style={textContainer}>
+                                            <Text style={titleText}>
+                                                {first_name}'s trip
                                     </Text>
-                                        <Text style={normalText}>
-                                            <Text>{new Date(start_date).toLocaleDateString()} - {new Date(end_date).toLocaleDateString()}</Text>
-                                        </Text>
-                                        <Text style={normalText}>
-                                            <Text style={titleText}>Totla payment</Text>: {total}
-                                        </Text>
-                                        <Text style={normalText}>
-                                            <Text style={titleText}>Status</Text>: {status}
-                                        </Text>
-                                    </View>
-                                    <View style={callImageContainer}>
-                                        <TouchableOpacity
-                                            onPress={() => Linking.openURL(`tel: ${phone}`)}
-                                            style={callImageTouch}>
-                                            <Image
-                                                resizeMode='contain'
-                                                style={{ width: '100%' }}
-                                                source={require('../../../Assets/Icons/phone.png')} />
-                                        </TouchableOpacity>
-                                    </View>
-                                    <View style={carImageContainer}>
+                                            <Text style={normalText}>
+                                                <Text>{new Date(start_date).toLocaleDateString()} - {new Date(end_date).toLocaleDateString()}</Text>
+                                            </Text>
+                                            <Text style={normalText}>
+                                                <Text style={titleText}>Totla payment</Text>: {total}
+                                            </Text>
+                                            <Text style={normalText}>
+                                                <Text style={titleText}>Status</Text>: {status}
+                                            </Text>
+                                        </View>
+                                        <View style={callImageContainer}>
+                                            <TouchableOpacity
+                                                onPress={() => Linking.openURL(`tel: ${phone}`)}
+                                                style={callImageTouch}>
+                                                <Image
+                                                    resizeMode='contain'
+                                                    style={{ width: '100%' }}
+                                                    source={require('../../../Assets/Icons/phone.png')} />
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={carImageContainer}>
 
+                                        </View>
                                     </View>
-                                </View>
-                                <View
-                                    style={{
-                                        borderBottomWidth: 1,
-                                        width: '80%',
-                                        alignSelf: 'center',
-                                        borderBottomColor: '#aaa'
-                                    }}></View>
-                            </Aux>
-                        )
-                    }} />
-            }
-        </View>
-    )
-};
+                                    <View
+                                        style={{
+                                            borderBottomWidth: 1,
+                                            width: '80%',
+                                            alignSelf: 'center',
+                                            borderBottomColor: '#aaa'
+                                        }}></View>
+                                </Aux>
+                            );
+                        }} />
+
+                    :
+                    null
+                }
+                {historyLoader ?
+                    <ActivityIndicator size='small' />
+                    :
+                    null
+                }
+                {!historyLoader && (!history || history.result.length === 0) ?
+                    <Aux>
+                        <View style={imageContainer}>
+                            <Image style={imageStyle} source={require('../../../Assets/Icons/trips.png')} />
+                        </View>
+                        <Text>
+                            Your previous trips will appear here
+                        </Text>
+                    </Aux>
+                    :
+                    null
+                }
+            </View>
+        );
+    }
+}
 
 const Styles = StyleSheet.create({
     container: {
@@ -160,6 +186,8 @@ const Styles = StyleSheet.create({
     callImageTouch: {
         width: '100%'
     }
+
+
 });
 
 const months = [
@@ -177,4 +205,11 @@ const months = [
     'Dec',
 ]
 
-export default History;
+const mapStateToProps = state => {
+    return {
+        ...state.loader,
+        ...state.trips
+    }
+}
+
+export default connect(mapStateToProps, actions)(History);
