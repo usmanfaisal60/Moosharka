@@ -101,7 +101,7 @@ class History extends React.Component {
                     null
                 }
                 {historyLoader ?
-                    <ActivityIndicator size='small' />
+                    <ActivityIndicator size='large' />
                     :
                     null
                 }

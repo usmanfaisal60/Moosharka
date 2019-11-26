@@ -15,10 +15,12 @@ const initial_state = {
     //     ]
     // }
 
-    userProfile: null
+    userProfile: null,
+    userFavourites: null
 }
 const {
-    set_user_profile
+    set_user_profile,
+    set_user_favourites
 } = constants.red_types;
 
 export default (state = initial_state, action) => {
@@ -26,6 +28,10 @@ export default (state = initial_state, action) => {
         case set_user_profile:
             return {
                 ...state, userProfile: action.payload
+            }
+        case set_user_favourites:
+            return {
+                ...state, userFavourites: action.payload
             }
         default:
             return state;
