@@ -48,7 +48,7 @@ class LoginOrSignUp extends React.Component {
                             </TouchableOpacity>
                         }
                     </View>
-                    <Image resizeMode='contain' style={moosharkaIcon} source={require('../../Assets/Icons/moosharka.png')} />
+                    <Image resizeMode='contain' style={moosharkaIcon} source={require('../../Assets/Images/ejaroo-logo.png')} />
                     <View style={buttonsContainer}>
                         <CustomButton onPress={() => navigation.navigate('Signup')}>Sign up</CustomButton>
                         <CustomButton onPress={() => navigation.navigate('Login')} transparent>Login</CustomButton>

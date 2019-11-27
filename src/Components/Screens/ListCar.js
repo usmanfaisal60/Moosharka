@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import constants from '../../constants';
 import AddCarCard from './Helpers/AddCarCard';
 import AddCarBanner from './Helpers/AddCarBanner';
+import SubmitSection from './Helpers/SubmitSection';
 import * as actions from '../../Redux/Actions';
 
 
@@ -12,7 +13,6 @@ const {
     set_car_name,
     set_car_manufacturing_year,
     set_car_model,
-    set_car_location,
     set_car_city,
     set_car_price,
     set_max_peopel,
@@ -40,8 +40,9 @@ class ListCar extends React.Component {
             maxPeople,
             minPeople,
             carImage,
-            galleryImages: [],
-            setCarCredential
+            galleryImages,
+            setCarCredential,
+            topLocations
         } = this.props;
 
         return (
@@ -57,37 +58,59 @@ class ListCar extends React.Component {
                         <ScrollView style={{ width: '100%' }}>
                             <AddCarBanner />
                             <AddCarCard
+                                icon='name'
                                 label='Name *'
                                 value={carName}
                                 onChangeText={setCarCredential.bind(this, set_car_name)} />
                             <AddCarCard
                                 keyboardType='number-pad'
+                                icon='year'
                                 label='Manufacturing year '
                                 value={carManufacturingYear}
                                 onChangeText={setCarCredential.bind(this, set_car_manufacturing_year)} />
                             <AddCarCard
                                 label='Model *'
+                                icon='model'
                                 value={carModel}
                                 onChangeText={setCarCredential.bind(this, set_car_model)} />
                             <AddCarCard
                                 label='Car city *'
                                 value={carCity}
-                                onChangeText={setCarCredential.bind(this, set_car_city)} />
+                                icon='city'
+                                dropDown={topLocations ? topLocations : [{ title: 'Please turn on WiFi or Mobile data', id: -1 }]}
+                                onValueChange={setCarCredential.bind(this, set_car_city)} />
+                            {carCity && carCity != -1 ?
+                                <AddCarCard
+                                    label={'Car Location * ' + (carLocation ? '(Picked)' : '')}
+                                    buttonText={carLocation ? 'Change location' : 'Select location'}
+                                    icon='location'
+                                    onPress={() => navigation.navigate('PickCarLocation', { city: JSON.stringify(topLocations.find(el => el.id === carCity)) })} />
+                                :
+                                null
+                            }
                             <AddCarCard
                                 keyboardType='number-pad'
                                 label='car price *'
+                                icon='price'
                                 value={carPrice}
                                 onChangeText={setCarCredential.bind(this, set_car_price)} />
                             <AddCarCard
                                 keyboardType='number-pad'
+                                icon='max'
                                 label='Maximum people *'
-                                value={maxPeople}
-                                onChangeText={setCarCredential.bind(this, set_max_peopel)} />
-                            <AddCarCard
-                                keyboardType='number-pad'
-                                label='Minimum people *'
-                                value={minPeople}
-                                onChangeText={setCarCredential.bind(this, set_minimum_people)} />
+                                dropDown={[
+                                    { title: '1', id: '1' },
+                                    { title: '2', id: '2' },
+                                    { title: '3', id: '3' },
+                                    { title: '4', id: '4' },
+                                    { title: '5', id: '5' },
+                                    { title: '6', id: '6' },
+                                    { title: '7', id: '7' },
+                                    { title: '8', id: '8' }
+                                ]}
+                                onValueChange={setCarCredential.bind(this, set_max_peopel)} />
+
+                            <SubmitSection {...this.props} />
                         </ScrollView>
                     </View>
                 </View>
@@ -114,7 +137,8 @@ const Styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         ...state.loader,
-        ...state.listCar
+        ...state.listCar,
+        ...state.search
     }
 }
 

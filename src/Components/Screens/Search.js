@@ -123,7 +123,6 @@ class Search extends React.Component {
             constants.token = token;
         }
         this.props.setCredentials(constants.red_types.set_login, true);
-        console.log('login set true');
     }
 
     componentDidMount() {
@@ -209,13 +208,13 @@ class Search extends React.Component {
                         }
                     </ImageBackground>
                     <View style={insurancePartenerTextContainer}>
-                        <Text style={insurancePartenerText}>
+                        {/* <Text style={insurancePartenerText}>
                             INSURANCE PARTENERS
-                    </Text>
+                        </Text> */}
                     </View>
-                    <View style={libMutualContainer}>
+                    {/* <View style={libMutualContainer}>
                         <Image style={{ width: '100%' }} resizeMode='contain' source={require('../../Assets/Images/liberty_mutual.jpg')} />
-                    </View>
+                    </View> */}
 
                     <Description icon='carpage' title='Endless options'>
                         Choose from hundreds of models you won’t find anywhere else. Pick it up or get it delivered where you want it.

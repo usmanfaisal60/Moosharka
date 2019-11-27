@@ -1,10 +1,38 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
+
 
 class AddCraBanner extends React.Component {
 
     state = {
-        source: null
+        avatarSource: null
+    }
+
+    showImagePicker() {
+        ImagePicker.showImagePicker({
+            title: 'Select a photo',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images'
+            }
+        },
+            response => {
+
+                if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                } else if (response.error) {
+                    console.log('ImagePicker Error: ', response.error);
+                } else if (response.customButton) {
+                    console.log('User tapped custom button: ', response.customButton);
+                } else {
+                    console.log(response);
+                    const source = { uri: response.uri }
+                    this.setState({
+                        avatarSource: source,
+                    });
+                }
+            });
     }
 
     render() {
@@ -20,11 +48,14 @@ class AddCraBanner extends React.Component {
 
             <View style={container}>
                 <Image
-                    source={require('../../../Assets/Icons/pick-car.jpg')}
+                    source={this.state.avatarSource ? this.state.avatarSource : require('../../../Assets/Icons/pick-car.jpg')}
                     style={imageStyle}
                     resizeMode='cover' />
                 {!this.state.source ?
-                    <TouchableOpacity activeOpacity={0.6} style={touchContainer}>
+                    <TouchableOpacity
+                        activeOpacity={0.6}
+                        onPress={this.showImagePicker.bind(this)}
+                        style={touchContainer}>
                         <View style={addIconContainer}>
                             <Image
                                 source={require('../../../Assets/Icons/plus.png')}

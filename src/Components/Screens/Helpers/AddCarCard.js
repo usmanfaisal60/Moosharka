@@ -1,42 +1,127 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, Platform, TouchableHighlight, TouchableNativeFeedback } from 'react-native';
+import Picker from 'react-native-picker-select';
+
 
 const AddCarCard = props => {
 
     const {
         container,
         labelStyle,
-        inputStyle
+        inputStyle,
+        iconContainer,
+        textContainer,
+        imageStyle,
+        buttonContainer,
+        buttonTextStyle
     } = Styles;
 
     const {
         label,
         value,
         onChangeText,
-        keyboardType
+        keyboardType,
+        icon,
+        dropDown,
+        onValueChange,
+        onPress,
+        buttonText,
     } = props;
+
+    console.log(buttonText);
 
     return (
         <View style={container}>
-            <Text style={labelStyle}>
-                {label}
-            </Text>
-            <TextInput
-                style={inputStyle}
-                value={value}
-                keyboardType={keyboardType ? keyboardType : 'default'}
-                onChangeText={onChangeText} />
+            <View style={iconContainer}>
+                <View style={imageStyle}>
+                    <Image style={imageStyle} resizeMode='cover' source={icons[icon]} />
+                </View>
+            </View>
+            <View style={textContainer}>
+                <Text style={labelStyle}>
+                    {label}
+                </Text>
+                {dropDown ?
+                    <Picker
+                        onValueChange={onValueChange}
+                        placeholderTextColor='#222'
+                        items={dropDown.map(el => ({ label: el.title, value: el.id }))} />
+                    :
+                    null
+                }
+                {onChangeText ?
+                    <TextInput
+                        style={inputStyle}
+                        value={value}
+                        keyboardType={keyboardType ? keyboardType : 'default'}
+                        onChangeText={onChangeText} />
+                    :
+                    null
+                }
+                {onPress ?
+                    Platform.OS === 'android' ?
+                        <TouchableNativeFeedback onPress={onPress} >
+                            <View style={buttonContainer}>
+                                <Text style={buttonTextStyle}>
+                                    {buttonText}
+                                </Text>
+                            </View>
+                        </TouchableNativeFeedback>
+                        :
+                        <TouchableHighlight onPress={onPress} style={{ flex: 1 }}>
+                            <View style={buttonContainer}>
+                                <Text style={buttonTextStyle}>
+                                    {buttonText}
+                                </Text>
+                            </View>
+                        </TouchableHighlight>
+                    :
+                    null
+                }
+            </View>
         </View>
     )
 };
+
+const icons = {
+    name: require('../../../Assets/AddCarLogos/name.jpeg'),
+    year: require('../../../Assets/AddCarLogos/year.jpg'),
+    model: require('../../../Assets/AddCarLogos/model.jpg'),
+    city: require('../../../Assets/AddCarLogos/city.png'),
+    price: require('../../../Assets/AddCarLogos/price.png'),
+    price: require('../../../Assets/AddCarLogos/price.png'),
+    max: require('../../../Assets/AddCarLogos/max.jpeg'),
+    location: require('../../../Assets/AddCarLogos/location.png'),
+}
+
+const imageSize = 60
 
 const Styles = StyleSheet.create({
     container: {
         width: '100%',
         height: 100,
-        justifyContent: 'center',
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+        flexDirection: 'row'
     },
+
+    iconContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    textContainer: {
+        flex: 3,
+        justifyContent: 'center',
+    },
+
+    imageStyle: {
+        width: imageSize,
+        height: imageSize,
+        borderRadius: imageSize / 2,
+        overflow: 'hidden'
+    },
+
 
     labelStyle: {
         color: '#1565c0',
@@ -54,6 +139,21 @@ const Styles = StyleSheet.create({
         marginLeft: '7.5%',
         borderBottomColor: '#bbb',
         borderBottomWidth: 1
+    },
+
+    buttonContainer: {
+        marginVertical: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#ddd',
+        borderRadius: 5,
+        overflow: 'hidden'
+    },
+
+    buttonTextStyle: {
+        color: '#555',
+        fontSize: 16,
+        padding: 10
     }
 });
 
