@@ -15,7 +15,8 @@ class AddCraBanner extends React.Component {
             storageOptions: {
                 skipBackup: true,
                 path: 'images'
-            }
+            },
+            quality: 0.5
         },
             response => {
 
@@ -31,6 +32,7 @@ class AddCraBanner extends React.Component {
                     this.setState({
                         avatarSource: source,
                     });
+                    this.props.onImagePicked(source);
                 }
             });
     }

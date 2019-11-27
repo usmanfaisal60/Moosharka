@@ -28,8 +28,6 @@ const AddCarCard = props => {
         buttonText,
     } = props;
 
-    console.log(buttonText);
-
     return (
         <View style={container}>
             <View style={iconContainer}>
@@ -111,7 +109,7 @@ const Styles = StyleSheet.create({
     },
 
     textContainer: {
-        flex: 3,
+        flex: 4,
         justifyContent: 'center',
     },
 

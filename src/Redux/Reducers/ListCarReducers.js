@@ -23,6 +23,7 @@ const {
     set_minimum_people,
     set_car_image,
     set_gallery_images,
+    reset_car_credentials
 } = constants.red_types;
 
 export default (state = initial_state, action) => {
@@ -67,6 +68,10 @@ export default (state = initial_state, action) => {
             return {
                 ...state, galleryImages: action.payload
             }
+        case reset_car_credentials:
+            state.galleryImages = null;
+            state.galleryImages = [];
+            return initial_state;
         default:
             return state;
     }

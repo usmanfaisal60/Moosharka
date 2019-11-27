@@ -58,5 +58,6 @@ export default constants = {
         set_minimum_people: 'set_minimum_people',
         set_car_image: 'set_car_image',
         set_gallery_images: 'set_gallery_images',
+        reset_car_credentials: 'reset_car_credentials'
     },
 }

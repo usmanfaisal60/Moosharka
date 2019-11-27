@@ -9,6 +9,8 @@ const SubmitSection = props => {
         buttonText
     } = Styles;
 
+    console.log(props);
+
     return (
         <View style={container}>
             <TouchableOpacity
@@ -25,7 +27,7 @@ const SubmitSection = props => {
 const Styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 100,
+        height: 120,
         justifyContent: 'center',
         alignItems: 'center'
     },

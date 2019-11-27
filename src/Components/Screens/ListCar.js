@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import constants from '../../constants';
 import AddCarCard from './Helpers/AddCarCard';
 import AddCarBanner from './Helpers/AddCarBanner';
+import Gallery from './Helpers/Gallery';
 import SubmitSection from './Helpers/SubmitSection';
 import * as actions from '../../Redux/Actions';
 
@@ -19,9 +20,15 @@ const {
     set_minimum_people,
     set_car_image,
     set_gallery_images,
+    reset_car_credentials
 } = constants.red_types;
 
 class ListCar extends React.Component {
+
+    componentWillUnmount() {
+        this.props.setCarCredential(reset_car_credentials);
+    }
+
     render() {
 
         const {
@@ -56,7 +63,7 @@ class ListCar extends React.Component {
                 <View style={outerContainer}>
                     <View style={container}>
                         <ScrollView style={{ width: '100%' }}>
-                            <AddCarBanner />
+                            <AddCarBanner onImagePicked={setCarCredential.bind(this, set_car_image)} />
                             <AddCarCard
                                 icon='name'
                                 label='Name *'
@@ -90,7 +97,7 @@ class ListCar extends React.Component {
                             }
                             <AddCarCard
                                 keyboardType='number-pad'
-                                label='car price *'
+                                label='Car price ($/day) *'
                                 icon='price'
                                 value={carPrice}
                                 onChangeText={setCarCredential.bind(this, set_car_price)} />
@@ -109,7 +116,7 @@ class ListCar extends React.Component {
                                     { title: '8', id: '8' }
                                 ]}
                                 onValueChange={setCarCredential.bind(this, set_max_peopel)} />
-
+                            <Gallery galleryImages={galleryImages} />
                             <SubmitSection {...this.props} />
                         </ScrollView>
                     </View>
