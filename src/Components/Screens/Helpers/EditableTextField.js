@@ -1,12 +1,50 @@
 import React from 'react';
-import { View, Image, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TextInput, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 
 
 class EditableTextField extends React.Component {
 
     state = {
-        editing: false
+        editing: false,
+        text: null,
+        loader: false
+    }
+
+    componentDidMount() {
+        const {
+            children,
+            placeholder,
+        } = this.props;
+
+        if (children) this.setState({ text: children });
+        else this.setState({ text: placeholder });
+
+    }
+
+    submitData() {
+        const {
+            reference,
+            keys,
+            setUserProfile,
+            children,
+            placeholder
+        } = this.props;
+        this.setState({ loader: true })
+        this.setState({ editing: false });
+        const object = {};
+        const textArray = this.state.text.split(' ');
+        keys.forEach((el, i) => object[el] = textArray[i]);
+        const callbackSuccess = () => {
+            keys.forEach((el, i) => reference[el] = textArray[i]);
+            this.setState({ loader: false });
+        }
+        const callbackFailiure = () => {
+            if (children) this.setState({ text: children });
+            else this.setState({ text: placeholder });
+            this.setState({ loader: false });
+        }
+        setUserProfile(object, callbackSuccess, callbackFailiure);
     }
 
     render() {
@@ -18,14 +56,16 @@ class EditableTextField extends React.Component {
             textInputStyle,
             titleContainer,
             mainContainer,
-            titleTextStyle
+            titleTextStyle,
+            loaderContainer
         } = Styles;
 
         const {
             children,
             icon,
             title,
-            number
+            number,
+            placeholder,
         } = this.props
 
         return (
@@ -47,25 +87,33 @@ class EditableTextField extends React.Component {
                     <View style={textContainer}>
                         {this.state.editing ?
                             <TextInput
-                                onChangeText={text => { }}
+                                onChangeText={text => this.setState({ text })}
+                                value={children || this.state.text !== placeholder ? this.state.text : ''}
                                 autoFocus={this.state.editing}
                                 style={textInputStyle}
-                                value={`${children}`}
+                                placeholder={placeholder}
                                 keyboardType={number ? 'number-pad' : 'default'}
-                                onSubmitEditing={() => this.setState({ editing: false })} />
+                                onSubmitEditing={this.submitData.bind(this)} />
                             :
                             <Text style={textStyle}>
-                                {children}
+                                {this.state.text}
                             </Text>
                         }
                     </View>
+                    {this.state.loader ?
+                        <View style={loaderContainer}>
+                            <ActivityIndicator size='small' color='#000' />
+                        </View>
+                        :
+                        null
+                    }
                     <TouchableOpacity
                         activeOpacity={0.5}
                         onPress={() => {
-                            if (this.state.editing) {
-                                this.setState({ editing: false })
-                            } else {
+                            if (!this.state.editing) {
                                 this.setState({ editing: true })
+                            } else {
+                                this.submitData.bind(this)();
                             }
                         }}>
                         <Image
@@ -86,6 +134,7 @@ const icons = {
     cnic: require('../../../Assets/Icons/cnic.png'),
     license: require('../../../Assets/Icons/license.png'),
     phone: require('../../../Assets/Icons/phone.png'),
+    email: require('../../../Assets/Icons/email.png'),
     iqama: require('../../../Assets/Icons/iqama.png'),
 }
 
@@ -119,6 +168,7 @@ const Styles = StyleSheet.create({
     },
 
     textStyle: {
+        color: '#555',
         fontSize: 18,
         padding: 0
     },
@@ -132,7 +182,7 @@ const Styles = StyleSheet.create({
     textInputStyle: {
         fontSize: 18,
         padding: 0,
-        width: '80%',
+        width: '100%',
         borderBottomWidth: 1,
         borderBottomColor: '#bbb'
     },
@@ -143,6 +193,13 @@ const Styles = StyleSheet.create({
         justifyContent: 'center',
         paddingLeft: 10
     },
+
+    loaderContainer: {
+        height: '100%',
+        width: 30,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
 export default EditableTextField;

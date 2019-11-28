@@ -74,3 +74,58 @@ const hideLoader = (dispatch) => {
         payload: false
     });
 }
+
+export const setUserProfile = (object, callbackSuccess, callbackFailiure) => {
+    return async dispatch => {
+        try {
+            const formData = makeFormData(object);
+            console.log(formData);
+            console.log(constants.token);
+            const result = await axios.post(constants.url + '/user',
+                formData,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + constants.token
+                    }
+                }).then().catch(e => console.log('failed', e));
+            console.log(result);
+            callbackSuccess();
+        }
+        catch (e) {
+            // console.log(e);
+            callbackFailiure();
+        }
+    }
+}
+
+const makeFormData = obj => {
+    const formData = new FormData();
+
+    for (let key in obj) {
+        formData.append(`${key}`, obj[key]);
+    }
+
+    return formData;
+}
+
+export const setProfilePicture = image => {
+    return async dispatch => {
+        console.log(image);
+
+        let body = new FormData();
+        body.append('photo', image);
+        body.append('Content-Type', 'image/jpg');
+
+        fetch(constants.url + '/user', {
+            method: 'POST', headers: {
+                "Content-Type": "multipart/form-data",
+                "otherHeader": "foo",
+            }, body: body
+        })
+            .then((res) => {
+                console.log('image uploaded')
+                console.log(res);
+            })
+            .catch((e) => console.log(e))
+    }
+}

@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import EditableTextField from './Helpers/EditableTextField';
 import ImagePicker from 'react-native-image-picker';
 import FullScreenModal from './Helpers/FullScreenModal';
-import { fetchUserProfile } from '../../Redux/Actions';
+import { fetchUserProfile, setUserProfile, setProfilePicture } from '../../Redux/Actions';
 
 
 
@@ -27,12 +27,17 @@ class AccountScreen extends React.Component {
     }
 
     showImagePicker() {
+        const {
+            setProfilePicture
+        } = this.props;
+
         ImagePicker.showImagePicker({
             title: 'Select a photo',
             storageOptions: {
                 skipBackup: true,
                 path: 'images'
-            }
+            },
+            quality: 0.5
         },
             response => {
 
@@ -48,6 +53,8 @@ class AccountScreen extends React.Component {
                     this.setState({
                         avatarSource: source,
                     });
+
+                    setProfilePicture(response);
                 }
             });
     }
@@ -69,12 +76,22 @@ class AccountScreen extends React.Component {
         } = Styles;
 
         const {
-            userProfile
+            userProfile,
+            setUserProfile
         } = this.props;
 
-        console.log(userProfile);
-
         if (userProfile) if (userProfile.status != 'Deactive') {
+            const {
+                first_name,
+                last_name,
+                avatar,
+                phone,
+                email,
+                driving_license
+            } = userProfile;
+            const source = avatar ? avatar : this.state.avatarSource ? this.state.avatarSource : require('../../Assets/Icons/profileImage.png');
+
+            console.log(userProfile);
 
             return (
                 <View style={scrollerContainer}>
@@ -88,39 +105,45 @@ class AccountScreen extends React.Component {
                                     style={addImageButton}>
                                     <Image style={{ width: '50%', height: '50%' }}
                                         resizeMode='contain'
-                                        source={profileImage ? require('../../Assets/Icons/editImage.png') : require('../../Assets/Icons/plus.png')} />
+                                        source={avatar ? require('../../Assets/Icons/editImage.png') : require('../../Assets/Icons/plus.png')} />
                                 </TouchableOpacity>
-
                             </View>
                             <View style={textContainer}>
-                                <EditableTextField icon='username'>
-                                    {username}
+                                <EditableTextField
+                                    placeholder='Your name'
+                                    keys={['first_name', 'last_name']}
+                                    reference={userProfile}
+                                    setUserProfile={setUserProfile}
+                                    icon='username'>
+                                    {first_name || last_name ? (first_name + ' ' + last_name) : ''}
                                 </EditableTextField>
                             </View>
                         </View>
 
                         <View style={fieldContainer}>
-                            <EditableTextField number icon='phone' title='Phone number'>
+                            <EditableTextField
+                                number
+                                keys={['phone']}
+                                placeholder='Your phone number'
+                                icon='phone'
+                                setUserProfile={setUserProfile}
+                                title='Phone number'>
                                 {phone}
                             </EditableTextField>
                         </View>
                         <View style={fieldContainer}>
-                            <EditableTextField icon='license' title='License number'>
-                                {license}
+                            <EditableTextField
+                                keys={['email']}
+                                placeholder='Your email address'
+                                icon='email'
+                                setUserProfile={setUserProfile}
+                                title='Email address'>
+                                {email}
                             </EditableTextField>
                         </View>
-                        <View style={fieldContainer}>
-                            <EditableTextField number icon='cnic' title='ID/CNIC'>
-                                {cnic}
-                            </EditableTextField>
-                        </View>
-                        <View style={fieldContainer}>
-                            <EditableTextField number icon='iqama' title='Iqama number'>
-                                {iqama}
-                            </EditableTextField>
-                        </View>
+
                         <View style={docsContainer}>
-                            {docs.map((el, i) => <DocViewer key={i} data={el} />)}
+                            <DocViewer title='Driving License' url={driving_license} />
                         </View>
                         <View style={{ height: 20 }}></View>
                     </ScrollView>
@@ -262,4 +285,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUserProfile })(AccountScreen);
+export default connect(mapStateToProps, { fetchUserProfile, setUserProfile, setProfilePicture })(AccountScreen);

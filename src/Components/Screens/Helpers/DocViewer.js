@@ -21,7 +21,7 @@ const DocViewer = props => {
         title,
         url,
         varified
-    } = props.data
+    } = props
 
     return (
         <View style={{ ...container, height: varified ? 400 : 300 }}>
@@ -38,7 +38,8 @@ const DocViewer = props => {
                 {!varified ?
                     <View style={modal}>
                         <Text style={varificationText}>
-                            This document is being varified. You will be able to use ejaroo when all of your are varified
+                            {'This document is being varified by admin.'}
+                            {'\nYou will be able to use ejaroo when all of your documents are varified'}
                         </Text>
                     </View>
                     :
