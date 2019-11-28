@@ -31,7 +31,7 @@ class Host extends React.Component {
                     </Text>
                     <View style={buttonsContainer}>
                         <CustomButton onPress={() => {
-                            navigation.navigate('ListCar');
+                            navigation.navigate('ListYourCar');
                         }}>Get started</CustomButton>
                     </View>
                 </ImageBackground>

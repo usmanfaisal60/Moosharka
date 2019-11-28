@@ -72,6 +72,8 @@ class AccountScreen extends React.Component {
             userProfile
         } = this.props;
 
+        console.log(userProfile);
+
         if (userProfile) if (userProfile.status != 'Deactive') {
 
             return (
