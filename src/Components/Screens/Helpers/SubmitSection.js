@@ -14,7 +14,7 @@ const SubmitSection = props => {
     return (
         <View style={container}>
             <TouchableOpacity
-                activeOpacity={0.6}
+                activeOpacity={0.5}
                 style={container}>
                 <View style={buttonStyle}>
                     <Text style={buttonText}>Submit Car</Text>

@@ -8,6 +8,7 @@ import EditableTextField from './Helpers/EditableTextField';
 import ImagePicker from 'react-native-image-picker';
 import FullScreenModal from './Helpers/FullScreenModal';
 import { fetchUserProfile, setUserProfile, setProfilePicture } from '../../Redux/Actions';
+import AddDoc from './Helpers/AddDoc';
 
 
 
@@ -87,7 +88,10 @@ class AccountScreen extends React.Component {
                 avatar,
                 phone,
                 email,
-                driving_license
+                driving_license,
+                carLicense_ownership,
+                car_maintenance_certificate,
+                emirates_id
             } = userProfile;
             const source = avatar ? avatar : this.state.avatarSource ? this.state.avatarSource : require('../../Assets/Icons/profileImage.png');
 
@@ -142,9 +146,31 @@ class AccountScreen extends React.Component {
                             </EditableTextField>
                         </View>
 
-                        <View style={docsContainer}>
-                            <DocViewer title='Driving License' url={driving_license} />
-                        </View>
+                        {driving_license ?
+                            <View style={docsContainer}>
+                                <DocViewer title='Driving license' url={driving_license} />
+                            </View>
+                            :
+                            null}
+                        {carLicense_ownership ?
+                            <View style={docsContainer}>
+                                <DocViewer title='Car license ownership' url={carLicense_ownership} />
+                            </View>
+                            :
+                            null}
+                        {car_maintenance_certificate ?
+                            <View style={docsContainer}>
+                                <DocViewer title='Car maintenance certificate' url={car_maintenance_certificate} />
+                            </View>
+                            :
+                            null}
+                        {emirates_id ?
+                            <View style={docsContainer}>
+                                <DocViewer title='Emirates id' url={emirates_id} />
+                            </View>
+                            :
+                            <AddDoc title='Emirates id' />}
+                        
                         <View style={{ height: 20 }}></View>
                     </ScrollView>
                 </View>

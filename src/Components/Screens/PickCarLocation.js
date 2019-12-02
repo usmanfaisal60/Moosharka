@@ -57,6 +57,7 @@ class PickCarLocation extends React.Component {
         return (
             <View style={container}>
                 <MapView
+                    provider='google'
                     onRegionChange={e => this.setState({ markerLocation: e })}
                     onMapReady={() => this.setState({ mapHasLoaded: true })}
                     initialRegion={initialRegion ? initialRegion : null}

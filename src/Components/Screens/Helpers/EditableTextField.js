@@ -34,7 +34,7 @@ class EditableTextField extends React.Component {
         this.setState({ editing: false });
         const object = {};
         const textArray = this.state.text.split(' ');
-        keys.forEach((el, i) => object[el] = textArray[i]);
+        keys.forEach((el, i) => object[el] = textArray[i] ? textArray[i] : '');
         const callbackSuccess = () => {
             keys.forEach((el, i) => reference[el] = textArray[i]);
             this.setState({ loader: false });

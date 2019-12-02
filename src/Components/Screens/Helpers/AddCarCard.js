@@ -40,10 +40,12 @@ const AddCarCard = props => {
                     {label}
                 </Text>
                 {dropDown ?
-                    <Picker
-                        onValueChange={onValueChange}
-                        placeholderTextColor='#222'
-                        items={dropDown.map(el => ({ label: el.title, value: el.id }))} />
+                    <View style={{ marginLeft: 20 }}>
+                        <Picker
+                            onValueChange={onValueChange}
+                            placeholderTextColor='#222'
+                            items={dropDown.map(el => ({ label: el.title, value: el.id }))} />
+                    </View>
                     :
                     null
                 }
@@ -92,24 +94,23 @@ const icons = {
     location: require('../../../Assets/AddCarLogos/location.png'),
 }
 
-const imageSize = 60
+const imageSize = 50
 
 const Styles = StyleSheet.create({
     container: {
         width: '100%',
         height: 100,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         flexDirection: 'row'
     },
 
     iconContainer: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
     },
 
     textContainer: {
-        flex: 4,
+        flex: 5,
         justifyContent: 'center',
     },
 
@@ -141,6 +142,7 @@ const Styles = StyleSheet.create({
 
     buttonContainer: {
         marginVertical: 10,
+        marginHorizontal: 20,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#ddd',

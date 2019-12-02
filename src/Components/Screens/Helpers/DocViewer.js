@@ -72,6 +72,7 @@ const DocViewer = props => {
 const Styles = StyleSheet.create({
     container: {
         width: '100%',
+        marginBottom: 20
     },
 
     textContainer: {

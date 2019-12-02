@@ -80,19 +80,17 @@ export const setUserProfile = (object, callbackSuccess, callbackFailiure) => {
         try {
             const formData = makeFormData(object);
             console.log(formData);
-            console.log(constants.token);
             const result = await axios.post(constants.url + '/user',
                 formData,
                 {
                     headers: {
                         'Authorization': 'Bearer ' + constants.token
                     }
-                }).then().catch(e => console.log('failed', e));
+                });
             console.log(result);
             callbackSuccess();
         }
         catch (e) {
-            // console.log(e);
             callbackFailiure();
         }
     }
@@ -120,6 +118,7 @@ export const setProfilePicture = image => {
             method: 'POST', headers: {
                 "Content-Type": "multipart/form-data",
                 "otherHeader": "foo",
+                'Authorization': 'Bearer ' + constants.token
             }, body: body
         })
             .then((res) => {
