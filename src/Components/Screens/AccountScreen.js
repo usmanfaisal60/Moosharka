@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import CustomHeader from './Helpers/CustomHeader';
 import DocViewer from './Helpers/DocViewer';
 import constants from '../../constants';
@@ -16,7 +16,8 @@ import AddDoc from './Helpers/AddDoc';
 class AccountScreen extends React.Component {
 
     state = {
-        avatarSource: null
+        avatarSource: null,
+        uploading: false
     }
 
     componentDidMount() {
@@ -29,7 +30,8 @@ class AccountScreen extends React.Component {
 
     showImagePicker() {
         const {
-            setProfilePicture
+            setProfilePicture,
+            avatar
         } = this.props;
 
         ImagePicker.showImagePicker({
@@ -53,9 +55,16 @@ class AccountScreen extends React.Component {
 
                     this.setState({
                         avatarSource: source,
+                        uploading: true
                     });
 
-                    setProfilePicture(response);
+                    const callbackSuccess = () => {
+                        this.setState({ uploading: false, avatarSource: source })
+                    }
+                    const callbackFailure = () => {
+                        this.setState({ uploading: false, avatarSource: avatar })
+                    }
+                    setProfilePicture(response, callbackSuccess, callbackFailure);
                 }
             });
     }
@@ -73,7 +82,8 @@ class AccountScreen extends React.Component {
             docsContainer,
             notVerifiedContainer,
             notVerifiedIcon,
-            notVerifiedText
+            notVerifiedText,
+            modalStyle
         } = Styles;
 
         const {
@@ -93,16 +103,19 @@ class AccountScreen extends React.Component {
                 car_maintenance_certificate,
                 emirates_id
             } = userProfile;
-            const source = avatar ? avatar : this.state.avatarSource ? this.state.avatarSource : require('../../Assets/Icons/profileImage.png');
-
-            console.log(userProfile);
-
+            const source = this.state.avatarSource ? this.state.avatarSource : avatar ? { uri: avatar } : require('../../Assets/Icons/profileImage.png');
             return (
                 <View style={scrollerContainer}>
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={profileImageContainer}>
                             <View style={imageContainerStyle}>
                                 <Image style={imageStyle} source={source} />
+                                {this.state.uploading ?
+                                    <View style={modalStyle}>
+                                        <ActivityIndicator size='large' color='#fff' />
+                                    </View>
+                                    :
+                                    null}
                                 <TouchableOpacity
                                     onPress={this.showImagePicker.bind(this)}
                                     activeOpacity={0.75}
@@ -170,7 +183,7 @@ class AccountScreen extends React.Component {
                             </View>
                             :
                             <AddDoc title='Emirates id' />}
-                        
+
                         <View style={{ height: 20 }}></View>
                     </ScrollView>
                 </View>
@@ -200,8 +213,6 @@ class AccountScreen extends React.Component {
             loader
         } = this.props;
 
-
-        // const source = this.state.avatarSource ? this.state.avatarSource : profileImage ? { uri: profileImage } : require('../../Assets/Icons/profileImage.png');
 
         return (
             <View style={container}>
@@ -247,7 +258,7 @@ const Styles = StyleSheet.create({
         height: imageSize,
         borderRadius: imageSize / 2,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 
     imageStyle: {
@@ -301,6 +312,18 @@ const Styles = StyleSheet.create({
         fontSize: 18,
         paddingTop: 20,
         textAlign: 'center'
+    },
+
+    modalStyle: {
+        backgroundColor: '#0005',
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        top: 0,
+        left: 0,
+        position: 'absolute',
+        borderRadius: imageSize / 2,
     }
 });
 

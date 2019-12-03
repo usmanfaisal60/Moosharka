@@ -1,5 +1,6 @@
 import constants from "../../constants";
 import axios from 'axios';
+import { Platform } from 'react-native';
 
 
 const {
@@ -106,25 +107,37 @@ const makeFormData = obj => {
     return formData;
 }
 
-export const setProfilePicture = image => {
+export const setProfilePicture = (image, callbackSuccess, callbackFailiure) => {
     return async dispatch => {
         console.log(image);
+        const formData = createImageFormData(image);
 
-        let body = new FormData();
-        body.append('photo', image);
-        body.append('Content-Type', 'image/jpg');
-
-        fetch(constants.url + '/user', {
-            method: 'POST', headers: {
-                "Content-Type": "multipart/form-data",
-                "otherHeader": "foo",
-                'Authorization': 'Bearer ' + constants.token
-            }, body: body
-        })
-            .then((res) => {
-                console.log('image uploaded')
-                console.log(res);
-            })
-            .catch((e) => console.log(e))
+        console.log(formData);
+        axios.post(
+            constants.url + '/user', formData,
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + constants.token
+                }
+            }).
+            then(res => {
+                console.log(res)
+                callbackSuccess();
+            }).catch(e => {
+                console.log(e);
+                callbackFailiure();
+            });
     }
 }
+
+const createImageFormData = (photo) => {
+    const data = new FormData();
+
+    data.append("avatar", {
+        name: photo.fileName,
+        type: photo.type,
+        uri: Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")
+    });
+
+    return data;
+};

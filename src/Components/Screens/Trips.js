@@ -64,9 +64,15 @@ class Trips extends React.Component {
                                 ref={this.viewPager}
                                 onPageSelected={(e) => this.setState({ currentPage: e.nativeEvent.position })}
                                 style={{ width: '100%', height: '100%' }}>
-                                <Activity />
-                                <Booked />
-                                <History />
+                                <View style={{ width: '100%', height: '100%' }}>
+                                    <Activity />
+                                </View>
+                                <View style={{ width: '100%', height: '100%' }}>
+                                    <Booked />
+                                </View>
+                                <View style={{ width: '100%', height: '100%' }}>
+                                    <History />
+                                </View>
                             </ViewPager>
                         </View>
                     </View>

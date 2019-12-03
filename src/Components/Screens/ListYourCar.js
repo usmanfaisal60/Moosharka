@@ -16,11 +16,13 @@ class ListYourCar extends React.Component {
 
     renderDots(currentPage) {
         const dots = [];
-        const dot = <View style={{ width: 15, height: 15, borderRadius: 7.5, borderColor: '#fff', borderWidth: 1, margin: 5 }}></View >
-        const activeDot = <View style={{ width: 15, height: 15, borderRadius: 7.5, backgroundColor: '#fff', margin: 5 }}></View >
         for (let i = 0; i < 5; i++) {
-            if (i === currentPage) dots.push(activeDot);
-            else dots.push(dot);
+            if (i === currentPage) {
+                dots.push(<View key={i} style={{ width: 15, height: 15, borderRadius: 7.5, backgroundColor: '#fff', margin: 5 }}></View >);
+            }
+            else {
+                dots.push(<View key={i} style={{ width: 15, height: 15, borderRadius: 7.5, borderColor: '#fff', borderWidth: 1, margin: 5 }}></View >);
+            }
         }
 
         return dots;
