@@ -101,8 +101,14 @@ class AccountScreen extends React.Component {
                 driving_license,
                 carLicense_ownership,
                 car_maintenance_certificate,
-                emirates_id
+                emirates_id,
+                is_driving_license_approved,
+                is_car_license_ownership_approved,
+                is_car_migration_certificate_approved
             } = userProfile;
+
+            console.log(userProfile);
+
             const source = this.state.avatarSource ? this.state.avatarSource : avatar ? { uri: avatar } : require('../../Assets/Icons/profileImage.png');
             return (
                 <View style={scrollerContainer}>
@@ -159,31 +165,21 @@ class AccountScreen extends React.Component {
                             </EditableTextField>
                         </View>
 
-                        {driving_license ?
-                            <View style={docsContainer}>
-                                <DocViewer title='Driving license' url={driving_license} />
-                            </View>
-                            :
-                            null}
-                        {carLicense_ownership ?
-                            <View style={docsContainer}>
-                                <DocViewer title='Car license ownership' url={carLicense_ownership} />
-                            </View>
-                            :
-                            null}
-                        {car_maintenance_certificate ?
-                            <View style={docsContainer}>
-                                <DocViewer title='Car maintenance certificate' url={car_maintenance_certificate} />
-                            </View>
-                            :
-                            null}
-                        {emirates_id ?
-                            <View style={docsContainer}>
-                                <DocViewer title='Emirates id' url={emirates_id} />
-                            </View>
-                            :
-                            <AddDoc title='Emirates id' />}
+                        <View style={docsContainer}>
+                            <DocViewer title='Driving license' varified={is_driving_license_approved} url={driving_license} />
+                        </View>
 
+                        <View style={docsContainer}>
+                            <DocViewer title='Car license ownership' url={carLicense_ownership} />
+                        </View>
+
+                        <View style={docsContainer}>
+                            <DocViewer title='Car maintenance certificate' url={car_maintenance_certificate} />
+                        </View>
+
+                        <View style={docsContainer}>
+                            <DocViewer title='Emirates id' url={emirates_id} />
+                        </View>
                         <View style={{ height: 20 }}></View>
                     </ScrollView>
                 </View>
