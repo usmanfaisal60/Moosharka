@@ -104,7 +104,7 @@ class AccountScreen extends React.Component {
                 emirates_id,
                 is_driving_license_approved,
                 is_car_license_ownership_approved,
-                is_car_migration_certificate_approved
+                is_car_migration_certificate_approved,
             } = userProfile;
 
             console.log(userProfile);
@@ -170,11 +170,11 @@ class AccountScreen extends React.Component {
                         </View>
 
                         <View style={docsContainer}>
-                            <DocViewer title='Car license ownership' url={carLicense_ownership} />
+                            <DocViewer title='Car license ownership' varified={is_car_license_ownership_approved} url={carLicense_ownership} />
                         </View>
 
                         <View style={docsContainer}>
-                            <DocViewer title='Car maintenance certificate' url={car_maintenance_certificate} />
+                            <DocViewer title='Car maintenance certificate' varified={is_car_migration_certificate_approved} url={car_maintenance_certificate} />
                         </View>
 
                         <View style={docsContainer}>

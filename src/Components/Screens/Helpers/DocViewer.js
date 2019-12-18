@@ -23,6 +23,10 @@ const DocViewer = props => {
         varified
     } = props
 
+    const source = (url && url !== 'http://ejaroo.com') ? { uri: url } : require('../../../Assets/Icons/cnic.png');
+
+    console.log(url);
+
     return (
         <View style={{ ...container, height: varified ? 400 : 300 }}>
             <View style={textContainer}>
@@ -34,8 +38,8 @@ const DocViewer = props => {
                 <Image
                     resizeMode='contain'
                     style={imageStyle}
-                    source={{ uri: url }} />
-                {!varified ?
+                    source={source} />
+                {url && !varified ?
                     <View style={modal}>
                         <Text style={varificationText}>
                             {'This document is being varified by admin.'}
