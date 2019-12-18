@@ -107,8 +107,6 @@ class AccountScreen extends React.Component {
                 is_car_migration_certificate_approved,
             } = userProfile;
 
-            console.log(userProfile);
-
             const source = this.state.avatarSource ? this.state.avatarSource : avatar ? { uri: avatar } : require('../../Assets/Icons/profileImage.png');
             return (
                 <View style={scrollerContainer}>
