@@ -163,9 +163,9 @@ class AccountScreen extends React.Component {
                             </EditableTextField>
                         </View>
 
-                        <View style={docsContainer}>
+                        {/* <View style={docsContainer}>
                             <DocViewer title='Driving license' varified={is_driving_license_approved} url={driving_license} />
-                        </View>
+                        </View> */}
 
                         <View style={docsContainer}>
                             <DocViewer title='Car license ownership' varified={is_car_license_ownership_approved} url={carLicense_ownership} />

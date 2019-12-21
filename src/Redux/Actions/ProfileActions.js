@@ -92,6 +92,7 @@ export const setUserProfile = (object, callbackSuccess, callbackFailiure) => {
             callbackSuccess();
         }
         catch (e) {
+            console.log(e);
             callbackFailiure();
         }
     }
