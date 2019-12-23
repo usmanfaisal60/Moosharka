@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
-import Aux from '../../HOC/AUX/Aux';
+import Aux from '../../HOC/Auxiliary';
 
 const Booked = props => {
 

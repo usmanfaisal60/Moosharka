@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity, Linking } from 'react-native';
-import Aux from '../../HOC/AUX/Aux';
+import Aux from '../../HOC/Auxiliary';
 import { connect } from 'react-redux';
 import * as actions from '../../../Redux/Actions';
 

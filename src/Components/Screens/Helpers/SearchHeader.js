@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Text, TextInput, StyleSheet, TouchableNativeFeedback, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import constants from '../../../constants';
-import Aux from '../../HOC/AUX/Aux';
+import Aux from '../../HOC/Auxiliary';
 
 const SeacrhHeader = props => {
 

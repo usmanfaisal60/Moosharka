@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image, StyleSheet, StatusBar } from 'react-native';
-import Aux from '../HOC/AUX/Aux';
+import Aux from '../HOC/Auxiliary';
 import BottomNavigator from './Helpers/BottomNavigator';
 import CustomListItem from './Helpers/CustomListItem';
 import { attemptLogout } from '../../Redux/Actions';

@@ -6,7 +6,7 @@ import { setCredentials, resetLoginState, attemptSignup, clearError } from '../.
 import { connect } from 'react-redux';
 import constants from '../../constants';
 import FullScreenModal from './Helpers/FullScreenModal';
-import Aux from '../HOC/AUX/Aux';
+import Aux from '../HOC/Auxiliary';
 
 
 class Signup extends React.Component {
