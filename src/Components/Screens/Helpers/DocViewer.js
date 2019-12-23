@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
 
@@ -17,14 +17,13 @@ class DocViewer extends React.Component {
         if (url && url !== 'http://ejaroo.com') {
             this.setState({ imageSource: url });
         }
-
-        console.log('url is ',url);
     }
 
     showImagePicker = () => {
         const {
             setUserDocument,
-            docName
+            docName,
+            reference
         } = this.props;
 
         ImagePicker.showImagePicker({
@@ -45,6 +44,7 @@ class DocViewer extends React.Component {
                     console.log('User tapped custom button: ', response.customButton);
                 } else {
                     const source = { uri: response.uri };
+                    const originalSource = this.state.imageSource;
 
                     this.setState({
                         imageSource: source,
@@ -52,10 +52,11 @@ class DocViewer extends React.Component {
                     });
 
                     const callbackSuccess = () => {
+                        reference[docName] = response.uri
                         this.setState({ uploading: false, imageSource: source })
                     }
                     const callbackFailure = () => {
-                        this.setState({ uploading: false })
+                        this.setState({ uploading: false, imageSource: originalSource })
                     }
 
                     setUserDocument(response, docName, callbackSuccess, callbackFailure);
@@ -88,7 +89,7 @@ class DocViewer extends React.Component {
             varified
         } = this.props;
 
-        console.log('image source is ', this.state);
+        console.log('image source is ', url);
 
         return (
             <View style={{ ...container, height: varified ? 400 : 300 }}>
@@ -120,6 +121,13 @@ class DocViewer extends React.Component {
                                     <Text style={uploadButtonText}>Uplaod document</Text>
                                 </View>
                             </TouchableOpacity>
+                        </View>
+                        :
+                        null
+                    }
+                    {this.state.uploading ?
+                        <View style={modal}>
+                            <ActivityIndicator size='small' />
                         </View>
                         :
                         null

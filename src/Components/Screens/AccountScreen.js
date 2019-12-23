@@ -164,19 +164,19 @@ class AccountScreen extends React.Component {
                         </View>
 
                         <View style={docsContainer}>
-                            <DocViewer docName='driving_license' setUserDocument={setUserDocument} title='Driving license' varified={is_driving_license_approved} url={driving_license} />
+                            <DocViewer reference={userProfile} docName='driving_license' setUserDocument={setUserDocument} title='Driving license' varified={is_driving_license_approved} url={driving_license} />
                         </View>
 
                         <View style={docsContainer}>
-                            <DocViewer setUserDocument={setUserDocument} title='Car license ownership' varified={is_car_license_ownership_approved} url={carLicense_ownership} />
+                            <DocViewer reference={userProfile} docName='carLicense_ownership'setUserDocument={setUserDocument} title='Car license ownership' varified={is_car_license_ownership_approved} url={carLicense_ownership} />
                         </View>
 
                         <View style={docsContainer}>
-                            <DocViewer setUserDocument={setUserDocument} title='Car maintenance certificate' varified={is_car_migration_certificate_approved} url={car_maintenance_certificate} />
+                            <DocViewer reference={userProfile} docName='car_maintenance_certificate' setUserDocument={setUserDocument} title='Car maintenance certificate' varified={is_car_migration_certificate_approved} url={car_maintenance_certificate} />
                         </View>
 
                         <View style={docsContainer}>
-                            <DocViewer setUserDocument={setUserDocument} title='Emirates id' url={emirates_id} />
+                            <DocViewer reference={userProfile} docName='emirates_id' setUserDocument={setUserDocument} title='Emirates id' url={emirates_id} />
                         </View>
                         <View style={{ height: 20 }}></View>
                     </ScrollView>
