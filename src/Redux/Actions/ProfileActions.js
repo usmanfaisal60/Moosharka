@@ -131,10 +131,33 @@ export const setProfilePicture = (image, callbackSuccess, callbackFailiure) => {
     }
 }
 
-const createImageFormData = (photo) => {
+export const setUserDocument = (image, docName, callbackSuccess, callbackFailiure) => {
+    return async dispatch => {
+        console.log(docName);
+        const formData = createImageFormData(image, docName);
+
+        console.log(formData);
+        axios.post(
+            constants.url + '/documents', formData,
+            {
+                headers: {
+                    'Authorization': 'Bearer ' + constants.token
+                }
+            }).
+            then(res => {
+                console.log(res)
+                callbackSuccess();
+            }).catch(e => {
+                console.log(e);
+                callbackFailiure();
+            });
+    }
+}
+
+const createImageFormData = (photo, docName = 'avatar') => {
     const data = new FormData();
 
-    data.append("avatar", {
+    data.append(docName, {
         name: photo.fileName,
         type: photo.type,
         uri: Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")

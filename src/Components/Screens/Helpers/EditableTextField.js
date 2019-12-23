@@ -66,6 +66,8 @@ class EditableTextField extends React.Component {
             title,
             number,
             placeholder,
+            keys,
+            reference
         } = this.props
 
         return (
@@ -107,19 +109,24 @@ class EditableTextField extends React.Component {
                         :
                         null
                     }
-                    <TouchableOpacity
-                        activeOpacity={0.5}
-                        onPress={() => {
-                            if (!this.state.editing) {
-                                this.setState({ editing: true })
-                            } else {
-                                this.submitData.bind(this)();
-                            }
-                        }}>
-                        <Image
-                            style={iconStyle}
-                            source={this.state.editing ? icons.ok : icons.edit} />
-                    </TouchableOpacity>
+                    {
+                        keys && reference ?
+                            <TouchableOpacity
+                                activeOpacity={0.5}
+                                onPress={() => {
+                                    if (!this.state.editing) {
+                                        this.setState({ editing: true })
+                                    } else {
+                                        this.submitData.bind(this)();
+                                    }
+                                }}>
+                                <Image
+                                    style={iconStyle}
+                                    source={this.state.editing ? icons.ok : icons.edit} />
+                            </TouchableOpacity>
+                            :
+                            null
+                    }
                 </View>
             </View>
 
@@ -131,7 +138,6 @@ const icons = {
     username: require('../../../Assets/Icons/username.png'),
     ok: require('../../../Assets/Icons/ok.png'),
     edit: require('../../../Assets/Icons/edit.png'),
-    cnic: require('../../../Assets/Icons/cnic.png'),
     license: require('../../../Assets/Icons/license.png'),
     phone: require('../../../Assets/Icons/phone.png'),
     email: require('../../../Assets/Icons/email.png'),

@@ -1,77 +1,155 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
 
-const DocViewer = props => {
 
-    const {
-        container,
-        textContainer,
-        imageContainer,
-        textStyle,
-        imageStyle,
-        modal,
-        varificationText,
-        varificationContainer,
-        editStyle,
-        varifiedStyle,
-        varifiedTextContainer
-    } = Styles;
+class DocViewer extends React.Component {
 
-    const {
-        title,
-        url,
-        varified
-    } = props
+    state = {
+        imageSource: require('../../../Assets/Icons/license.png'),
+        uploading: false
+    }
 
-    const source = (url && url !== 'http://ejaroo.com') ? { uri: url } : require('../../../Assets/Icons/cnic.png');
+    componentDidMount() {
+        const {
+            url
+        } = this.props;
+        if (url && url !== 'http://ejaroo.com') {
+            this.setState({ imageSource: url });
+        }
 
-    console.log(url);
+        console.log('url is ',url);
+    }
 
-    return (
-        <View style={{ ...container, height: varified ? 400 : 300 }}>
-            <View style={textContainer}>
-                <Text style={textStyle}>
-                    {title}
-                </Text>
-            </View>
-            <View style={imageContainer}>
-                <Image
-                    resizeMode='contain'
-                    style={imageStyle}
-                    source={source} />
-                {url && !varified ?
-                    <View style={modal}>
-                        <Text style={varificationText}>
-                            {'This document is being varified by admin.'}
-                            {'\nYou will be able to use ejaroo when all of your documents are varified'}
+    showImagePicker = () => {
+        const {
+            setUserDocument,
+            docName
+        } = this.props;
+
+        ImagePicker.showImagePicker({
+            title: 'Select a photo',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images'
+            },
+            quality: 0.5
+        },
+            response => {
+
+                if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                } else if (response.error) {
+                    console.log('ImagePicker Error: ', response.error);
+                } else if (response.customButton) {
+                    console.log('User tapped custom button: ', response.customButton);
+                } else {
+                    const source = { uri: response.uri };
+
+                    this.setState({
+                        imageSource: source,
+                        uploading: true
+                    });
+
+                    const callbackSuccess = () => {
+                        this.setState({ uploading: false, imageSource: source })
+                    }
+                    const callbackFailure = () => {
+                        this.setState({ uploading: false })
+                    }
+
+                    setUserDocument(response, docName, callbackSuccess, callbackFailure);
+                }
+            });
+    }
+
+
+
+    render() {
+        const {
+            container,
+            textContainer,
+            imageContainer,
+            textStyle,
+            imageStyle,
+            modal,
+            varificationText,
+            varificationContainer,
+            editStyle,
+            varifiedStyle,
+            varifiedTextContainer,
+            uploadButtonContainer,
+            uploadButtonText
+        } = Styles;
+
+        const {
+            title,
+            url,
+            varified
+        } = this.props;
+
+        console.log('image source is ', this.state);
+
+        return (
+            <View style={{ ...container, height: varified ? 400 : 300 }}>
+                <View style={textContainer}>
+                    <Text style={textStyle}>
+                        {title}
+                    </Text>
+                </View>
+                <View style={imageContainer}>
+                    <Image
+                        resizeMode='contain'
+                        style={imageStyle}
+                        source={this.state.imageSource} />
+                    {url && !varified ?
+                        <View style={modal}>
+                            <Text style={varificationText}>
+                                {'This document is being varified by admin.'}
+                                {'\nYou will be able to use ejaroo when all of your documents are varified'}
+                            </Text>
+                        </View>
+                        :
+                        null}
+                    {!url ?
+                        <View style={modal}>
+                            <TouchableOpacity
+                                onPress={this.showImagePicker}
+                                activeOpacity={0.8} style={{ width: '90%' }}>
+                                <View style={uploadButtonContainer}>
+                                    <Text style={uploadButtonText}>Uplaod document</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        :
+                        null
+                    }
+                </View>
+                {varified ?
+                    <View style={varificationContainer}>
+                        <TouchableOpacity>
+                            <Text style={editStyle}>
+                                Edit image
+                    </Text>
+                        </TouchableOpacity>
+                        <View style={varifiedTextContainer}>
+                            <Text style={varifiedStyle}>
+                                Varified
                         </Text>
+                            <Image
+                                resizeMode='contain'
+                                style={{ height: 18, width: 18 }}
+                                source={require('../../../Assets/Icons/ok.png')} />
+                        </View>
                     </View>
                     :
-                    null}
-            </View>
-            {varified ?
-                <View style={varificationContainer}>
-                    <TouchableOpacity>
-                        <Text style={editStyle}>
-                            Edit image
-                    </Text>
-                    </TouchableOpacity>
-                    <View style={varifiedTextContainer}>
-                        <Text style={varifiedStyle}>
-                            Varified
-                        </Text>
-                        <Image
-                            resizeMode='contain'
-                            style={{ height: 18, width: 18 }}
-                            source={require('../../../Assets/Icons/ok.png')} />
-                    </View>
-                </View>
-                :
-                null}
+                    null
+                }
 
-        </View>
-    )
-};
+            </View>
+        )
+    }
+}
 
 const Styles = StyleSheet.create({
     container: {
@@ -95,6 +173,7 @@ const Styles = StyleSheet.create({
         flex: 4,
         width: '100%',
         justifyContent: 'center',
+        alignItems: 'center'
     },
 
     imageStyle: {
@@ -151,6 +230,20 @@ const Styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 20
+    },
+
+    uploadButtonContainer: {
+        padding: 10,
+        backgroundColor: 'red',
+        borderRadius: 5,
+        width: '100%'
+    },
+
+    uploadButtonText: {
+        color: '#fff',
+        width: '100%',
+        textAlign: 'center',
+        fontSize: 20
     }
 });
 

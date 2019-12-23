@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import EditableTextField from './Helpers/EditableTextField';
 import ImagePicker from 'react-native-image-picker';
 import FullScreenModal from './Helpers/FullScreenModal';
-import { fetchUserProfile, setUserProfile, setProfilePicture } from '../../Redux/Actions';
+import { fetchUserProfile, setUserProfile, setProfilePicture, setUserDocument } from '../../Redux/Actions';
 import AddDoc from './Helpers/AddDoc';
 
 
@@ -88,7 +88,8 @@ class AccountScreen extends React.Component {
 
         const {
             userProfile,
-            setUserProfile
+            setUserProfile,
+            setUserDocument
         } = this.props;
 
         if (userProfile) if (userProfile.status != 'Deactive') {
@@ -106,7 +107,6 @@ class AccountScreen extends React.Component {
                 is_car_license_ownership_approved,
                 is_car_migration_certificate_approved,
             } = userProfile;
-
             const source = this.state.avatarSource ? this.state.avatarSource : avatar ? { uri: avatar } : require('../../Assets/Icons/profileImage.png');
             return (
                 <View style={scrollerContainer}>
@@ -146,6 +146,7 @@ class AccountScreen extends React.Component {
                                 number
                                 keys={['phone']}
                                 placeholder='Your phone number'
+                                reference={userProfile}
                                 icon='phone'
                                 setUserProfile={setUserProfile}
                                 title='Phone number'>
@@ -154,7 +155,6 @@ class AccountScreen extends React.Component {
                         </View>
                         <View style={fieldContainer}>
                             <EditableTextField
-                                keys={['email']}
                                 placeholder='Your email address'
                                 icon='email'
                                 setUserProfile={setUserProfile}
@@ -163,20 +163,20 @@ class AccountScreen extends React.Component {
                             </EditableTextField>
                         </View>
 
-                        {/* <View style={docsContainer}>
-                            <DocViewer title='Driving license' varified={is_driving_license_approved} url={driving_license} />
-                        </View> */}
-
                         <View style={docsContainer}>
-                            <DocViewer title='Car license ownership' varified={is_car_license_ownership_approved} url={carLicense_ownership} />
+                            <DocViewer docName='driving_license' setUserDocument={setUserDocument} title='Driving license' varified={is_driving_license_approved} url={driving_license} />
                         </View>
 
                         <View style={docsContainer}>
-                            <DocViewer title='Car maintenance certificate' varified={is_car_migration_certificate_approved} url={car_maintenance_certificate} />
+                            <DocViewer setUserDocument={setUserDocument} title='Car license ownership' varified={is_car_license_ownership_approved} url={carLicense_ownership} />
                         </View>
 
                         <View style={docsContainer}>
-                            <DocViewer title='Emirates id' url={emirates_id} />
+                            <DocViewer setUserDocument={setUserDocument} title='Car maintenance certificate' varified={is_car_migration_certificate_approved} url={car_maintenance_certificate} />
+                        </View>
+
+                        <View style={docsContainer}>
+                            <DocViewer setUserDocument={setUserDocument} title='Emirates id' url={emirates_id} />
                         </View>
                         <View style={{ height: 20 }}></View>
                     </ScrollView>
@@ -328,4 +328,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchUserProfile, setUserProfile, setProfilePicture })(AccountScreen);
+export default connect(mapStateToProps, { fetchUserProfile, setUserProfile, setProfilePicture, setUserDocument })(AccountScreen);
