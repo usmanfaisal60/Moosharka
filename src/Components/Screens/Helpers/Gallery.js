@@ -46,8 +46,6 @@ class Gallery extends React.Component {
             galleryImages
         } = this.props;
 
-        console.log(galleryImages);
-
         return (
             <View style={container}>
                 <Text style={textStyle}>Gallery</Text>

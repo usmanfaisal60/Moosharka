@@ -9,8 +9,6 @@ const SubmitSection = props => {
         buttonText
     } = Styles;
 
-    console.log(props);
-
     return (
         <View style={container}>
             <TouchableOpacity
