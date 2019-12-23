@@ -8,6 +8,7 @@ import AddCarBanner from './Helpers/AddCarBanner';
 import Gallery from './Helpers/Gallery';
 import SubmitSection from './Helpers/SubmitSection';
 import * as actions from '../../Redux/Actions';
+import FullScreenModal from './Helpers/FullScreenModal';
 
 
 const {
@@ -17,13 +18,16 @@ const {
     set_car_city,
     set_car_price,
     set_max_peopel,
-    set_minimum_people,
     set_car_image,
     set_gallery_images,
     reset_car_credentials
 } = constants.red_types;
 
 class ListCar extends React.Component {
+
+    state = {
+        loader: false
+    }
 
     componentWillUnmount() {
         this.props.setCarCredential(reset_car_credentials);
@@ -117,10 +121,11 @@ class ListCar extends React.Component {
                                 ]}
                                 onValueChange={setCarCredential.bind(this, set_max_peopel)} />
                             <Gallery galleryImages={galleryImages} />
-                            <SubmitSection {...this.props} />
+                            <SubmitSection showLoader={() => this.setState({ loader: true })} hideLoader={() => this.setState({ loader: false })} {...this.props} />
                         </ScrollView>
                     </View>
                 </View>
+                {this.state.loader ? <FullScreenModal loader /> : null}
             </View>
         );
     }

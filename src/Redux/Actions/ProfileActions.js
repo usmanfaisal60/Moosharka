@@ -131,7 +131,6 @@ export const setProfilePicture = (image, callbackSuccess, callbackFailiure) => {
 
 export const setUserDocument = (image, docName, callbackSuccess, callbackFailiure) => {
     return async dispatch => {
-        console.log(docName);
         const formData = createImageFormData(image, docName);
 
         console.log(formData);
