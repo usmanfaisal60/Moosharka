@@ -7,7 +7,12 @@ class DocViewer extends React.Component {
 
     state = {
         avatarSource: null,
-        uploading: false
+        uploading: false,
+        showUploadButton: false
+    }
+
+    componentDidMount() {
+        if (!this.props.url) this.setState({showUploadButton: true});
     }
 
     showImagePicker() {
@@ -39,15 +44,12 @@ class DocViewer extends React.Component {
 
                     this.setState({
                         avatarSource: source,
-                        uploading: true
+                        uploading: true,
+                        showUploadButton: false
                     });
 
-                    console.log(reference);
-
                     const callbackSuccess = () => {
-                        reference[docName] = response.uri;
-                        this.setState({ uploading: false, avatarSource: source });
-                        console.log(reference);
+                        this.setState({ uploading: false, avatarSource: source, showUploadButton: false });
                     }
                     const callbackFailure = () => {
                         this.setState({ uploading: false, avatarSource: url })
@@ -82,8 +84,6 @@ class DocViewer extends React.Component {
 
         const source = this.state.avatarSource ? this.state.avatarSource : url ? { uri: url } : require('../../../Assets/Icons/license.png');
 
-        console.log(source);
-
         return (
             <View style={{ ...container, height: varified ? 400 : 300 }}>
                 <View style={textContainer}>
@@ -93,7 +93,7 @@ class DocViewer extends React.Component {
                 </View>
                 <View style={imageContainer}>
                     <Image
-                        resizeMode={(url || this.state.uploading) ? 'cover' : 'contain'}
+                        resizeMode={!this.state.showUploadButton || this.state.uploading ? 'cover' : 'contain'}
                         style={imageStyle}
                         source={source} />
                     {url && !varified ?
@@ -105,7 +105,7 @@ class DocViewer extends React.Component {
                         </View>
                         :
                         null}
-                    {!url ?
+                    {this.state.showUploadButton ?
                         <View style={modal}>
                             <TouchableOpacity
                                 onPress={this.showImagePicker.bind(this)}

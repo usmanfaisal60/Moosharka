@@ -110,10 +110,8 @@ const makeFormData = obj => {
 
 export const setProfilePicture = (image, callbackSuccess, callbackFailiure) => {
     return async dispatch => {
-        console.log(image);
         const formData = createImageFormData(image);
 
-        console.log(formData);
         axios.post(
             constants.url + '/user', formData,
             {
