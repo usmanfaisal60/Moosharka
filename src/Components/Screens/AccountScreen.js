@@ -8,7 +8,6 @@ import EditableTextField from './Helpers/EditableTextField';
 import ImagePicker from 'react-native-image-picker';
 import FullScreenModal from './Helpers/FullScreenModal';
 import { fetchUserProfile, setUserProfile, setProfilePicture, setUserDocument } from '../../Redux/Actions';
-import AddDoc from './Helpers/AddDoc';
 
 
 

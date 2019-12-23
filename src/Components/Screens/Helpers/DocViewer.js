@@ -6,24 +6,16 @@ import ImagePicker from 'react-native-image-picker';
 class DocViewer extends React.Component {
 
     state = {
-        imageSource: require('../../../Assets/Icons/license.png'),
+        avatarSource: null,
         uploading: false
     }
 
-    componentDidMount() {
-        const {
-            url
-        } = this.props;
-        if (url && url !== 'http://ejaroo.com') {
-            this.setState({ imageSource: url });
-        }
-    }
-
-    showImagePicker = () => {
+    showImagePicker() {
         const {
             setUserDocument,
             docName,
-            reference
+            url,
+            reference,
         } = this.props;
 
         ImagePicker.showImagePicker({
@@ -44,27 +36,26 @@ class DocViewer extends React.Component {
                     console.log('User tapped custom button: ', response.customButton);
                 } else {
                     const source = { uri: response.uri };
-                    const originalSource = this.state.imageSource;
 
                     this.setState({
-                        imageSource: source,
+                        avatarSource: source,
                         uploading: true
                     });
 
+                    console.log(reference);
+
                     const callbackSuccess = () => {
-                        reference[docName] = response.uri
-                        this.setState({ uploading: false, imageSource: source })
+                        reference[docName] = response.uri;
+                        this.setState({ uploading: false, avatarSource: source });
+                        console.log(reference);
                     }
                     const callbackFailure = () => {
-                        this.setState({ uploading: false, imageSource: originalSource })
+                        this.setState({ uploading: false, avatarSource: url })
                     }
-
                     setUserDocument(response, docName, callbackSuccess, callbackFailure);
                 }
             });
     }
-
-
 
     render() {
         const {
@@ -89,7 +80,9 @@ class DocViewer extends React.Component {
             varified
         } = this.props;
 
-        console.log('image source is ', url);
+        const source = this.state.avatarSource ? this.state.avatarSource : url ? { uri: url } : require('../../../Assets/Icons/license.png');
+
+        console.log(source);
 
         return (
             <View style={{ ...container, height: varified ? 400 : 300 }}>
@@ -100,9 +93,9 @@ class DocViewer extends React.Component {
                 </View>
                 <View style={imageContainer}>
                     <Image
-                        resizeMode='contain'
+                        resizeMode={(url || this.state.uploading) ? 'cover' : 'contain'}
                         style={imageStyle}
-                        source={this.state.imageSource} />
+                        source={source} />
                     {url && !varified ?
                         <View style={modal}>
                             <Text style={varificationText}>
@@ -115,7 +108,7 @@ class DocViewer extends React.Component {
                     {!url ?
                         <View style={modal}>
                             <TouchableOpacity
-                                onPress={this.showImagePicker}
+                                onPress={this.showImagePicker.bind(this)}
                                 activeOpacity={0.8} style={{ width: '90%' }}>
                                 <View style={uploadButtonContainer}>
                                     <Text style={uploadButtonText}>Uplaod document</Text>
@@ -185,7 +178,8 @@ const Styles = StyleSheet.create({
     },
 
     imageStyle: {
-        height: '100%'
+        height: '100%',
+        width: '100%'
     },
 
     modal: {
