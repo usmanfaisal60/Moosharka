@@ -17,6 +17,7 @@ import ListCar from './Screens/ListCar';
 import PickCarLocation from './Screens/PickCarLocation';
 
 
+
 const Navigator = createStackNavigator({
     Search,
     Trips,

@@ -4,6 +4,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    
 
     <application
       android:name=".MainApplication"
@@ -27,6 +30,7 @@
             android:value="AIzaSyDhJuTzBSvvzOnZltfZngIwY_A3H_lVFls"/>
       <activity
         android:name=".MainActivity"
+        android:launchMode="singleTop"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize">
@@ -36,6 +40,7 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
     </application>
 
 </manifest>
