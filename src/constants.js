@@ -1,5 +1,5 @@
 export default constants = {
-    url: 'http://ejaroo.com/en/api',
+    url: 'https://ejaroo.com/en/api',
     requestTimeouts: 10000,
     headerHeight: 80,
     bottomTabHeight: 55,
