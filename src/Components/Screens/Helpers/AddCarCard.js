@@ -30,11 +30,6 @@ const AddCarCard = props => {
 
     return (
         <View style={container}>
-            <View style={iconContainer}>
-                <View style={imageStyle}>
-                    <Image style={imageStyle} resizeMode='cover' source={icons[icon]} />
-                </View>
-            </View>
             <View style={textContainer}>
                 <Text style={labelStyle}>
                     {label}
@@ -110,7 +105,7 @@ const Styles = StyleSheet.create({
     },
 
     textContainer: {
-        flex: 5,
+        flex: 1,
         justifyContent: 'center',
     },
 

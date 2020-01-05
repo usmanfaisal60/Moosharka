@@ -90,7 +90,7 @@ export const searchCar = location_id => {
 
             dispatch({
                 type: set_search_results,
-                payload: searchResults.data.result
+                payload: searchResults.data
             })
         } catch (e) {
             console.log(e);

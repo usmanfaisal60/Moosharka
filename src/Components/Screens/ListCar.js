@@ -66,7 +66,7 @@ class ListCar extends React.Component {
                     }}>List your car</CustomHeader>
                 <View style={outerContainer}>
                     <View style={container}>
-                        <ScrollView style={{ width: '100%' }}>
+                        <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false}>
                             <AddCarBanner onImagePicked={setCarCredential.bind(this, set_car_image)} />
                             <AddCarCard
                                 icon='name'
@@ -120,7 +120,7 @@ class ListCar extends React.Component {
                                     { title: '8', id: '8' }
                                 ]}
                                 onValueChange={setCarCredential.bind(this, set_max_peopel)} />
-                            <Gallery galleryImages={galleryImages} />
+                            <Gallery galleryImages={galleryImages} setCarCredential={setCarCredential.bind(this, set_gallery_images)} />
                             <SubmitSection showLoader={() => this.setState({ loader: true })} hideLoader={() => this.setState({ loader: false })} {...this.props} />
                         </ScrollView>
                     </View>

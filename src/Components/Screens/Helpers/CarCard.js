@@ -29,15 +29,6 @@ const CarCard = props => {
         distanceContainer
     } = Styles;
 
-    // const {
-    //     car_imageUrl,
-    //     car_name,
-    //     year,
-    //     rating,
-    //     trips,
-    //     price,
-    //     distance,
-    // } = props.car;
 
     const {
         title,

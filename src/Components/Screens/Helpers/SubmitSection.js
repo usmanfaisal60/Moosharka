@@ -54,7 +54,7 @@ const SubmitSection = props => {
                 onPress={() => {
                     if (carName, carManufacturingYear, carModel, carLocation, carCity, carPrice, maxPeople, carImage) {
                         showLoader();
-                        submitCar(carName, carManufacturingYear, carCity, carLocation.latitude, carLocation.longitude, carPrice, maxPeople, carImage, null, callbackSuccess, callbackFailure);
+                        submitCar(carName, carManufacturingYear, carCity, carLocation.latitude, carLocation.longitude, carPrice, maxPeople, carImage, galleryImages, callbackSuccess, callbackFailure);
                     }
                     else Alert.alert(
                         'Empty fields',

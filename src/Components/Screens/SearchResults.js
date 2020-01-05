@@ -96,7 +96,7 @@ class SearchResults extends React.Component {
                 {searchResults ?
                     <View style={flatListContainer}>
                         <FlatList showsVerticalScrollIndicator={false}
-                            data={searchResults}
+                            data={searchResults.result}
                             renderItem={({ item, index }) => <CarCard lastItem={(index + 1) === searchResults.length} onPress={() => { if (!loginStatus) navigation.navigate('LoginOrSignUp', { backKey: 'SearchResults' }) }}
                                 car={item} />}
                             keyExtractor={item => `${item.id}`}

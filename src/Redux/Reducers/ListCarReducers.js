@@ -10,7 +10,7 @@ const initial_state = {
     maxPeople: null,
     minPeople: null,
     carImage: null,
-    galleryImages: [],
+    galleryImages: null,
 }
 const {
     set_car_name,
@@ -69,9 +69,7 @@ export default (state = initial_state, action) => {
                 ...state, galleryImages: action.payload
             }
         case reset_car_credentials:
-            state.galleryImages = null;
-            state.galleryImages = [];
-            return initial_state;
+            return { ...initial_state };
         default:
             return state;
     }

@@ -23,13 +23,12 @@ class Gallery extends React.Component {
                 } else if (response.customButton) {
                     console.log('User tapped custom button: ', response.customButton);
                 } else {
-                    console.log(response);
                     const source = { uri: response.uri }
                     this.setState({
                         avatarSource: source,
                     });
-                    this.props.galleryImages.push(source);
-                    this.forceUpdate();
+                    if (!this.props.galleryImages) this.props.setCarCredential([response]);
+                    else this.props.setCarCredential([...this.props.galleryImages, response])
                 }
             });
     }
@@ -51,7 +50,7 @@ class Gallery extends React.Component {
                 <Text style={textStyle}>Gallery</Text>
                 <ScrollView horizontal>
                     <View style={imagesContainer}>
-                        {galleryImages.length !== 0 ?
+                        {galleryImages ? galleryImages.length !== 0 ?
                             galleryImages.map((el, i) => (
                                 <TouchableOpacity
                                     key={i}
@@ -64,7 +63,7 @@ class Gallery extends React.Component {
                                 </TouchableOpacity>
                             ))
                             :
-                            null}
+                            null : null}
                         <TouchableOpacity
                             onPress={this.showImagePicker.bind(this)}
                             activeOpacity={0.5}

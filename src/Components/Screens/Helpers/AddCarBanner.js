@@ -27,12 +27,11 @@ class AddCraBanner extends React.Component {
                 } else if (response.customButton) {
                     console.log('User tapped custom button: ', response.customButton);
                 } else {
-                    console.log(response);
                     const source = { uri: response.uri }
                     this.setState({
                         avatarSource: source,
                     });
-                    this.props.onImagePicked(source);
+                    this.props.onImagePicked(response);
                 }
             });
     }
