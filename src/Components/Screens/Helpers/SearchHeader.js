@@ -77,12 +77,9 @@ const SeacrhHeader = props => {
 
 const Styles = StyleSheet.create({
     container: {
-        position: 'absolute',
-        top: 0,
         width: '100%',
         backgroundColor: '#222',
         flexDirection: 'row',
-        zIndex: 5
     },
 
     textStyle: {

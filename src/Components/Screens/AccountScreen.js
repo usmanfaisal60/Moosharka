@@ -226,14 +226,12 @@ const addImageButtonSize = 40;
 
 const Styles = StyleSheet.create({
     container: {
-        width: '100%',
-        height: '100%'
+        flex: 1
     },
 
     scrollerContainer: {
         width: '100%',
         flex: 1,
-        paddingTop: constants.headerHeight
     },
 
     profileImageContainer: {

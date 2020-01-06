@@ -52,7 +52,7 @@ class MapsResults extends React.Component {
                     initialRegion={this.state.initialRegion}
                     reigion={this.state.reigion}
                 >
-                    {searchResults.map(el => {
+                    {searchResults.result.map(el => {
                         return (
                             <Marker
                                 key={el.id}

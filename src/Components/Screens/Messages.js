@@ -18,15 +18,15 @@ class Messages extends React.Component {
         const {
             loginStatus
         } = this.props;
-        
+
         return (
             <Aux>
+                <CustomHeader >Messages</CustomHeader>
                 <View style={container}>
                     {loginStatus ?
                         <Aux>
-                            <CustomHeader >Messages</CustomHeader>
                             <View style={imageContainer}>
-                                <Image style={imageStyle} source={require('../../Assets/Icons/message.png')}/>
+                                <Image style={imageStyle} source={require('../../Assets/Icons/message.png')} />
                             </View>
                             <Text>
                                 No messages yet
@@ -45,8 +45,7 @@ class Messages extends React.Component {
 
 const Styles = StyleSheet.create({
     container: {
-        width: '100%',
-        height: '100%',
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },

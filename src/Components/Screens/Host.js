@@ -4,13 +4,13 @@ import CustomButton from './Helpers/CustomButton';
 import BottomNavigator from './Helpers/BottomNavigator';
 import CustomHeader from './Helpers/CustomHeader';
 import { connect } from 'react-redux';
+import Aux from '../HOC/Auxiliary';
 
 class Host extends React.Component {
 
     render() {
 
         const {
-            container,
             ImageBackgroundContainer,
             moosharkaIcon,
             buttonsContainer,
@@ -22,9 +22,10 @@ class Host extends React.Component {
             loginStatus
         } = this.props;
         return (
-            <View style={container}>
-                <ImageBackground style={ImageBackgroundContainer} resizeMode='cover' source={require('../../Assets/Images/listyourcar.jpg')}>
-                    <CustomHeader>List your car</CustomHeader>
+            <Aux>
+                <CustomHeader>List your car</CustomHeader>
+                <View style={{ flex: 1, alignItems: 'center' }}>
+                    <Image style={ImageBackgroundContainer} resizeMode='cover' source={require('../../Assets/Images/listyourcar.jpg')} />
                     <Image resizeMode='contain' style={moosharkaIcon} source={require('../../Assets/Images/ejaroo-logo.png')} />
                     <Text style={description}>
                         Listing your car is easy and it would take only about 10 minutes
@@ -34,31 +35,28 @@ class Host extends React.Component {
                             navigation.navigate('ListYourCar');
                         }}>Get started</CustomButton>
                     </View>
-                </ImageBackground>
+                </View>
                 <BottomNavigator
                     navigation={navigation}
                     active='Host' />
-            </View>
-        )
+            </Aux>
+        );
     }
 }
 
 const Styles = StyleSheet.create({
-    contaienr: {
-        width: '100%',
-        height: '100%'
-    },
 
     ImageBackgroundContainer: {
         width: '100%',
         height: '100%',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'absolute'
     },
 
     moosharkaIcon: {
         width: '70%',
         height: 70,
-        marginTop: '30%',
+        marginTop: '20%',
     },
 
     buttonsContainer: {

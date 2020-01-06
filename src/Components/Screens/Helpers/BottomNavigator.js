@@ -60,9 +60,6 @@ const Styles = StyleSheet.create({
         width: '100%',
         height: constants.bottomTabHeight,
         backgroundColor: '#222',
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
         flexDirection: 'row'
     },
 

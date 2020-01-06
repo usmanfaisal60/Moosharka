@@ -33,7 +33,7 @@ class Profile extends React.Component {
                             if (!loginStatus) navigation.navigate('LoginOrSignUp');
                             else navigation.navigate('AccountScreen');
                         }}
-                        >
+                    >
                         Account
                     </CustomListItem>
                     <CustomListItem
@@ -59,8 +59,7 @@ class Profile extends React.Component {
 
 const Styles = StyleSheet.create({
     container: {
-        width: '100%',
-        height: '100%',
+        flex: 1,
         backgroundColor: '#222'
     },
 

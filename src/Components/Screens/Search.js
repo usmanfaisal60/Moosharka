@@ -180,6 +180,7 @@ class Search extends React.Component {
         return (
             <View style={{ width: '100%', height: '100%' }}>
                 <ScrollView
+                    showsVerticalScrollIndicator={false}
                     onScroll={(event) => {
                         Keyboard.dismiss();
                     }}>
@@ -254,7 +255,7 @@ class Search extends React.Component {
 
                     <CustomButton onPress={() => navigation.replace('Host')}>List your car</CustomButton>
 
-                    <View style={{ margin: 50 }}></View>
+                    <View style={{ margin: 20 }}></View>
                 </ScrollView>
                 {this.state.showBottomNavigator ? <BottomNavigator
                     navigation={navigation}

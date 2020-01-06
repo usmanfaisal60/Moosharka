@@ -5,7 +5,7 @@ import constants from '../../constants';
 import { connect } from 'react-redux';
 import * as actions from '../../Redux/Actions';
 import FullScreenModal from './Helpers/FullScreenModal';
-
+import Aux from '../HOC/Auxiliary';
 class LikedCars extends React.Component {
 
     componentDidMount() {
@@ -39,7 +39,7 @@ class LikedCars extends React.Component {
                 {userFavourites ?
                     <View style={bodyContainer}>
                         {userFavourites ?
-                            <View style={container}>
+                            <Aux>
                                 <Image
                                     resizeMode='contain'
                                     style={favouriteCarStyle}
@@ -48,7 +48,7 @@ class LikedCars extends React.Component {
                                     {'You do not have any favourite cars\n'}
                                     {'When you add cars to your favourites, They will appear here'}
                                 </Text>
-                            </View>
+                            </Aux>
                             :
                             null
                         }
@@ -66,23 +66,21 @@ const Styles = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
+    },
+
+    bodyContainer: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
 
-    bodyContainer: {
-        width: '100%',
-        height: '100%',
-        paddingTop: constants.headerHeight,
-    },
-
     favouriteCarStyle: {
         width: 100,
-        height: 100
+        height: 100,
+        marginBottom: 30
     },
 
     favouritesText: {
-        paddingTop: 20,
         width: '80%',
         textAlign: 'center',
         color: '#777'

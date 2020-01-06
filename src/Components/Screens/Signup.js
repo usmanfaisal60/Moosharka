@@ -124,10 +124,10 @@ const Styles = StyleSheet.create({
         width: window.width,
         height: window.height,
         alignItems: 'center',
-        paddingTop: constants.headerHeight + 30
     },
 
     inputFields: {
+        marginTop: '5%',
         width: '80%'
     },
 

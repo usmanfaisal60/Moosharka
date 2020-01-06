@@ -44,39 +44,35 @@ class Trips extends React.Component {
 
         return (
             <Aux>
+                <CustomHeader>Trips </CustomHeader>
                 <View style={container}>
-                    <CustomHeader>Trips </CustomHeader>
-                    <View style={mainContainer}>
-                        <View style={tripsButtonsContainer}>
-                            <Button active={this.state.currentPage === 0} onPress={this.go.bind(this, 0)}>
-                                Activity
-                                </Button>
-                            <Button active={this.state.currentPage === 1} onPress={this.go.bind(this, 1)}>
-                                Booked
-                                </Button>
-                            <Button active={this.state.currentPage === 2} onPress={this.go.bind(this, 2)}>
-                                History
-                                </Button>
-
-                        </View>
-                        <View style={pagerContainer}>
-                            <ViewPager
-                                ref={this.viewPager}
-                                onPageSelected={(e) => this.setState({ currentPage: e.nativeEvent.position })}
-                                style={{ width: '100%', height: '100%' }}>
-                                <View style={{ width: '100%', height: '100%' }}>
-                                    <Activity />
-                                </View>
-                                <View style={{ width: '100%', height: '100%' }}>
-                                    <Booked />
-                                </View>
-                                <View style={{ width: '100%', height: '100%' }}>
-                                    <History />
-                                </View>
-                            </ViewPager>
-                        </View>
+                    <View style={tripsButtonsContainer}>
+                        <Button active={this.state.currentPage === 0} onPress={this.go.bind(this, 0)}>
+                            Activity
+                        </Button>
+                        <Button active={this.state.currentPage === 1} onPress={this.go.bind(this, 1)}>
+                            Booked
+                        </Button>
+                        <Button active={this.state.currentPage === 2} onPress={this.go.bind(this, 2)}>
+                            History
+                        </Button>
                     </View>
-
+                    <View style={pagerContainer}>
+                        <ViewPager
+                            ref={this.viewPager}
+                            onPageSelected={(e) => this.setState({ currentPage: e.nativeEvent.position })}
+                            style={{ width: '100%', height: '100%' }}>
+                            <View style={{ width: '100%', height: '100%' }}>
+                                <Activity />
+                            </View>
+                            <View style={{ width: '100%', height: '100%' }}>
+                                <Booked />
+                            </View>
+                            <View style={{ width: '100%', height: '100%' }}>
+                                <History />
+                            </View>
+                        </ViewPager>
+                    </View>
                 </View>
                 <BottomNavigator
                     navigation={this.props.navigation}
@@ -88,10 +84,7 @@ class Trips extends React.Component {
 
 const Styles = StyleSheet.create({
     container: {
-        width: '100%',
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flex: 1,
     },
 
     imageContainer: {
@@ -111,12 +104,7 @@ const Styles = StyleSheet.create({
     },
 
     mainContainer: {
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        top: 0,
-        paddingTop: constants.headerHeight,
-        paddingBottom: constants.bottomTabHeight,
+        flex: 1
     },
 
     pagerContainer: {

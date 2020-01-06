@@ -59,9 +59,7 @@ const SearchList = props => {
 
 const Styles = StyleSheet.create({
     container: {
-        width: '100%',
-        height: '100%',
-        paddingTop: constants.headerHeight
+        flex: 1
     },
 
     availableContainer: {

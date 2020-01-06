@@ -53,13 +53,9 @@ const Styles = StyleSheet.create({
     container: {
         width: '100%',
         height: constants.headerHeight,
-        position: 'absolute',
-        top: 0,
-        left: 0,
         backgroundColor: '#222',
         alignItems: 'flex-end',
         flexDirection: 'row',
-        zIndex: 1
     },
 
     left: {

@@ -92,7 +92,8 @@ class SearchResults extends React.Component {
                 {loader ?
                     <FullScreenModal loader />
                     :
-                    null}
+                    null
+                }
                 {searchResults ?
                     <View style={flatListContainer}>
                         <FlatList showsVerticalScrollIndicator={false}
@@ -103,7 +104,8 @@ class SearchResults extends React.Component {
                         />
                     </View>
                     :
-                    null}
+                    null
+                }
                 {this.state.expanded ?
                     <TouchableWithoutFeedback style={touchableModal}
                         onPress={() => {
@@ -141,7 +143,7 @@ const Styles = StyleSheet.create({
     flatListContainer: {
         width: '100%',
         height: '100%',
-        paddingTop: constants.headerHeight,
+        paddingTop: 20,
         alignItems: 'center',
     }
 
