@@ -2,6 +2,8 @@ package com.moosharka;
 
 import android.app.Application;
 import android.content.Context;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
@@ -47,7 +49,8 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
+      Fresco.initialize(this);
+      SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }
 
