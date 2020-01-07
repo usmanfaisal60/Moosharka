@@ -35,7 +35,9 @@ class History extends React.Component {
         const {
             history,
             historyLoader
-        } = this.props
+        } = this.props;
+        const loadingImageSize = 60;
+
 
         return (
             <View style={container}>
@@ -101,7 +103,9 @@ class History extends React.Component {
                     null
                 }
                 {historyLoader ?
-                    <ActivityIndicator size='large' />
+                    <Image
+                        style={{ width: loadingImageSize, height: loadingImageSize }}
+                        source={require('../../../Assets/loading.gif')} />
                     :
                     null
                 }

@@ -34,7 +34,7 @@ const SearchList = props => {
     });
 
     return (
-        <View style={container}>
+        <View style={{ flex: 1 }}>
             <View style={availableContainer}>
                 <Text style={{ fontSize: 20 }}>Available Cities</Text>
             </View>

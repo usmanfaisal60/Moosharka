@@ -79,7 +79,7 @@ const AddCarCard = props => {
 };
 
 const icons = {
-    name: require('../../../Assets/AddCarLogos/name.jpeg'),
+    name: require('../../../Assets/AddCarLogos/name.jpg'),
     year: require('../../../Assets/AddCarLogos/year.jpg'),
     model: require('../../../Assets/AddCarLogos/model.jpg'),
     city: require('../../../Assets/AddCarLogos/city.png'),

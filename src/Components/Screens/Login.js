@@ -62,31 +62,37 @@ class Login extends React.Component {
             <Aux>
                 <ImageBackground style={container} source={require('../../Assets/Images/fsd.jpg')}>
                     <Header backbutton lefticon='back' onPressLeft={() => navigation.goBack()}>Log in to Ejaroo</Header>
-                    <View style={inputFields}>
-                        <TextInput
-                            value={email}
-                            style={inputField}
-                            placeholderTextColor='#fffa'
-                            placeholder='Username or email'
-                            keyboardType='email-address'
-                            onChangeText={(text) => {
-                                setCredentials(set_email, text)
-                            }} />
-                        <TextInput
-                            value={password}
-                            secureTextEntry
-                            style={inputField}
-                            placeholderTextColor='#fffa'
-                            placeholder='Password'
-                            onChangeText={(text) => {
-                                setCredentials(set_pass, text)
-                            }} />
-                    </View>
-                    <View style={{ width: '85%' }}>
-                        <CustomButton onPress={() => { Keyboard.dismiss(); attemptLogin(email, password); }}>Login</CustomButton>
-                    </View>
+                    {loader ?
+                        <FullScreenModal loader activity />
+                        :
+                        <Aux>
+                            <View style={inputFields}>
+                                <TextInput
+                                    value={email}
+                                    style={inputField}
+                                    placeholderTextColor='#fffa'
+                                    placeholder='Username or email'
+                                    keyboardType='email-address'
+                                    onChangeText={(text) => {
+                                        setCredentials(set_email, text)
+                                    }} />
+                                <TextInput
+                                    value={password}
+                                    secureTextEntry
+                                    style={inputField}
+                                    placeholderTextColor='#fffa'
+                                    placeholder='Password'
+                                    onChangeText={(text) => {
+                                        setCredentials(set_pass, text)
+                                    }} />
+                            </View>
+                            <View style={{ width: '85%' }}>
+                                <CustomButton onPress={() => { Keyboard.dismiss(); attemptLogin(email, password); }}>Login</CustomButton>
+                            </View>
+                        </Aux>
+                    }
                 </ImageBackground>
-                {loader ? <FullScreenModal loader /> : null}
+
             </Aux>
         )
     }
@@ -103,13 +109,14 @@ const Styles = StyleSheet.create({
 
     inputFields: {
         marginTop: '5%',
-        width: '80%'
+        width: '80%',
+        padding: 0
     },
 
     inputField: {
         borderBottomColor: '#fff',
         borderBottomWidth: 2,
-        padding: Platform.OS === 'ios' ? 10 : 0,
+        padding: 5,
         fontSize: 18,
         color: '#fff',
         marginBottom: 15

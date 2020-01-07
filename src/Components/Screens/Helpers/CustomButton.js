@@ -8,15 +8,17 @@ const CustomButton = props => {
         buttonContainer,
         description,
         buttonContainerTransparent,
-        buttonContainerBlue
+        buttonContainerBlue,
+        buttonContainerBlack
     } = Styles;
 
     const {
         children,
         onPress,
         transparent,
-        blue
-    } = props
+        blue,
+        black
+    } = props;
 
     return (
         <View style={container}>
@@ -26,7 +28,13 @@ const CustomButton = props => {
                         style={{ flex: 1 }}
                         onPress={() => { if (onPress) onPress() }}
                         background={transparent ? TouchableNativeFeedback.Ripple('#fff2') : TouchableNativeFeedback.Ripple('#0002')}>
-                        <View style={transparent ? buttonContainerTransparent : blue ? buttonContainerBlue : buttonContainer}>
+                        <View style={transparent ?
+                            buttonContainerTransparent
+                            : blue ?
+                                buttonContainerBlue
+                                : black ?
+                                    buttonContainerBlack
+                                    : buttonContainer}>
                             <Text style={{ ...description, color: '#fff' }}>
                                 {children}
                             </Text>
@@ -34,8 +42,15 @@ const CustomButton = props => {
                     </TouchableNativeFeedback>
                     :
                     <TouchableOpacity
+                        activeOpacity={0.7}
                         onPress={() => { if (onPress) onPress() }}>
-                        <View style={transparent ? buttonContainerTransparent : blue ? buttonContainerBlue : buttonContainer}>
+                        <View style={transparent ?
+                            buttonContainerTransparent
+                            : blue ?
+                                buttonContainerBlue
+                                : black ?
+                                    buttonContainerBlack
+                                    : buttonContainer}>
                             <Text style={{ ...description, color: '#fff' }}>
                                 {children}
                             </Text>
@@ -59,6 +74,12 @@ const Styles = StyleSheet.create({
     buttonContainerBlue: {
         backgroundColor: '#004c98',
         padding: 15
+    },
+
+    buttonContainerBlack: {
+        backgroundColor: 'black',
+        padding: 10,
+        borderRadius: 5
     },
 
     description: {

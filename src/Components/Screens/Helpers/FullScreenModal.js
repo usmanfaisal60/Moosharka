@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import Aux from '../../HOC/Auxiliary';
 
 const Template = props => {
 
@@ -8,15 +9,26 @@ const Template = props => {
     } = Styles;
 
     const {
-        loader
-    } = props
+        loader,
+        activity
+    } = props;
+
+    const loadingImageSize = 100;
 
     return (
         <View style={container}>
-            {loader ? 
-            <ActivityIndicator size='large' />
-            :
-            null
+            {loader ?
+                <Aux>
+                    {activity ?
+                        <ActivityIndicator color='#fff' size='large' />
+                        :
+                        <Image
+                            style={{ width: loadingImageSize, height: loadingImageSize }}
+                            source={require('../../../Assets/loading.gif')} />
+                    }
+                </Aux>
+                :
+                null
             }
         </View>
     )
@@ -24,12 +36,7 @@ const Template = props => {
 
 const Styles = StyleSheet.create({
     container: {
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        backgroundColor: '#fff',
-        top: 0,
-        left: 0,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     }

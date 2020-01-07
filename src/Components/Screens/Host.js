@@ -62,7 +62,7 @@ const Styles = StyleSheet.create({
     buttonsContainer: {
         width: '100%',
         position: 'absolute',
-        bottom: '12%'
+        bottom: '5%'
     },
 
     description: {

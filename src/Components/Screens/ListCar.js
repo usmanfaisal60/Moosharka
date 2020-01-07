@@ -1,17 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet, StatusBar, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, StatusBar, Alert } from 'react-native';
 import CustomHeader from './Helpers/CustomHeader';
 import { connect } from 'react-redux';
 import constants from '../../constants';
-import AddCarCard from './Helpers/AddCarCard';
-import AddCarBanner from './Helpers/AddCarBanner';
-import Gallery from './Helpers/Gallery';
-import SubmitSection from './Helpers/SubmitSection';
 import * as actions from '../../Redux/Actions';
 import FullScreenModal from './Helpers/FullScreenModal';
 import Aux from '../HOC/Auxiliary';
-
-
+import ViewPager from '@react-native-community/viewpager';
+import Guide from './Helpers/Guide';
+import AddCarTitle from './Helpers/AddCarTitle';
+import AddCarYear from './Helpers/AddCarYear';
+import AddCarModel from './Helpers/AddCarModel';
+import AddCarCity from './Helpers/AddCarCity';
+import AddCarPrice from './Helpers/AddCarPrice';
+import AddCarMaxPeople from './Helpers/AddCarMaxPeople';
+import AddCarImage from './Helpers/AddCarImage';
+import AddCarGalleryImages from './Helpers/AddCarGalleryImages';
+import SubmitCar from './Helpers/SubmitCar';
 const {
     set_car_name,
     set_car_manufacturing_year,
@@ -26,8 +31,11 @@ const {
 
 class ListCar extends React.Component {
 
+    viewPagerRef = React.createRef();
+
     state = {
-        loader: false
+        loader: false,
+        currentPage: 0
     }
 
     componentWillUnmount() {
@@ -38,7 +46,8 @@ class ListCar extends React.Component {
 
         const {
             container,
-            outerContainer
+            viewPageCnntainer,
+            pageContainer
         } = Styles;
 
         const {
@@ -54,7 +63,8 @@ class ListCar extends React.Component {
             carImage,
             galleryImages,
             setCarCredential,
-            topLocations
+            topLocations,
+            submitCar
         } = this.props;
 
         return (
@@ -62,72 +72,199 @@ class ListCar extends React.Component {
                 <CustomHeader
                     backbutton
                     onPressLeft={() => {
-                        navigation.goBack();
+                        if (!this.state.loader) navigation.goBack();
                     }}>List your car</CustomHeader>
-                <View style={container}>
+                {this.state.loader ?
+                    <FullScreenModal loader />
+                    :
                     <View style={container}>
                         <View style={container}>
-                            <ScrollView style={{ width: '100%' }} showsVerticalScrollIndicator={false}>
-                                <AddCarBanner onImagePicked={setCarCredential.bind(this, set_car_image)} />
-                                <AddCarCard
-                                    icon='name'
-                                    label='Name *'
-                                    value={carName}
-                                    onChangeText={setCarCredential.bind(this, set_car_name)} />
-                                <AddCarCard
-                                    keyboardType='number-pad'
-                                    icon='year'
-                                    label='Manufacturing year '
-                                    value={carManufacturingYear}
-                                    onChangeText={setCarCredential.bind(this, set_car_manufacturing_year)} />
-                                <AddCarCard
-                                    label='Model *'
-                                    icon='model'
-                                    value={carModel}
-                                    onChangeText={setCarCredential.bind(this, set_car_model)} />
-                                <AddCarCard
-                                    label='Car city *'
-                                    value={carCity}
-                                    icon='city'
-                                    dropDown={topLocations ? topLocations : [{ title: 'Please turn on WiFi or Mobile data', id: -1 }]}
-                                    onValueChange={setCarCredential.bind(this, set_car_city)} />
-                                {carCity && carCity != -1 ?
-                                    <AddCarCard
-                                        label={'Car Location * ' + (carLocation ? '(Picked)' : '')}
-                                        buttonText={carLocation ? 'Change location' : 'Select location'}
-                                        icon='location'
-                                        onPress={() => navigation.navigate('PickCarLocation', { city: JSON.stringify(topLocations.find(el => el.id === carCity)) })} />
-                                    :
-                                    null
-                                }
-                                <AddCarCard
-                                    keyboardType='number-pad'
-                                    label='Car price ($/day) *'
-                                    icon='price'
-                                    value={carPrice}
-                                    onChangeText={setCarCredential.bind(this, set_car_price)} />
-                                <AddCarCard
-                                    keyboardType='number-pad'
-                                    icon='max'
-                                    label='Maximum people *'
-                                    dropDown={[
-                                        { title: '1', id: '1' },
-                                        { title: '2', id: '2' },
-                                        { title: '3', id: '3' },
-                                        { title: '4', id: '4' },
-                                        { title: '5', id: '5' },
-                                        { title: '6', id: '6' },
-                                        { title: '7', id: '7' },
-                                        { title: '8', id: '8' }
-                                    ]}
-                                    onValueChange={setCarCredential.bind(this, set_max_peopel)} />
-                                <Gallery galleryImages={galleryImages} setCarCredential={setCarCredential.bind(this, set_gallery_images)} />
-                                <SubmitSection showLoader={() => this.setState({ loader: true })} hideLoader={() => this.setState({ loader: false })} {...this.props} />
-                            </ScrollView>
+                            <ViewPager
+                                ref={this.viewPagerRef}
+                                scrollEnabled={false}
+                                style={pageContainer}>
+                                <View key={0} style={pageContainer}>
+                                    {this.state.currentPage === 0 ?
+                                        <Guide
+                                            onCrossPress={() => navigation.goBack()}
+                                            nextPage={() => {
+                                                this.setState({ currentPage: 1 });
+                                                this.viewPagerRef.current.setPage(1);
+                                            }}
+                                        />
+                                        :
+                                        null}
+                                </View>
+                                <View key={1} style={pageContainer}>
+                                    {this.state.currentPage === 1 ?
+                                        <AddCarTitle
+                                            prevPage={() => {
+                                                this.setState({ currentPage: 0 });
+                                                this.viewPagerRef.current.setPage(0)
+                                            }}
+                                            nextPage={() => {
+                                                this.setState({ currentPage: 2 });
+                                                this.viewPagerRef.current.setPage(2);
+                                            }}
+                                            value={carName}
+                                            onChangeText={text => setCarCredential(set_car_name, text)}
+                                        />
+                                        : null}
+                                </View>
+                                <View key={2} style={pageContainer}>
+                                    {this.state.currentPage === 2 ?
+                                        <AddCarYear
+                                            prevPage={() => {
+                                                this.setState({ currentPage: 1 });
+                                                this.viewPagerRef.current.setPage(1)
+                                            }}
+                                            nextPage={() => {
+                                                this.setState({ currentPage: 3 });
+                                                this.viewPagerRef.current.setPage(3);
+                                            }}
+                                            value={carManufacturingYear}
+                                            onChangeText={text => setCarCredential(set_car_manufacturing_year, text)}
+                                        />
+                                        : null}
+                                </View>
+                                <View key={3} style={pageContainer}>
+                                    {this.state.currentPage === 3 ?
+                                        <AddCarModel
+                                            prevPage={() => {
+                                                this.setState({ currentPage: 2 });
+                                                this.viewPagerRef.current.setPage(2)
+                                            }}
+                                            nextPage={() => {
+                                                this.setState({ currentPage: 4 });
+                                                this.viewPagerRef.current.setPage(4);
+                                            }}
+                                            value={carModel}
+                                            onChangeText={text => setCarCredential(set_car_model, text)}
+                                        />
+                                        : null}
+                                </View>
+                                <View key={4} style={pageContainer}>
+                                    {this.state.currentPage === 4 ?
+                                        <AddCarCity
+                                            prevPage={() => {
+                                                this.setState({ currentPage: 3 });
+                                                this.viewPagerRef.current.setPage(3)
+                                            }}
+                                            nextPage={() => {
+                                                this.setState({ currentPage: 5 });
+                                                this.viewPagerRef.current.setPage(5);
+                                            }}
+                                            value={carCity}
+                                            cities={topLocations}
+                                            location={carLocation}
+                                            onChangeValue={value => setCarCredential(set_car_city, value)}
+                                            navigation={navigation}
+                                        />
+                                        : null}
+                                </View>
+                                <View key={5} style={pageContainer}>
+                                    {this.state.currentPage === 5 ?
+                                        <AddCarMaxPeople
+                                            prevPage={() => {
+                                                this.setState({ currentPage: 4 });
+                                                this.viewPagerRef.current.setPage(4)
+                                            }}
+                                            nextPage={() => {
+                                                this.setState({ currentPage: 6 });
+                                                this.viewPagerRef.current.setPage(6);
+                                            }}
+                                            value={maxPeople}
+                                            onChangeText={text => setCarCredential(set_max_peopel, text)}
+                                        />
+                                        : null}
+                                </View>
+                                <View key={6} style={pageContainer}>
+                                    {this.state.currentPage === 6 ?
+                                        <AddCarPrice
+                                            prevPage={() => {
+                                                this.setState({ currentPage: 5 });
+                                                this.viewPagerRef.current.setPage(5)
+                                            }}
+                                            nextPage={() => {
+                                                this.setState({ currentPage: 7 });
+                                                this.viewPagerRef.current.setPage(7);
+                                            }}
+                                            value={carPrice}
+                                            onChangeText={text => setCarCredential(set_car_price, text)}
+                                        />
+                                        : null}
+                                </View>
+                                <View key={7} style={pageContainer}>
+                                    {this.state.currentPage === 7 ?
+                                        <AddCarImage
+                                            prevPage={() => {
+                                                this.setState({ currentPage: 6 });
+                                                this.viewPagerRef.current.setPage(6)
+                                            }}
+                                            nextPage={() => {
+                                                this.setState({ currentPage: 8 });
+                                                this.viewPagerRef.current.setPage(8);
+                                            }}
+                                            value={carImage}
+                                            onPick={source => setCarCredential(set_car_image, source)}
+                                        />
+                                        : null}
+                                </View>
+                                <View key={8} style={pageContainer}>
+                                    {this.state.currentPage === 8 ?
+                                        <AddCarGalleryImages
+                                            prevPage={() => {
+                                                this.setState({ currentPage: 7 });
+                                                this.viewPagerRef.current.setPage(7)
+                                            }}
+                                            nextPage={() => {
+                                                this.setState({ currentPage: 9 });
+                                                this.viewPagerRef.current.setPage(9);
+                                            }}
+                                            value={galleryImages}
+                                            onPick={source => setCarCredential(set_gallery_images, source)}
+                                        />
+                                        : null}
+                                </View>
+                                <View key={9} style={pageContainer}>
+                                    {this.state.currentPage === 9 ?
+                                        <SubmitCar
+                                            prevPage={() => {
+                                                this.setState({ currentPage: 8 });
+                                                this.viewPagerRef.current.setPage(8)
+                                            }}
+                                            nextPage={() => {
+                                                this.setState({ loader: true })
+                                                const callbackSuccess = () => {
+                                                    this.setState({ loader: false });
+                                                    Alert.alert(
+                                                        'Car submitted successfully',
+                                                        'Thank you for submitting the car. You shall recieve an email once your car is approved by our local authority',
+                                                        [
+                                                            { text: 'OK', onPress: () => navigation.popToTop() }
+                                                        ]
+                                                    );
+                                                }
+
+                                                const callbackFailure = () => {
+                                                    this.setState({ loader: false });
+                                                    Alert.alert(
+                                                        'Something went wrong',
+                                                        'We appologize for the inconvenience. A report has been submitted to our admin about the error. Please try again. If the error continues to appear, contact the system administrator',
+                                                        [
+                                                            { text: 'OK' }
+                                                        ]
+                                                    )
+                                                }
+                                                submitCar(carName, carManufacturingYear, carCity, carLocation.latitude, carLocation.longitude, carPrice, maxPeople, carImage, galleryImages, callbackSuccess, callbackFailure);
+                                            }}
+                                        />
+                                        : null}
+                                </View>
+                            </ViewPager>
                         </View>
                     </View>
-                    {this.state.loader ? <FullScreenModal loader /> : null}
-                </View>
+                }
             </Aux>
         );
     }
@@ -135,9 +272,13 @@ class ListCar extends React.Component {
 
 const Styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
 
+    pageContainer: {
+        width: '100%',
+        height: '100%'
+    }
 });
 
 const mapStateToProps = state => {

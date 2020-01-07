@@ -35,8 +35,6 @@ export const attemptLogin = (email, password) => {
             password,
         });
 
-        console.log(formData);
-
         try {
             const result = await Axios.post(`${constants.url}/login`,
                 formData,
@@ -45,23 +43,16 @@ export const attemptLogin = (email, password) => {
                         'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
                     }
                 });
-
             hideLoader(dispatch);
-
             if (!result) return;
-
-
             if (result.data.success) {
-
                 await AsyncStorage.setItem('token', result.data.success.token);
-
                 constants.token = result.data.success.token;
                 dispatch({
                     type: set_login,
                     payload: true
                 });
             }
-
         }
         catch (e) {
             hideLoader(dispatch);

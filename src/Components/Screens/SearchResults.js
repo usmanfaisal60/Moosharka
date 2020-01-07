@@ -89,11 +89,7 @@ class SearchResults extends React.Component {
                     keyword={keyword} />
 
                 {!id && topLocations ? <SearchList keyword={keyword} setSearchKeyWord={setSearchKeyWord} list={topLocations} onPress={setSearchId} /> : null}
-                {loader ?
-                    <FullScreenModal loader />
-                    :
-                    null
-                }
+                {loader ? <FullScreenModal loader /> : null}
                 {searchResults ?
                     <View style={flatListContainer}>
                         <FlatList showsVerticalScrollIndicator={false}
@@ -130,6 +126,7 @@ const Styles = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
+        justifyContent: 'center',
     },
 
     touchableModal: {
@@ -141,9 +138,7 @@ const Styles = StyleSheet.create({
     },
 
     flatListContainer: {
-        width: '100%',
-        height: '100%',
-        paddingTop: 20,
+        flex: 1,
         alignItems: 'center',
     }
 

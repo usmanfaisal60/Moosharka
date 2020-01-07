@@ -69,49 +69,54 @@ class Signup extends React.Component {
             <Aux>
                 <ImageBackground style={container} source={require('../../Assets/Images/fsd.jpg')}>
                     <Header backbutton lefticon='back' onPressLeft={() => navigation.goBack()}>Sign up for Ejaroo</Header>
-                    <View style={inputFields}>
-                        <TextInput
-                            value={email}
-                            style={inputField}
-                            placeholderTextColor='#fffa'
-                            placeholder='Email'
-                            textContentType='emailAddress'
-                            keyboardType='email-address'
-                            onChangeText={(text) => {
-                                setCredentials(set_email, text)
-                            }} />
-                        <TextInput
-                            value={username}
-                            style={inputField}
-                            placeholderTextColor='#fffa'
-                            placeholder='User name'
-                            onChangeText={(text) => {
-                                setCredentials(set_user, text)
-                            }} />
-                        <TextInput
-                            value={password}
-                            secureTextEntry
-                            style={inputField}
-                            placeholderTextColor='#fffa'
-                            placeholder='Password'
-                            onChangeText={(text) => {
-                                setCredentials(set_pass, text)
-                            }} />
-                        <TextInput
-                            value={cPassword}
-                            style={inputField}
-                            secureTextEntry
-                            placeholderTextColor='#fffa'
-                            placeholder='Confirm password'
-                            onChangeText={(text) => {
-                                setCredentials(set_confirm_pass, text)
-                            }} />
-                    </View>
-                    <View style={{ width: '85%' }}>
-                        <CustomButton blue onPress={attemptSignup.bind(this, email, username, password, cPassword)}>Register</CustomButton>
-                    </View>
+                    {loader ?
+                        <FullScreenModal loader activity />
+                        :
+                        <Aux>
+                            <View style={inputFields}>
+                                <TextInput
+                                    value={email}
+                                    style={inputField}
+                                    placeholderTextColor='#fffa'
+                                    placeholder='Email'
+                                    textContentType='emailAddress'
+                                    keyboardType='email-address'
+                                    onChangeText={(text) => {
+                                        setCredentials(set_email, text)
+                                    }} />
+                                <TextInput
+                                    value={username}
+                                    style={inputField}
+                                    placeholderTextColor='#fffa'
+                                    placeholder='User name'
+                                    onChangeText={(text) => {
+                                        setCredentials(set_user, text)
+                                    }} />
+                                <TextInput
+                                    value={password}
+                                    secureTextEntry
+                                    style={inputField}
+                                    placeholderTextColor='#fffa'
+                                    placeholder='Password'
+                                    onChangeText={(text) => {
+                                        setCredentials(set_pass, text)
+                                    }} />
+                                <TextInput
+                                    value={cPassword}
+                                    style={inputField}
+                                    secureTextEntry
+                                    placeholderTextColor='#fffa'
+                                    placeholder='Confirm password'
+                                    onChangeText={(text) => {
+                                        setCredentials(set_confirm_pass, text)
+                                    }} />
+                            </View>
+                            <View style={{ width: '85%' }}>
+                                <CustomButton blue onPress={attemptSignup.bind(this, email, username, password, cPassword)}>Register</CustomButton>
+                            </View>
+                        </Aux>
+                    }
                 </ImageBackground>
-                {loader ? <FullScreenModal loader /> : null}
             </Aux>
         )
     }
@@ -128,13 +133,13 @@ const Styles = StyleSheet.create({
 
     inputFields: {
         marginTop: '5%',
-        width: '80%'
+        width: '80%',
     },
 
     inputField: {
         borderBottomColor: '#fff',
         borderBottomWidth: 2,
-        padding: Platform.OS === 'ios' ? 10 : 3,
+        padding: 5,
         fontSize: 18,
         color: '#fff',
         marginBottom: 15
