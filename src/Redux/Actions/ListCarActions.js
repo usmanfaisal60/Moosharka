@@ -68,16 +68,3 @@ const createCarFormData = obj => {
 
     return data;
 }
-
-
-const createImageFormData = (photo, docName = 'avatar') => {
-    const data = new FormData();
-
-    data.append(docName, {
-        name: photo.fileName,
-        type: photo.type,
-        uri: Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")
-    });
-
-    return data;
-};

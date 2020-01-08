@@ -252,7 +252,7 @@ class ListCar extends React.Component {
                                                         'Something went wrong',
                                                         'We appologize for the inconvenience. A report has been submitted to our admin about the error. Please try again. If the error continues to appear, contact the system administrator',
                                                         [
-                                                            { text: 'OK' }
+                                                            { text: 'OK', onPress: () => navigation.popToTop() }
                                                         ]
                                                     )
                                                 }

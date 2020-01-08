@@ -6,7 +6,8 @@ import {
     TouchableWithoutFeedback,
     StyleSheet,
     FlatList,
-    Image
+    Image,
+    Dimensions,
 } from 'react-native';
 import SeacrhHeader from './Helpers/SearchHeader';
 import FullScreenModal from './Helpers/FullScreenModal'
@@ -16,12 +17,18 @@ import constants from '../../constants';
 import CarCard from './Helpers/CarCard';
 import SelectionMenu from './Helpers/SelectionMenu';
 import SearchList from './Helpers/SearchList';
+import SlideUpAnimated from './Helpers/SlideUpAnimated';
+import Filters from './Helpers/Filters';
+
+
+
 
 class SearchResults extends React.Component {
 
     state = {
         expanded: false,
-        citiesListShowing: true
+        citiesListShowing: true,
+        showFilters: false
     }
 
     componentDidMount() {
@@ -115,7 +122,17 @@ class SearchResults extends React.Component {
                     :
                     null}
                 {!this.state.expanded && searchResults ?
-                    <SelectionMenu leftText='Maps' onPressLeft={() => navigation.navigate('MapsResults')} />
+                    <SelectionMenu leftText='Maps'
+                        onFilterPress={() => this.setState({ showFilters: true })}
+                        onPressLeft={() => navigation.navigate('MapsResults')} />
+                    : null}
+                {this.state.showFilters ?
+                    <SlideUpAnimated
+                        show={this.state.showFilters}
+                        duration={250}
+                        onHide={() => this.setState({ showFilters: false })}>
+                        <Filters />
+                    </SlideUpAnimated>
                     : null}
             </View>
         );

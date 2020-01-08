@@ -8,7 +8,7 @@ import EditableTextField from './Helpers/EditableTextField';
 import ImagePicker from 'react-native-image-picker';
 import FullScreenModal from './Helpers/FullScreenModal';
 import { fetchUserProfile, setUserProfile, setProfilePicture, setUserDocument } from '../../Redux/Actions';
-
+import countries from '../../Assets/SampleJson/countries';
 
 
 
@@ -105,7 +105,13 @@ class AccountScreen extends React.Component {
                 is_driving_license_approved,
                 is_car_license_ownership_approved,
                 is_car_migration_certificate_approved,
+                address,
+                address2,
+                city,
+                state,
+                country
             } = userProfile;
+            console.log(userProfile);
             const source = this.state.avatarSource ? this.state.avatarSource : avatar ? { uri: avatar } : require('../../Assets/Icons/profileImage.png');
             return (
                 <View style={scrollerContainer}>
@@ -161,21 +167,80 @@ class AccountScreen extends React.Component {
                                 {email}
                             </EditableTextField>
                         </View>
-
+                        <View style={fieldContainer}>
+                            <EditableTextField
+                                placeholder='Your Address'
+                                keys={['address']}
+                                reference={userProfile}
+                                icon='address'
+                                setUserProfile={setUserProfile}
+                                title='Address'>
+                                {address}
+                            </EditableTextField>
+                        </View>
+                        <View style={fieldContainer}>
+                            <EditableTextField
+                                placeholder='Your Address (continued)'
+                                keys={['address2']}
+                                reference={userProfile}
+                                icon='address'
+                                setUserProfile={setUserProfile}
+                                title='Address (continued)'>
+                                {address2}
+                            </EditableTextField>
+                        </View>
+                        <View style={fieldContainer}>
+                            <EditableTextField
+                                placeholder='City'
+                                keys={['city']}
+                                reference={userProfile}
+                                icon='city'
+                                setUserProfile={setUserProfile}
+                                title='City'>
+                                {city}
+                            </EditableTextField>
+                        </View>
+                        <View style={fieldContainer}>
+                            <EditableTextField
+                                placeholder='State'
+                                keys={['state']}
+                                reference={userProfile}
+                                icon='state'
+                                setUserProfile={setUserProfile}
+                                title='State'>
+                                {state}
+                            </EditableTextField>
+                        </View>
+                        <View style={fieldContainer}>
+                            <EditableTextField
+                                placeholder='Country'
+                                keys={['country']}
+                                reference={userProfile}
+                                icon='country'
+                                setUserProfile={setUserProfile}
+                                title='Country'>
+                                {country}
+                            </EditableTextField>
+                        </View>
+                        {/* <View style={fieldContainer}>
+                            <EditableTextField
+                                placeholder='Emirates id'
+                                keys={['emirates_id']}
+                                reference={userProfile}
+                                icon='emirates_id'
+                                setUserProfile={setUserProfile}
+                                title='emirates_id'>
+                                {emirates_id}
+                            </EditableTextField>
+                        </View> */}
                         <View style={docsContainer}>
                             <DocViewer reference={userProfile} docName='driving_license' setUserDocument={setUserDocument} title='Driving license' varified={is_driving_license_approved} url={driving_license} />
                         </View>
-
                         <View style={docsContainer}>
-                            <DocViewer reference={userProfile} docName='carLicense_ownership'setUserDocument={setUserDocument} title='Car license ownership' varified={is_car_license_ownership_approved} url={carLicense_ownership} />
+                            <DocViewer reference={userProfile} docName='carLicense_ownership' setUserDocument={setUserDocument} title='Car license ownership' varified={is_car_license_ownership_approved} url={carLicense_ownership} />
                         </View>
-
                         <View style={docsContainer}>
                             <DocViewer reference={userProfile} docName='car_maintenance_certificate' setUserDocument={setUserDocument} title='Car maintenance certificate' varified={is_car_migration_certificate_approved} url={car_maintenance_certificate} />
-                        </View>
-
-                        <View style={docsContainer}>
-                            <DocViewer reference={userProfile} docName='emirates_id' setUserDocument={setUserDocument} title='Emirates id' url={emirates_id} />
                         </View>
                         <View style={{ height: 20 }}></View>
                     </ScrollView>

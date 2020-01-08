@@ -30,21 +30,24 @@ class EditableTextField extends React.Component {
             children,
             placeholder
         } = this.props;
-        this.setState({ loader: true })
-        this.setState({ editing: false });
-        const object = {};
-        const textArray = this.state.text.split(' ');
-        keys.forEach((el, i) => object[el] = textArray[i] ? textArray[i] : '');
-        const callbackSuccess = () => {
-            keys.forEach((el, i) => reference[el] = textArray[i]);
-            this.setState({ loader: false });
+        if (this.state.text !== placeholder) {
+            this.setState({ loader: true, editing: false });
+            const object = {};
+            const textArray = placeholder === 'Your name' ? this.state.text.split(' ') : [this.state.text];
+            keys.forEach((el, i) => object[el] = textArray[i] ? textArray[i] : '');
+            const callbackSuccess = () => {
+                keys.forEach((el, i) => reference[el] = textArray[i]);
+                this.setState({ loader: false });
+            }
+            const callbackFailiure = () => {
+                if (children) this.setState({ text: children });
+                else this.setState({ text: placeholder });
+                this.setState({ loader: false });
+            }
+            setUserProfile(object, callbackSuccess, callbackFailiure);
+        } else {
+            this.setState({ editing: false });
         }
-        const callbackFailiure = () => {
-            if (children) this.setState({ text: children });
-            else this.setState({ text: placeholder });
-            this.setState({ loader: false });
-        }
-        setUserProfile(object, callbackSuccess, callbackFailiure);
     }
 
     render() {
@@ -142,6 +145,11 @@ const icons = {
     phone: require('../../../Assets/Icons/phone.png'),
     email: require('../../../Assets/Icons/email.png'),
     iqama: require('../../../Assets/Icons/iqama.png'),
+    address: require('../../../Assets/Icons/address.png'),
+    city: require('../../../Assets/Icons/city.png'),
+    country: require('../../../Assets/Icons/country.png'),
+    state: require('../../../Assets/Icons/state.png'),
+    emirates_id: require('../../../Assets/Icons/emirates_id.png'),
 }
 
 const iconSize = 40;
@@ -164,6 +172,7 @@ const Styles = StyleSheet.create({
     iconStyle: {
         width: iconSize,
         height: iconSize,
+        borderRadius: iconSize / 2
     },
 
     textContainer: {
