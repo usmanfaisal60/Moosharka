@@ -9,6 +9,7 @@ import ImagePicker from 'react-native-image-picker';
 import FullScreenModal from './Helpers/FullScreenModal';
 import { fetchUserProfile, setUserProfile, setProfilePicture, setUserDocument } from '../../Redux/Actions';
 import countries from '../../Assets/SampleJson/countries';
+import SelectField from './Helpers/SelectField';
 
 
 
@@ -109,7 +110,8 @@ class AccountScreen extends React.Component {
                 address2,
                 city,
                 state,
-                country
+                country,
+                expert
             } = userProfile;
             console.log(userProfile);
             const source = this.state.avatarSource ? this.state.avatarSource : avatar ? { uri: avatar } : require('../../Assets/Icons/profileImage.png');
@@ -233,6 +235,16 @@ class AccountScreen extends React.Component {
                                 {emirates_id}
                             </EditableTextField>
                         </View> */}
+                        <SelectField
+                            keys={['expert']}
+                            setUserProfile={setUserProfile}
+                            options={[
+                                { label: 'No, I can not operate automatic transmission', value: 0 },
+                                { label: 'Yes, I can operate automatic transmission', value: 1 },
+                            ]}
+                            initial={expert}>
+                            Some cars have an automatic transmittion system. Do you have the skill to operate them?
+                        </SelectField>
                         <View style={docsContainer}>
                             <DocViewer reference={userProfile} docName='driving_license' setUserDocument={setUserDocument} title='Driving license' varified={is_driving_license_approved} url={driving_license} />
                         </View>

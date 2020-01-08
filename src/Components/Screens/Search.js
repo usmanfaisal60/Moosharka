@@ -22,7 +22,7 @@ import { connect } from 'react-redux';
 import firebase from 'react-native-firebase';
 import AsyncStorage from '@react-native-community/async-storage';
 import constants from '../../constants';
-
+import SplashScreen from 'react-native-splash-screen';
 
 
 const Styles = StyleSheet.create({
@@ -126,18 +126,6 @@ class Search extends React.Component {
     }
 
     componentDidMount() {
-        Keyboard.addListener('keyboardDidShow', () => {
-            this.setState({
-                showBottomNavigator: false
-            });
-        });
-
-        Keyboard.addListener('keyboardDidHide', () => {
-            this.setState({
-                showBottomNavigator: true
-            })
-        });
-
         const {
             fetchTopLocations,
             topLocations,
@@ -150,6 +138,7 @@ class Search extends React.Component {
         // firebase.messaging().getToken().then(token => console.log(token));
 
         this.checkLogin.bind(this)();
+        SplashScreen.hide();
     }
 
     render() {
